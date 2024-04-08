@@ -1,0 +1,95 @@
+@mixin input-placeholder-color {
+    // Placeholder color
+    $color-placeholder: #A0AEC0;
+
+    &::-webkit-input-placeholder {
+        color: $color-placeholder;
+    }
+
+    &:-moz-placeholder {
+        color: $color-placeholder;
+    }
+
+    &::-moz-placeholder {
+        color: $color-placeholder;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color-placeholder;
+    }
+
+    &:disabled {
+        background-color: #f4f5f6;
+        opacity: 1;
+    }
+
+    &::placeholder {
+        font-size: 0.875rem;
+        font-weight: 400;
+    }
+
+    &:focus {
+        border-color: #3498fe;
+    }
+}
+
+.form-control {
+    background: #F7FAFC;
+    border-color: #dee1e3;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 15px;
+    @include input-placeholder-color;
+    border: 1px solid #EDF2F7;
+    border-radius: 12px;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    @media (max-width: 767px) {
+        &[type="date"],
+        &[type="time"] {
+            line-height: unset;
+            padding: 10px;
+
+            &:focus {
+                color: inherit;
+            }
+
+            &[value=""] {
+                position: relative;
+                color: transparent;
+                transition: all 0.2s;
+
+                &:before {
+                    content: attr(placeholder);
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 13px;
+                    height: auto;
+                    width: 100%;
+                    color: #aaa;
+                    background-color: white;
+                    transition: all 0.2s;
+                }
+            }
+        }
+    }
+}
+
+.form-label{
+    color: #4A5568;
+    font-size: 14px;
+}
+
+.FormIconControl{
+    .form-control{
+        padding-left: 35px;
+        padding-right: 34px;
+    }
+    .mdi{
+        color: #A0AEC0;
+    }
+}

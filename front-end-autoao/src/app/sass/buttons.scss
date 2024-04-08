@@ -1,0 +1,48 @@
+.btn,
+button,
+button:focus,
+button:active .btn,
+.btn:focus,
+.btn:active {
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+
+.btn {
+    border-radius: var(--border-radius-all);
+    padding: 13px 15px;
+    border-radius: 12px;
+
+    @media (max-width: 767px) {
+        font-size: 12px !important;
+    }
+
+    &.btn-secondary {
+        font-size: 12px;
+        color: #1A202C;
+        background: #F7FAFC;
+        border: 1px solid #CBD5E0;
+        border-radius: 12px;
+
+        @media (max-width: 767px) {
+            padding: 8px 8px;
+        }
+
+        &:hover,
+        &:focus {
+            color: #1A202C;
+            background: #e9ebed;
+        }
+    }
+}
+
+
+
+
+
+.btn-link{
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
