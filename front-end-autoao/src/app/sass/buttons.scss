@@ -9,12 +9,18 @@ button:active .btn,
 }
 
 .btn {
-    border-radius: var(--border-radius-all);
-    padding: 13px 15px;
-    border-radius: 12px;
+    padding: 10px 18px;
+    border-radius: 12px !important;
+    font-weight: 600;
+    &:hover,
+    &:focus {
+        box-shadow: unset;
+        outline: 0;
+    }
 
     @media (max-width: 767px) {
         font-size: 12px !important;
+        padding: 8px 8px;
     }
 
     &.btn-secondary {
@@ -23,15 +29,44 @@ button:active .btn,
         background: #F7FAFC;
         border: 1px solid #CBD5E0;
         border-radius: 12px;
-
-        @media (max-width: 767px) {
-            padding: 8px 8px;
-        }
-
         &:hover,
         &:focus {
             color: #1A202C;
             background: #e9ebed;
+        }
+    }
+    &.btn-outline-secondary {
+        color: #1A202C;
+        border: 1px solid var(--ai-gray-400);
+        &:hover,
+        &:focus {
+            color: #1A202C;
+            background: #e9ebed;
+            border-color: #1A202C;
+        }
+    }
+    &.btn-outline-danger {
+        background: var(--ai-gray-100);
+        color: #F16063;
+        border: 1px solid var(--ai-gray-400);
+        &:hover,
+        &:focus {
+            border-color: #dc3545;
+        }
+    }
+    &.btn-avatar-dropdown{
+        padding: 0;
+    }
+    &.btn-blank-icon{
+        padding: 0;
+        border: 0;
+        svg{
+            fill: var(--ai-gray-500);
+        }
+    }
+    &.btn-remove-arrow{
+        &:after{
+            display: none;
         }
     }
 }

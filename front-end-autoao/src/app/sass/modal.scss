@@ -1,0 +1,32 @@
+:root {
+  --ai-modal-width: 620px;
+  --ai-modal-width-sm: 450px;
+}
+
+.modal-md {
+  @media (min-width: 576px) {
+    max-width: var(--ai-modal-width);
+  }
+}
+
+.modal-sm {
+  @media (min-width: 576px) {
+    max-width: var(--ai-modal-width-sm);
+  }
+}
+
+.modal-content {
+  border-radius: var(--rounded-ai);
+  padding: 8px 10px 6px;
+}
+
+.modal-header {
+  border-color: transparent;
+  .modal-title {
+    font-weight: 600;
+  }
+}
+.modal-footer {
+  border-color: transparent;
+  justify-content: flex-start;
+}

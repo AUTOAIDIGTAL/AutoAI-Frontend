@@ -1,0 +1,25 @@
+.pagination {
+  gap: 5px;
+  .page-item {
+    border-radius: 8px;
+    &:first-child,
+    &:last-child {
+      .page-link {
+        border-radius: 8px;
+      }
+    }
+    .page-link {
+      border-radius: 8px;
+      color: #0E0E0E;
+      font-weight: 600;
+    }
+    &:not(:first-child) .page-link {
+      margin-left: 0;
+    }
+    &.active>.page-link{
+      background-color: transparent;
+      color: #1474FB;
+      border-color: #1474FB;
+    }
+  }
+}
