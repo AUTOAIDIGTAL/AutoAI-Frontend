@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
-import Slide from "../../../components/Carousel/slide";
+import Slide from "../../../components/carousel/slide";
 
 const Login = () => {
   return (
@@ -68,7 +68,7 @@ const Login = () => {
                   <Form.Check type="checkbox" label="Check me out" />
                 </Col>
                 <Col sm="auto">
-                  <Link className="btn btn-link p-0" href="/pages/auth/forgotPassword">Forgot Password?</Link>
+                  <Link className="btn btn-link p-0" href="/pages/auth/forgot-password">Forgot Password?</Link>
                 </Col>
               </Row>
               <Button variant="primary" className="w-100 mt-2">Log in</Button>

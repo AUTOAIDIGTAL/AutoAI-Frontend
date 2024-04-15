@@ -36,7 +36,7 @@ const NavBar = () => {
           priority
         />
           Scheduled tasks</Nav.Link>
-        <Nav.Link href="./userRolesManagement">
+        <Nav.Link href="./user-roles-management">
         <Image
           className=""
           src="./../../assets/images/icons/users.svg"
@@ -46,7 +46,7 @@ const NavBar = () => {
           priority
         />
           User Roles Management</Nav.Link>
-        <Nav.Link eventKey="/userRolesManagement">
+        <Nav.Link eventKey="#">
         <Image
           className=""
           src="./../../assets/images/icons/help.svg"

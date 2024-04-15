@@ -1,10 +1,10 @@
 "use client";
-import PreHeader from "@/app/components/PreHeader/PreHeader";
-import NavBar from "../../../components/SideNavBar/NavBar";
-import EditProfile from "./editProfile/editProfile";
-import ChangePassword from "./changePassword/changePassword";
-import ChangePasswordNew from "./changePassword/changePasswordNew";
-import OTP from "./changePassword/OTP";
+import PreHeader from "@/app/components/pre-header/pre-header";
+import NavBar from "../../../components/side-nav-bar/side-navbar";
+import EditProfile from "./edit-profile/edit-profile";
+import ChangePassword from "./change-password/change-password";
+import ChangePasswordNew from "./change-password/change-password-new";
+import OTP from "./change-password/OTP";
 import { Button, ListGroup } from "react-bootstrap";
 
 const Profile = () => {

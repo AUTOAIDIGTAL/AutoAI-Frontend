@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
-import Slide from "../../../components/Carousel/slide";
+import Slide from "../../../components/carousel/slide";
 
 const ForgotPassowrd = () => {
   return (
@@ -49,7 +49,7 @@ const ForgotPassowrd = () => {
                   <Form.Control type="email" placeholder="Email Address" />
                 </div>
               </div>
-              <Button href="/pages/auth/resetPassword" variant="primary" className="w-100 mt-2">
+              <Button href="/pages/auth/reset-password" variant="primary" className="w-100 mt-2">
                 Reset Password
               </Button>
             </Form>

@@ -1,5 +1,5 @@
 import { Nav, Dropdown } from "react-bootstrap";
-import DropdownUser from "./DropdownUser";
+import DropdownUser from "./dropdown-user";
 const UserContent = () => {
   return (
     <div className="header-user-control">

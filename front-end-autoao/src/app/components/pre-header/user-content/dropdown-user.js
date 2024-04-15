@@ -1,5 +1,5 @@
 import { Nav, Dropdown } from "react-bootstrap";
-import Avatar from "./../../avatar/avatar";
+import Avatar from "../../avatar/avatar";
 import Image from "next/image";
 const DropdownUser = () => {
   return (

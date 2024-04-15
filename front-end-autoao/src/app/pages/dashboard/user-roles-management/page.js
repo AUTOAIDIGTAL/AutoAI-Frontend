@@ -1,9 +1,9 @@
 "use client";
-import PreHeader from "@/app/components/PreHeader/PreHeader";
-import NavBar from "../../../components/SideNavBar/NavBar";
+import PreHeader from "@/app/components/pre-header/pre-header";
+import NavBar from "../../../components/side-nav-bar/side-navbar";
 import PaginationUi from "./../../../components/UI/Pagination";
 import TableUi from "./../../../components/UI/Table";
-import AddNewUser from "./addNewUser/addNewUser";
+import AddNewUser from "./add-new-user/add-new-user";
 
 const Profile = () => {
   return (
