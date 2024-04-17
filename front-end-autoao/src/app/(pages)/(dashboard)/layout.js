@@ -16,12 +16,10 @@ const RootLayout = ({ children }) => {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<div>
-					<NavBar />
-					<div className="main">
-						<PreHeader />
-						{children}
-					</div>
+				<NavBar />
+				<div className="main">
+					<PreHeader />
+					{children}
 				</div>
 			</body>
 		</html>

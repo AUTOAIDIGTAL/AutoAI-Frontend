@@ -1,8 +1,4 @@
 .sideBarNav {
-  transition: margin-left 0.35s ease-in-out, left 0.35s ease-in-out,
-    margin-right 0.35s ease-in-out, right 0.35s ease-in-out;
-
-  /* Auto layout */
   padding: 24px;
   gap: 32px;
 
@@ -49,4 +45,43 @@
       padding: 7px 14px;
     }
   }
+}
+
+.toggle-brand{
+  display: none;
+}
+.sidebar-open .sideBarNav {
+  width: 80px;
+  left: 20px;
+  .toggle-brand-hide{
+    display: none !important;
+  }
+  .toggle-brand{
+    display: block;
+  }
+  .nav .nav-link{
+    padding-left:0 ;
+    padding-right:0 ;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .menu-text-wrap{
+    display: none;
+  }
+  .side-nav-bottom {
+    text-align: center;
+    a{
+      padding-left:0 ;
+      padding-right:0 ;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+}
+
+.sidebar-open .main {
+  margin-left: 100px;
 }

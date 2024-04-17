@@ -8,15 +8,8 @@ const Avatar = () => {
 				src="https://picsum.photos/200/300"
 				width={50}
 				height={57}
+				alt="Avatar"
 			></Image>
-			{/* <img
-				className="d-block d-lg-inline-block mx-auto"
-				src="https://picsum.photos/200/300"
-				alt="logo"
-				width={50}
-				height={57}
-				priority
-			/> */}
 		</div>
 	);
 };
