@@ -1,18 +1,18 @@
 "use client";
-import TableUi from "@/components/UI/Table";
+import TableJOB from "@/components/UI/TableJOB";
 import PaginationUi from "@/components/UI/Pagination";
-import AddNewUser from "./add-new-user/add-new-user";
+import CreateModal from "./create-modal/modal";
 
-const Profile = () => {
+const GarageManagemenr = () => {
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
-					<div className="fs-3 fw-medium">User</div>
-					<AddNewUser />
+					<div className="fs-3 fw-medium">Jobs List</div>
+					<CreateModal />
 				</div>
 				<div className="flex-1 pt-3">
-					<TableUi />
+					<TableJOB />
 					<PaginationUi />
 				</div>
 			</div>
@@ -20,4 +20,4 @@ const Profile = () => {
 	);
 };
 
-export default Profile;
+export default GarageManagemenr;

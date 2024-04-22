@@ -46,7 +46,7 @@ const NavBar = () => {
           />
           <div className="menu-text-wrap">Scheduled tasks</div>
         </Nav.Link>
-        <Nav.Link href="./user-roles-management">
+        <Nav.Link href="/user-roles-management">
           <Image
             className=""
             src="./../../assets/images/icons/users.svg"

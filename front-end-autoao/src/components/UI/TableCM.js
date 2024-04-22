@@ -1,37 +1,36 @@
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
-const TableUi = () => {
+const TableCM = () => {
   return (
     <>
       <Table hover responsive>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phones Number</th>
+                  <th>Owner Name</th>
+                  <th>Garage Name</th>
+                  <th>Address</th>
                   <th>Roles</th>
-                  <th></th>
-                  <th></th>
+                  <th>Location</th>
+                  <th>Contact</th>
                   <th></th>
                 </tr>
               </thead>
               {[...Array(10).keys()].map((index) => (
                 <tbody key={index}>
                   <tr>
-                    <td>Full Name</td>
-                    <td>Email</td>
-                    <td>Phone Number</td>
-                    <td className="align-middle" colSpan={3}>
+                    <td>Owner Name</td>
+                    <td>Garage Name</td>
+                    <td>Address</td>
+                    <td>Admin Name Here</td>
+                    <td>Location</td>
+                    <td className="align-middle">
                       <div className="d-flex align-items-center gap-2 h-100">
                         <Badge bg="light" className="fw-normal rounded-ai">
-                          Manager
-                        </Badge>
-                        <Badge bg="light" className="fw-normal rounded-ai">
-                          Mechanic
+                          000-000-000
                         </Badge>
                       </div>
                     </td>
-                    <td className="align-middle text-end">
+                    <td className="align-middle text-end" colSpan={2}>
                       <Dropdown>
                         <Dropdown.Toggle variant="blank-icon" className="btn-remove-arrow" id="dropdown-basic">
                           <svg
@@ -61,4 +60,4 @@ const TableUi = () => {
   );
 };
 
-export default TableUi;
+export default TableCM;
