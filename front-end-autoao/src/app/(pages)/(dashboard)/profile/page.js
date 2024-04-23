@@ -6,8 +6,16 @@ import ChangePassword from "./change-password/change-password";
 import ChangePasswordNew from "./change-password/change-password-new";
 import OTP from "./change-password/OTP";
 import { Button, ListGroup } from "react-bootstrap";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import { useLogout } from "@/hooks/auth/useLogout";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
+
+	const { user: currentUser } = useCurrentUser();
+	const { logout } = useLogout();
+	const router = useRouter();
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
@@ -20,7 +28,7 @@ const Profile = () => {
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Full Name</div>
 							<div className="fs-6 fw-medium text-dark">
-								Raul Jaskolski IV
+								{currentUser?.firstName} {currentUser?.lastName}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -38,7 +46,7 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								Abbie_Mitchell47@gmail.com
+								{currentUser?.email}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -56,7 +64,7 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								968-885-5212
+								{currentUser?.phoneNumber}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -97,7 +105,14 @@ const Profile = () => {
 					<Button variant="outline-secondary" className="py-2">
 						Go Back
 					</Button>
-					<Button variant="outline-danger" className="py-2">
+					<Button
+						onClick={() => {
+							logout();
+							router.push("/login");
+						}}
+						variant="outline-danger"
+						className="py-2"
+					>
 						Log Out
 					</Button>
 				</div>

@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const EditProfile = () => {
 	const [show, setShow] = useState(false);
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	const { user: currentUser } = useCurrentUser();
 
 	return (
 		<>
@@ -27,7 +29,7 @@ const EditProfile = () => {
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Name</Form.Label>
-									<Form.Control type="text" placeholder="Name" />
+									<Form.Control type="text" placeholder="Name" value={ } />
 								</Form.Group>
 							</Col>
 							<Col>

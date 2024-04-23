@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "next": "14.1.4",
     "node-sass": "^9.0.0",
     "react": "^18",
