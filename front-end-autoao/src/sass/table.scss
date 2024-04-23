@@ -1,0 +1,12 @@
+.table>:not(caption)>*>* {
+    padding: .9rem .5rem;
+}
+th{
+    font-style: normal;
+    font-weight: 400;
+    color: #2D3748;
+  }
+
+  td{
+    color: var(--ai-gray-600) !important;
+  }

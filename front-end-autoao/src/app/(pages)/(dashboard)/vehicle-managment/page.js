@@ -1,5 +1,5 @@
 "use client";
-import TableDM from "@/components/UI/TableDM";
+import TableVM from "@/components/UI/TableVM";
 import PaginationUi from "@/components/UI/Pagination";
 import CreateModal from "./create-modal/modal";
 
@@ -12,7 +12,7 @@ const GarageManagemenr = () => {
 					<CreateModal />
 				</div>
 				<div className="flex-1 pt-3">
-					<TableDM />
+					<TableVM />
 					<PaginationUi />
 				</div>
 			</div>

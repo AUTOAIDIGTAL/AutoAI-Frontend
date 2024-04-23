@@ -10,7 +10,7 @@ const ClientInformation = () => {
         <div className="flex-1 mb-4  overflow-auto">
           <VehicleManagmentList />
           <div className="bg-gray-100 p-3 rounded-ai p-5 border-0 my-4">
-            <div className="fs-5 fw-medium mb-2">Service History</div>
+            <div className="fs-5 fw-medium mb-4">Service History</div>
             <ServiceHistory />
           </div>
         </div>

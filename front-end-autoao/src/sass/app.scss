@@ -1,6 +1,7 @@
 // @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "~@mdi/font/scss/materialdesignicons.scss";
 @import "./variables";
+@import "./table";
 @import "./dropdown";
 @import "./modal";
 @import "./pagination";
@@ -139,4 +140,21 @@ body {
       display: block;
       object-fit: cover;
     }
+}
+
+
+@media (min-width: 1540px) {
+  .w-xl-25 {
+    width: 25%;
+  }
+}
+
+.list-group-flush-wrap{
+  border: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--ai-gray-300);
+  .list-group-item{
+    border: 0 !important;
+  }
 }
