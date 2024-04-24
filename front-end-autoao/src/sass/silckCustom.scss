@@ -1,0 +1,34 @@
+$bullet-width-size: 50px;
+$bullet-height-size: 3px;
+$bullet-width-size-active: 80px;
+
+.bullet-style-1 {
+  .slick-dots {
+    text-align: left;
+    padding-left: 15px;
+    li {
+        width: $bullet-width-size;
+        height: $bullet-height-size;
+        button{
+            width: $bullet-width-size;
+            height: $bullet-height-size;
+            &:before{
+                content: "";
+                width: $bullet-width-size;
+                height: $bullet-height-size;
+                background: #1474FB;
+            }
+        }
+        &.slick-active{
+            width: $bullet-width-size-active;
+            button{
+                width: $bullet-width-size-active;
+                &:before{
+                    width: $bullet-width-size-active;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+  }
+}
