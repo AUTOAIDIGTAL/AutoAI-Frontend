@@ -23,6 +23,16 @@ button:active .btn,
         padding: 8px 8px;
     }
 
+    &.btn-primary{
+        svg{
+            path{
+                fill: #fff;
+            }
+        }
+    }
+
+    
+
     &.btn-secondary {
         font-size: 12px;
         color: #1A202C;
@@ -79,5 +89,16 @@ button:active .btn,
     text-decoration: none;
     &:hover{
         text-decoration: underline;
+    }
+}
+
+.edit-svg-btn{
+    path{
+        fill: var(--theme-primary-100);
+    }
+}
+.del-svg-btn{
+    path{
+        fill: var(--theme-danger-dark);
     }
 }
