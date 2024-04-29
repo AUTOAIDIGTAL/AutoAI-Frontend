@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
 
 export function getAuthorizationHeader() {
-	const currentUser = Cookies.get("currentUser");
+	let currentUser = Cookies.get("currentUser")
+
+	if (currentUser) currentUser = JSON.parse(currentUser)
 
 	return {
-		Authorization: `Bearer ${JSON.parse(currentUser || "")?.accessToken || ""}`,
+		Authorization: `Bearer ${currentUser?.data?.accessToken}`,
 	};
 }

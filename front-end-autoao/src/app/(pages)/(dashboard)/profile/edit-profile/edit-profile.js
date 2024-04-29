@@ -29,20 +29,20 @@ const EditProfile = () => {
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Name</Form.Label>
-									<Form.Control type="text" placeholder="Name" value={ } />
+									<Form.Control type="text" placeholder="Name" value={currentUser?.firstName} />
 								</Form.Group>
 							</Col>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Number</Form.Label>
-									<Form.Control type="number" placeholder="Number" />
+									<Form.Control type="number" placeholder="Number" value={currentUser?.phoneNumber} />
 								</Form.Group>
 							</Col>
 						</Row>
 
 						<Form.Group className="mb-3" controlId="formBasicPassword">
 							<Form.Label>Address</Form.Label>
-							<Form.Control type="text" placeholder="Address" />
+							<Form.Control type="text" placeholder="Address" value={currentUser?.address} />
 						</Form.Group>
 
 						<div className="bg-gray-100 p-3 rounded-ai">

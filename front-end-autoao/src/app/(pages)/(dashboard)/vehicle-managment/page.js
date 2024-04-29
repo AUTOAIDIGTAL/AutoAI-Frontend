@@ -3,7 +3,7 @@ import TableVM from "@/components/UI/TableVM";
 import PaginationUi from "@/components/UI/Pagination";
 import CreateModal from "./create-modal/modal";
 
-const GarageManagemenr = () => {
+const GarageManagement = () => {
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
@@ -20,4 +20,4 @@ const GarageManagemenr = () => {
 	);
 };
 
-export default GarageManagemenr;
+export default GarageManagement;

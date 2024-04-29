@@ -1,10 +1,48 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import Slide from "@/components/Carousel/slide";
+import { useSearchParams } from "next/navigation";
+import OTP from "../../(dashboard)/profile/change-password/OTP";
 
-const ForgotPassowrd = () => {
+const ResetPassword = () => {
+
+	const searchParams = useSearchParams()
+	const search = searchParams.get('email')
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+	const [otpModal, setOtpModal] = useState(false);
+
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+		setErrorMessage('');
+	};
+
+	const handleConfirmPasswordChange = (event) => {
+		setConfirmPassword(event.target.value);
+		setErrorMessage('');
+	};
+
+	useEffect(() => {
+		setEmail(search)
+		console.log(search)
+	}, [search])
+
+	const handleSubmission = async (event) => {
+		event.preventDefault();
+
+		if (password !== confirmPassword) {
+			setErrorMessage('Passwords do not match. Please try again.');
+		} else {
+			setOtpModal(true)
+		}
+	}
+
 	return (
 		<div className="auth-page align-items-center px-5 py-5">
 			<Container>
@@ -39,14 +77,14 @@ const ForgotPassowrd = () => {
 						</Link>
 						<div className="fs-2 fw-bold text-dark text-center text-lg-start">Create New Password</div>
 						<div className="fs-6 text-muted mb-4 pb-2 text-center text-lg-start">Set Your New Password</div>
-						<Form>
+						<Form onSubmit={handleSubmission}>
 							<div className="mb-3">
 								<Form.Label>New Password</Form.Label>
 								<div className="position-relative FormIconControl">
 									<span className="position-absolute top-50 start-20 translate-middle">
 										<span span className="mdi mdi-email-outline"></span>
 									</span>
-									<Form.Control type="text" placeholder="New Password" />
+									<Form.Control type="text" placeholder="New Password" value={password} onChange={handlePasswordChange} />
 								</div>
 							</div>
 							<div className="mb-3">
@@ -55,10 +93,11 @@ const ForgotPassowrd = () => {
 									<span className="position-absolute top-50 start-20 translate-middle">
 										<span span className="mdi mdi-email-outline"></span>
 									</span>
-									<Form.Control type="text" placeholder="Confirm New Password" />
+									<Form.Control type="text" placeholder="Confirm New Password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
 								</div>
+								{errorMessage && <small className="font-red">{errorMessage}</small>}
 							</div>
-							<Button variant="primary" className="w-100 mt-2">
+							<Button variant="primary" className="w-100 mt-2" type="submit">
 								Save Password & Log in
 							</Button>
 						</Form>
@@ -70,8 +109,9 @@ const ForgotPassowrd = () => {
 					</Col>
 				</Row>
 			</Container>
+			{otpModal && <OTP otpModal={otpModal} password={password} email={email} />}
 		</div>
 	);
 };
 
-export default ForgotPassowrd;
+export default ResetPassword;

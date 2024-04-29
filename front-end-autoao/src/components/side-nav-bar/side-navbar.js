@@ -4,11 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLogout } from "@/hooks/auth/useLogout";
 import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import { linksMap, rolesMap } from "@/constants/user";
 
 const NavBar = () => {
 
 	const router = useRouter()
 	const { logout } = useLogout();
+	const { user: currentUser } = useCurrentUser();
+	let rolesToBeDisplayed = [];
+	const { Link } = Nav;
+	currentUser?.roles?.forEach((role) => {
+		if (!rolesToBeDisplayed.includes(role)) rolesToBeDisplayed.push(...rolesMap[role])
+	})
+
 	return (
 		<div className="sideBarNav">
 			<div className="menu-brand-wrap">
@@ -30,94 +39,20 @@ const NavBar = () => {
 				/>
 			</div>
 			<Nav defaultActiveKey="/home" className="flex-column gap-4">
-				<Nav.Link href="/home">
-					<Image
-						className=""
-						src="./../../assets/images/icons/dashboard.svg"
-						alt="dasboard"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Dashboard</div>
-				</Nav.Link>
-				<Nav.Link eventKey="link-1">
-					<Image
-						className=""
-						src="./../../assets/images/icons/list.svg"
-						alt="Scheduled tasks"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Scheduled tasks</div>
-				</Nav.Link>
-				<Nav.Link href="/user-roles-management">
-					<Image
-						className=""
-						src="./../../assets/images/icons/users.svg"
-						alt="User Roles Management"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap"> User Roles Management</div>
-				</Nav.Link>
-				<Nav.Link eventKey="#">
-					<Image
-						className=""
-						src="./../../assets/images/icons/help.svg"
-						alt="User Roles Management"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Client management</div>
-				</Nav.Link>
-				<Nav.Link eventKey="link-2">
-					<Image
-						className=""
-						src="./../../assets/images/icons/car.svg"
-						alt="User Roles Management"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Vehicle management</div>
-				</Nav.Link>
-				<Nav.Link eventKey="link-2">
-					<Image
-						className=""
-						src="./../../assets/images/icons/mechanic.svg"
-						alt="User Roles Management"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap"> Mechanics management</div>
-				</Nav.Link>
-				<Nav.Link eventKey="link-2">
-					<Image
-						className=""
-						src="./../../assets/images/icons/Jobs.svg"
-						alt="Jobs"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Jobs</div>
-				</Nav.Link>
-				<Nav.Link eventKey="link-2">
-					<Image
-						className=""
-						src="./../../assets/images/icons/instrument.svg"
-						alt="Work order"
-						width={15}
-						height={15}
-						priority
-					/>
-					<div className="menu-text-wrap">Work order</div>
-				</Nav.Link>
+
+				{rolesToBeDisplayed.map((role) => {
+					return <Nav.Link href={linksMap[role]?.link}>
+						<Image
+							className="active"
+							src={linksMap[role].image}
+							alt={linksMap[role].title}
+							width={15}
+							height={15}
+							priority
+						/>
+						<div className="menu-text-wrap">{linksMap[role].title}</div>
+					</Nav.Link>
+				})}
 			</Nav>
 			<div className="side-nav-bottom">
 				<Link
@@ -131,7 +66,7 @@ const NavBar = () => {
 					<Image
 						className=""
 						src="./../../assets/images/icons/logout.svg"
-						alt="Work order"
+						alt="logout"
 						width={15}
 						height={15}
 						priority

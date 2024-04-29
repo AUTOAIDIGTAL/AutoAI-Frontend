@@ -8,7 +8,9 @@ import { Row, Col } from "react-bootstrap";
 const ChangePassword = () => {
 	const [show, setShow] = useState(false);
 
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+
+	};
 	const handleShow = () => setShow(true);
 
 	return (
@@ -46,19 +48,19 @@ const ChangePassword = () => {
 										/>
 									</svg>
 								</span>
-								<Form.Control type="email" placeholder="Current Password" />
+								<Form.Control type="password" placeholder="Current Password" />
 							</div>
 						</Form.Group>
+						<div className="my-2">
+							<Button variant="primary" type="submit" onClick={handleClose}>
+								Next
+							</Button>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
+						</div>
 					</Form>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="primary" onClick={handleClose}>
-						Next
-					</Button>
-					<Button variant="secondary" onClick={handleClose}>
-						Cancel
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</>
 	);

@@ -23,12 +23,8 @@ export const useCurrentUser = () => {
 		const currentUser = Cookies.get("currentUser");
 
 		if (userInfo && currentUser) {
-			const newUser = {
-				...JSON.parse(currentUser),
-				username: userInfo.username, // Replace with specific fields
-			};
-			Cookies.set("currentUser", JSON.stringify(newUser));
-			setUser(newUser);
+			Cookies.set("currentUser", JSON.stringify(userInfo));
+			setUser(userInfo);
 		}
 	};
 
