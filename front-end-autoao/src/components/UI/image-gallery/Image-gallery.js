@@ -45,6 +45,7 @@ export default function ImageGallery(data) {
 			{
 				images && images?.map((image, index) => (
 					<Image
+						key={index}
 						alt="test"
 						src={image}
 						width={50}

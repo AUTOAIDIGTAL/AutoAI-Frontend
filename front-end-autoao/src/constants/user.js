@@ -1,6 +1,6 @@
 export const rolesMap = {
 	"SUPER_ADMIN": ['garage', 'manageAdmins',],
-	"ADMIN": ['workOrder', 'jobs'],
+	"ADMIN": ['dashboard', 'scheduledTasks', 'userRolesManagement', 'clientManagement', 'vehicleManagement', 'mechanicsManagement', 'jobs', 'workOrder'],
 	"MECHANIC": ['workOrder',],
 	"CLIENT": ['dashboard'],
 };

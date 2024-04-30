@@ -7,10 +7,6 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";
 
-// export async function generateStaticParams() {
-// 	return [{ id: '1' }, { id: '2' }, { id: '3' }]
-// }
-
 
 const ClientInformation = () => {
 
@@ -27,7 +23,8 @@ const ClientInformation = () => {
 			}
 		}
 		getVehicle();
-	}, [])
+	}, [params.id])
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">

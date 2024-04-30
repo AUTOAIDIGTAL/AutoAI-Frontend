@@ -19,7 +19,7 @@ const TableVM = ({ vehicleList }) => {
 				</thead>
 				<tbody >
 					{vehicleList?.map((item, index) => (
-						<tr>
+						<tr key={index}>
 							<td className="fw-semibold text-dark">
 								<Link href={`/vehicle-management/${encodeURIComponent(item._id)}`} key={index} className="text-black no-underline">
 									{item?.regPlate}

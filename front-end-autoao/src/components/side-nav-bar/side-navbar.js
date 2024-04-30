@@ -40,8 +40,8 @@ const NavBar = () => {
 			</div>
 			<Nav defaultActiveKey="/home" className="flex-column gap-4">
 
-				{rolesToBeDisplayed.map((role) => {
-					return <Nav.Link href={linksMap[role]?.link}>
+				{rolesToBeDisplayed.map((role, index) => {
+					return <Nav.Link key={index} href={linksMap[role]?.link}>
 						<Image
 							className="active"
 							src={linksMap[role].image}

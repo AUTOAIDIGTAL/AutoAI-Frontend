@@ -80,7 +80,7 @@ const CreateGarage = ({ onGarageAdded }) => {
 									<Dropdown.Menu>
 										{
 											filteredOptions?.map((item) => (
-												<Dropdown.Item eventKey={item._id}>{item.firstName} {item.lastName}</Dropdown.Item>
+												<Dropdown.Item key={item._id} eventKey={item._id}>{item.firstName} {item.lastName}</Dropdown.Item>
 											))
 										}
 									</Dropdown.Menu>
