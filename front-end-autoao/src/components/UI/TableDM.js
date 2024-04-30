@@ -25,7 +25,7 @@ const TableDM = (garageList) => {
 					{
 						garageList?.data?.map((index) => (
 							<tr key={index}>
-								<td>{index?.ownerName}</td>
+								<td>{index?.owner?.firstName} {index?.owner?.lastName}</td>
 								<td>{index?.name}</td>
 								<td>{`${index?.address?.street}, ${index?.address?.city}, ${index?.address?.country}`} </td>
 								<td>Garage Admin</td>

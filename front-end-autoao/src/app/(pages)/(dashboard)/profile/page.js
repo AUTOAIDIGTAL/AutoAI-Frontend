@@ -92,7 +92,7 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								Address Here
+								{currentUser?.address}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">

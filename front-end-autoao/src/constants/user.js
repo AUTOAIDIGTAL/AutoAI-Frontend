@@ -1,6 +1,6 @@
 export const rolesMap = {
 	"SUPER_ADMIN": ['garage', 'manageAdmins',],
-	"ADMIN": ['workOrder',],
+	"ADMIN": ['workOrder', 'jobs'],
 	"MECHANIC": ['workOrder',],
 	"CLIENT": ['dashboard'],
 };
@@ -14,7 +14,7 @@ export const linksMap = {
 	"manageAdmins": {
 		image: "./../../assets/images/icons/Employees.svg",
 		title: "Manage Admin",
-		link: "/admins"
+		link: "/manage-administration"
 	},
 	"dashboard": {
 		image: "./../../assets/images/icons/dashboard.svg",
@@ -54,7 +54,7 @@ export const linksMap = {
 	"jobs": {
 		image: "./../../assets/images/icons/Jobs.svg",
 		title: "Jobs",
-		link: "/dashboard"
+		link: "/job-management"
 	},
 
 };

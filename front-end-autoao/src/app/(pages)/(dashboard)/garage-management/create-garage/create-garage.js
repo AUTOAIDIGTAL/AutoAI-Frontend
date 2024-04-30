@@ -43,7 +43,7 @@ const CreateGarage = ({ onGarageAdded }) => {
 		console.log('Creating new garage...',);
 
 		const response = await apiService.post(constants.createGarage, {
-			ownerName: garageAdmin,
+			owner: garageAdmin,
 			name: garageName,
 			phoneNumber,
 			address: location
@@ -51,6 +51,12 @@ const CreateGarage = ({ onGarageAdded }) => {
 
 		response && setShow(false);
 		response && onGarageAdded(response)
+		setFilteredOptions([])
+		setGarageAdmin(null)
+		setGarageName(null)
+		setPhoneNumber(null)
+		setLocation(null)
+		setSearchTerm(null)
 	};
 
 	return (
