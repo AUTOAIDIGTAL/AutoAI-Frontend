@@ -1,11 +1,31 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import Slide from "@/components/Carousel/slide";
+import { useRouter } from 'next/navigation';
+import { apiService } from "@/services";
 
 const ForgotPassowrd = () => {
+
+	// const [otpModal, setOtpModal] = useState(false);
+	const router = useRouter();
+	const [email, setEmail] = useState("");
+
+	const handleFormSubmission = async (event) => {
+		event.preventDefault();
+		try {
+			const response = await apiService.post("/user/forgot-password", {
+				email
+			});
+			if (response) {
+				router.push('/reset-password?email=' + email)
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	return (
 		<div className="auth-page align-items-center px-5 py-5">
 			<Container>
@@ -40,17 +60,17 @@ const ForgotPassowrd = () => {
 						</Link>
 						<div className="fs-2 fw-bold text-dark text-center text-lg-start">Forgot Your Password?</div>
 						<div className="fs-6 text-muted mb-4 pb-2 text-center text-lg-start">Reset Your Password</div>
-						<Form>
+						<Form onSubmit={handleFormSubmission}>
 							<div className="mb-3">
 								<Form.Label>Email address</Form.Label>
 								<div className="position-relative FormIconControl">
 									<span className="position-absolute top-50 start-20 translate-middle">
 										<span className="mdi mdi-email-outline"></span>
 									</span>
-									<Form.Control type="email" placeholder="Email Address" />
+									<Form.Control type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
 								</div>
 							</div>
-							<Button href="/reset-password" variant="primary" className="w-100 mt-2">
+							<Button type="submit" variant="primary" className="w-100 mt-2">
 								Reset Password
 							</Button>
 						</Form>
@@ -62,6 +82,7 @@ const ForgotPassowrd = () => {
 					</Col>
 				</Row>
 			</Container>
+			{/*otpModal && <OTP otpModal={otpModal} password={password} email={email} />*/}
 		</div>
 	);
 };

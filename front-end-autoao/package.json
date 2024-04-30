@@ -3,19 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "next": "14.1.4",
     "node-sass": "^9.0.0",
     "react": "^18",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
+    "react-phone-number-input": "^3.4.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1"
   },
