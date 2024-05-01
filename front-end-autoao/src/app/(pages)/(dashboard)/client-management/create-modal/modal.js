@@ -49,13 +49,14 @@ const CreateModal = ({ handleRefetch }) => {
 
 		if (response) {
 			setName(null);
-			setCompany(false);
+			setCompany(null);
 			setPhoneNumber(null);
 			setEmail(null);
 			setVehicle(null);
 			setLocation({ street: '', city: '', country: '', postCode: '' });
 			handleRefetch()
 			setShow(false)
+			setVehicle([])
 		}
 	};
 

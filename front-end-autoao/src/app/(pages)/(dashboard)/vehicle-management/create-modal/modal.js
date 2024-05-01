@@ -77,6 +77,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 			setyear(null);
 			setMileage(null);
 			setClient(null);
+			setSelectedFiles(null);
 		}
 	};
 
