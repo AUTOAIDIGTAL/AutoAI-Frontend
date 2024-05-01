@@ -83,25 +83,29 @@ const CreateModal = ({ handleRefetch }) => {
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Name</Form.Label>
-									<Form.Control type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+									<Form.Control type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Number</Form.Label>
-									<Form.Control type="tel" placeholder="Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+									<Form.Control type="tel" placeholder="Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Email</Form.Label>
-									<Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+									<Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasic">
 									<Form.Label>Company</Form.Label>
-									<Form.Control type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
+									<Form.Control type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} required />
+									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 								</Form.Group>
 							</Col>
 
@@ -111,13 +115,13 @@ const CreateModal = ({ handleRefetch }) => {
 									<Form.Label>Vehicle Reg</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
+										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} required />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
 												height={14}
 												viewBox="0 0 14 14"
-												fill="none"
+												fill="none 206 5.0413 12.0001 6.49999 12.0001Z"
 												xmlns="http://www.w3.org/2000/svg"
 											>
 												<path
@@ -136,6 +140,7 @@ const CreateModal = ({ handleRefetch }) => {
 											}
 										</Dropdown.Menu>
 									</Dropdown>
+									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 								</Form.Group>
 							</Col>
 						</Row>
@@ -146,25 +151,29 @@ const CreateModal = ({ handleRefetch }) => {
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicName">
 										<Form.Label>Street name</Form.Label>
-										<Form.Control type="text" placeholder="Street name" value={location.street} onChange={(e) => setLocation({ ...location, street: e.target.value })} />
+										<Form.Control type="text" placeholder="Street name" value={location.street} onChange={(e) => setLocation({ ...location, street: e.target.value })} required />
+										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicCountry">
 										<Form.Label>Country</Form.Label>
-										<Form.Control type="text" placeholder="Country" value={location.country} onChange={(e) => setLocation({ ...location, country: e.target.value })} />
+										<Form.Control type="text" placeholder="Country" value={location.country} onChange={(e) => setLocation({ ...location, country: e.target.value })} required />
+										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicCity">
 										<Form.Label>City/ Post Town</Form.Label>
-										<Form.Control type="text" placeholder="City/ Post Town" value={location.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} />
+										<Form.Control type="text" placeholder="City/ Post Town" value={location.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} required />
+										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicNumber">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} />
+										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} required />
+										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 									</Form.Group>
 								</Col>
 							</Row>
