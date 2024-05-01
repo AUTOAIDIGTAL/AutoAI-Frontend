@@ -76,7 +76,7 @@ const AddNewUser = ({ onUserAdded }) => {
 						<Row>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
-									<Form.Label>Name</Form.Label>
+									<Form.Label>First Name</Form.Label>
 									<Form.Control
 										type="text"
 										placeholder="First Name"
@@ -87,7 +87,7 @@ const AddNewUser = ({ onUserAdded }) => {
 							</Col>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
-									<Form.Label>Name</Form.Label>
+									<Form.Label>Last Name</Form.Label>
 									<Form.Control
 										type="text"
 										placeholder="Last name"
@@ -139,8 +139,8 @@ const AddNewUser = ({ onUserAdded }) => {
 										<Form.Check
 											type="checkbox"
 											label="MANAGER"
-											checked={roles.includes("MANAGER")}
-											onChange={() => handleRoleChange("MANAGER")}
+											checked={roles.includes("MECHANIC")}
+											onChange={() => handleRoleChange("MECHANIC")}
 										/>
 									</Form.Group>
 									{/* Add more checkboxes for additional roles as needed */}
