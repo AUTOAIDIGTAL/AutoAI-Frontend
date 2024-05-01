@@ -4,7 +4,7 @@ import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
 import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
 
-const TableDM = ({ garageList, handleRefetch }) => {
+const TableDM = ({ data, handleRefetch }) => {
 
 	const deleteItem = async (e, id) => {
 		e.preventDefault();
@@ -28,7 +28,7 @@ const TableDM = ({ garageList, handleRefetch }) => {
 				</thead>
 				<tbody >
 					{
-						garageList?.data?.map((index) => (
+						data?.map((index) => (
 							<tr key={index}>
 								<td>{index?.owner?.firstName} {index?.owner?.lastName}</td>
 								<td>{index?.name}</td>
