@@ -183,7 +183,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 										<Form.Control
 											type="text"
 											placeholder={vehicleIds}
-											value={vehicleIds}
+											value={vehicleIds[0]?.regPlate || searchTerm}
 											onChange={handleVehicleSearch}
 											onClick={() => setShowList(!showList)}
 										/>
@@ -205,6 +205,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 									<Dropdown onSelect={handleVehicleSelect} show={showList}>
 										<Dropdown.Menu>
 											{filteredOptionsIds.map((item) => {
+												console.log(vehicleIds)
 												const isAlreadyAdded = vehicleIds.includes(item._id);
 												console.log('isAlreadyAdded', isAlreadyAdded)
 												return (
