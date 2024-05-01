@@ -39,7 +39,7 @@ export const linksMap = {
 	"clientManagement": {
 		image: "./../../assets/images/icons/help.svg",
 		title: "Client management",
-		link: "/dashboard"
+		link: "/client-management"
 	},
 	"vehicleManagement": {
 		image: "./../../assets/images/icons/car.svg",
