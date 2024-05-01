@@ -99,7 +99,7 @@ const Profile = () => {
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Password</div>
 							<div className="fs-6 fw-medium text-dark">
-								<Button variant="outline-primary fw-medium" onClick={() => setShowChangePassword(true)}>
+								<Button variant="outline-primary fw-medium" onClick={() => { setShowChangePassword(true); console.log("clicked") }}>
 									Change Password
 								</Button>
 								{showChangePassword && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}

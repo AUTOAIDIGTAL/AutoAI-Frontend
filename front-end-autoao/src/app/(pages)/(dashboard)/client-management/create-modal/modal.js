@@ -10,7 +10,7 @@ import { apiService } from "@/services";
 
 const CreateModal = ({ handleRefetch }) => {
 	const [name, setName] = useState(null);
-	const [company, setCompany] = useState(false);
+	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [email, setEmail] = useState(null);
 	const [vehicleIds, setVehicle] = useState([]);

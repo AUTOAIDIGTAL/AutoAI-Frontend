@@ -50,15 +50,15 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 	return (
 		<>
 			<Modal size="md" show={show} centered scrollable>
-				<Modal.Header closeButton>
+				<Modal.Header closeButton onClick={() => { setShow(false) }}>
 					<Modal.Title>Change Password</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form onSubmit={handleSubmit}>
 						<Form.Group className="mb-3" controlId="formBasicPassword">
 							<Form.Label>New Password</Form.Label>
-							<div className="position-relative FormIconControl">
-								<span className="position-absolute top-50 start-20 translate-middle">
+							<div className="position-relative FormIconControl ">
+								<span className="position-absolute top-50 start-20 translate-middle" >
 									<svg
 										width={16}
 										height={9}
@@ -84,7 +84,7 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 						<Form.Group>
 							<Form.Label>Confirm New Password</Form.Label>
 							<div className="position-relative FormIconControl">
-								<span className="position-absolute top-50 start-20 translate-middle">
+								<span className="position-absolute top-50 start-20 translate-middle" >
 									<svg
 										width={16}
 										height={9}
