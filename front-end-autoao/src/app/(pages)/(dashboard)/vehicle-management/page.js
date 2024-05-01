@@ -22,12 +22,16 @@ const GarageManagement = () => {
 		getVehicles();
 	}, []);
 
+	const handleAdminAdded = (newAdminData) => {
+		setAdminList([...adminList, newAdminData]);
+	};
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Vehicle management</div>
-					<CreateModal />
+					<CreateModal onVehicleAdded={handleAdminAdded} />
 				</div>
 				<div className="flex-1 pt-3">
 					{vehicleList && <TableVM vehicleList={vehicleList} />}
