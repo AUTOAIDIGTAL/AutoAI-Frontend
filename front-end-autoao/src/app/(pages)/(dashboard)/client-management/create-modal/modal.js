@@ -139,7 +139,7 @@ const CreateModal = ({ handleRefetch }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						<Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">Add new vehicle</Link>
+						{/* <Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">Add new vehicle</Link> */}
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
 							<Row>
