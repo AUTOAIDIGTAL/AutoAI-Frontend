@@ -10,7 +10,6 @@ export default function ImageGallery({ data }) {
 	const [images, setImages] = useState([]);
 
 	useEffect(() => {
-		// data = ['https://picsum.photos/200/200', 'https://picsum.photos/200/200', 'https://picsum.photos/200/200']
 		console.log(data);
 		data && setImages(data);
 	}, []);
@@ -46,8 +45,9 @@ export default function ImageGallery({ data }) {
 			{
 				images && images?.map((image, index) => (
 					<ModalImage
-						small={image}
-						large={image}
+						key={index}
+						small={`https://autoai.s3.amazonaws.com/${image}`}
+						large={`https://autoai.s3.amazonaws.com/${image}`}
 						alt="Hello World!"
 						width={50}
 						height={50}
