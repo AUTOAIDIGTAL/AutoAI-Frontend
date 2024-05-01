@@ -159,7 +159,6 @@ const EditModal = ({ customerId, handleRefetch }) => {
 										placeholder="Email"
 										value={customerData.email}
 										onChange={handleInputChange}
-										disabled
 									/>
 								</Form.Group>
 							</Col>
