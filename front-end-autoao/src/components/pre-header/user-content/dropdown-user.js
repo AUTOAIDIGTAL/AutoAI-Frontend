@@ -15,7 +15,7 @@ const DropdownUser = () => {
 					id="dropdown-basic"
 				>
 					<div className="d-inline-flex align-items-center gap-2">
-						<Avatar imgSrc={currentUser?.profileImage} />
+						<Avatar imgSrc={`https://autoai.s3.amazonaws.com/${currentUser?.profileImg}`} />
 						<span className="pro-user-name">{currentUser?.firstName} {currentUser?.lastName}</span>
 					</div>
 				</Dropdown.Toggle>

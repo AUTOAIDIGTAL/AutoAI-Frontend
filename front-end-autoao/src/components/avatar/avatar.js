@@ -2,6 +2,7 @@ import { Nav, Dropdown } from "react-bootstrap";
 import Image from "next/image";
 
 const Avatar = ({ imgSrc }) => {
+	console.log(imgSrc);
 	return (
 		<div className="avatar">
 			<Image

@@ -36,7 +36,7 @@ const GarageManagement = () => {
 					<CreateGarage onGarageAdded={handleRefetch} />
 				</div>
 				<div className="flex-1 pt-3">
-					{garageList && <TableDM data={garageList} />}
+					{garageList && <TableDM data={garageList} handleRefetch={handleRefetch} />}
 					{/* {<PaginationUi />} */}
 				</div>
 			</div>

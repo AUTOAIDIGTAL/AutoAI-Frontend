@@ -33,9 +33,9 @@ const CreateGarage = ({ onGarageAdded }) => {
 	};
 
 	const handleOptionSelect = (selectedOption) => {
-		console.log('selected option', selectedOption);
-		setGarageAdmin(selectedOption);
-		setSearchTerm(selectedOption.name)
+		const [id, name] = selectedOption.split('_');
+		setGarageAdmin(id);
+		setSearchTerm(name)
 		setShowList(false);
 	};
 
@@ -50,14 +50,16 @@ const CreateGarage = ({ onGarageAdded }) => {
 			address: location
 		});
 
-		response && setShow(false);
-		response && onGarageAdded(response)
-		setFilteredOptions([])
-		setGarageAdmin(null)
-		setGarageName(null)
-		setPhoneNumber(null)
-		setLocation(null)
-		setSearchTerm(null)
+		if (response) {
+			setShow(false);
+			onGarageAdded()
+			setFilteredOptions([])
+			setGarageAdmin(null)
+			setGarageName(null)
+			setPhoneNumber(null)
+			setLocation(null)
+			setSearchTerm(null)
+		}
 	};
 
 	return (
@@ -81,7 +83,7 @@ const CreateGarage = ({ onGarageAdded }) => {
 									<Dropdown.Menu>
 										{
 											filteredOptions?.map((item) => (
-												<Dropdown.Item key={item._id} eventKey={item._id}>{item.firstName} {item.lastName}</Dropdown.Item>
+												<Dropdown.Item key={item._id} eventKey={`${item._id}_${item.firstName} ${item.lastName}`}>{item.firstName} {item.lastName}</Dropdown.Item>
 											))
 										}
 									</Dropdown.Menu>
@@ -111,25 +113,25 @@ const CreateGarage = ({ onGarageAdded }) => {
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicName">
 										<Form.Label>Street name</Form.Label>
-										<Form.Control type="text" placeholder="Street name" value={location.street} onChange={(e) => setLocation({ ...location, street: e.target.value })} />
+										<Form.Control type="text" placeholder="Street name" value={location?.street} onChange={(e) => setLocation({ ...location, street: e.target.value })} />
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicEmail">
 										<Form.Label>Country</Form.Label>
-										<Form.Control type="text" placeholder="Country" value={location.country} onChange={(e) => setLocation({ ...location, country: e.target.value })} />
+										<Form.Control type="text" placeholder="Country" value={location?.country} onChange={(e) => setLocation({ ...location, country: e.target.value })} />
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicName">
 										<Form.Label>City/ Post Town</Form.Label>
-										<Form.Control type="text" placeholder="City/ Post Town" value={location.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} />
+										<Form.Control type="text" placeholder="City/ Post Town" value={location?.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} />
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicEmail">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} />
+										<Form.Control type="number" placeholder="Post Code" value={location?.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} />
 									</Form.Group>
 								</Col>
 							</Row>
@@ -146,7 +148,6 @@ const CreateGarage = ({ onGarageAdded }) => {
 				</Modal.Body>
 			</Modal>
 		</>
-
 	);
 };
 

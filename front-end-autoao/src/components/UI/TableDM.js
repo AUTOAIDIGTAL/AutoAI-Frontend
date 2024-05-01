@@ -8,7 +8,7 @@ const TableDM = ({ data, handleRefetch }) => {
 
 	const deleteItem = async (e, id) => {
 		e.preventDefault();
-		await apiService.delete(`${constants.vehicle}/${id}`);
+		await apiService.delete(`${constants.getGarage}/${id}`);
 		handleRefetch()
 	}
 
@@ -59,7 +59,7 @@ const TableDM = ({ data, handleRefetch }) => {
 
 										<Dropdown.Menu>
 											<Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
-											<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
+											<Dropdown.Item onClick={(e) => deleteItem(e, index._id)}>Delete</Dropdown.Item>
 										</Dropdown.Menu>
 									</Dropdown>
 								</td>

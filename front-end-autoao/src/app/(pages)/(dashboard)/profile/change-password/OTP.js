@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 const OTP = ({ otpModal, password, email }) => {
 
+	console.log("OTP Modal", otpModal);
 	const [show, setShow] = useState(otpModal);
 	const [otp, setOTP] = useState([]);
 	const { user: currentUser, refetchUser } = useCurrentUser()

@@ -39,10 +39,10 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 			const response = await apiService.post("/user/forgot-password", {
 				email
 			});
-			console.log(response)
 			if (response) {
-				handleClose()
 				setOtpModal(true)
+				console.log(otpModal)
+				setShow(false)
 			}
 		}
 	};
