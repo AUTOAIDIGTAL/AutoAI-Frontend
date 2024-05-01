@@ -19,6 +19,7 @@ const CreateModal = ({ handleRefetch }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
+	const [errorMsg, setErrorMsg] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -40,23 +41,27 @@ const CreateModal = ({ handleRefetch }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		console.log('Creating new Job...', name, company, phoneNumber, email, vehicleIds, location);
+		try {
+			e.preventDefault();
+			console.log('Creating new Job...', name, company, phoneNumber, email, vehicleIds, location);
 
-		const response = await apiService.post(constants.customer, {
-			name, company, phoneNumber, email, vehicleIds, address: location
-		});
+			const response = await apiService.post(constants.customer, {
+				name, company, phoneNumber, email, vehicleIds, address: location
+			});
 
-		if (response) {
-			setName(null);
-			setCompany(null);
-			setPhoneNumber(null);
-			setEmail(null);
-			setVehicle(null);
-			setLocation({ street: '', city: '', country: '', postCode: '' });
-			handleRefetch()
-			setShow(false)
-			setVehicle([])
+			if (response) {
+				setName(null);
+				setCompany(null);
+				setPhoneNumber(null);
+				setEmail(null);
+				setVehicle(null);
+				setLocation({ street: '', city: '', country: '', postCode: '' });
+				handleRefetch()
+				setShow(false)
+				setVehicle([])
+			}
+		} catch (error) {
+			setErrorMsg(error.message)
 		}
 	};
 

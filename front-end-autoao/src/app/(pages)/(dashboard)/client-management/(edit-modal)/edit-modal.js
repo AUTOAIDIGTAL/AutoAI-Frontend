@@ -14,7 +14,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 
 	const [customerData, setCustomerData] = useState({
 		name: '',
-		company: false,
+		company: '',
 		phoneNumber: '',
 		email: '',
 		vehicleIds: [],
@@ -34,7 +34,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 				.then(response => {
 
 					let vehiclesAdded = response.vehicleIds.map((item) => {
-						return item.regPlate;
+						return { _id: item?._id, regPlate: item?.regPlate }
 					})
 
 					// Update the state with the existing customer data
@@ -43,7 +43,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 						company: response.company,
 						phoneNumber: response.phoneNumber,
 						email: response.email,
-						vehicleIds: response.vehicleIds,
+						vehicleIds: vehiclesAdded.map((item) => item._id),
 						address: response.address || { street: '', city: '', country: '', postCode: '' },
 					});
 
@@ -106,9 +106,6 @@ const EditModal = ({ customerId, handleRefetch }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		customerData.vehicleIds = vehicleIds.map((item) => {
-			return item._id;
-		})
 		const response = await apiService.put(`${constants.customer}/${customerId}`, customerData);
 		if (response) {
 			handleRefetch();
@@ -162,6 +159,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 										placeholder="Email"
 										value={customerData.email}
 										onChange={handleInputChange}
+										disabled
 									/>
 								</Form.Group>
 							</Col>
@@ -177,7 +175,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 									/>
 								</Form.Group>
 							</Col>
-							{/* <Col xs={12}>
+							<Col xs={12}>
 								<Form.Group className="mb-3" controlId="formBasicVehicle">
 									<Form.Label>Vehicles</Form.Label>
 
@@ -185,7 +183,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 										<Form.Control
 											type="text"
 											placeholder={vehicleIds}
-											value={searchTerm}
+											value={vehicleIds}
 											onChange={handleVehicleSearch}
 											onClick={() => setShowList(!showList)}
 										/>
@@ -228,12 +226,12 @@ const EditModal = ({ customerId, handleRefetch }) => {
 									</Dropdown>
 
 								</Form.Group>
-							</Col> */}
+							</Col>
 						</Row>
 
-						{/* <Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">
+						<Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">
 							Add new vehicle
-						</Link> */}
+						</Link>
 
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
