@@ -21,10 +21,11 @@ const Profile = () => {
 	const closeModal = () => {
 		setShowChangePassword(false)
 	}
+	console.log(currentUser)
 
 	return (
 		<>
-			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
+			{currentUser && <div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Profile Information</div>
 					<EditProfile />
@@ -92,13 +93,12 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								{currentUser?.address}
+								{currentUser?.roles.includes("SUPER_ADMIN") ? 'Not Available' : currentUser?.address}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Password</div>
 							<div className="fs-6 fw-medium text-dark">
-								{/*<ChangePassword />*/}
 								<Button variant="outline-primary fw-medium" onClick={() => setShowChangePassword(true)}>
 									Change Password
 								</Button>
@@ -122,7 +122,7 @@ const Profile = () => {
 						Log Out
 					</Button>
 				</div>
-			</div>
+			</div>}
 			{currentUser && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
 		</>
 	);

@@ -108,7 +108,7 @@ const VehicleManagementList = ({ vehicle }) => {
 						<div className="d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Images</div>
 							<div className="">
-								<ImageGallery data={vehicle?.images} />
+								{vehicle?.images && <ImageGallery data={vehicle?.images} />}
 							</div>
 						</div>
 					</div>

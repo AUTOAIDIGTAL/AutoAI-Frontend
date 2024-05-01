@@ -44,7 +44,7 @@ export const linksMap = {
 	"vehicleManagement": {
 		image: "./../../assets/images/icons/car.svg",
 		title: "Vehicle management",
-		link: "/dashboard"
+		link: "/vehicle-management"
 	},
 	"mechanicsManagement": {
 		image: "./../../assets/images/icons/mechanic.svg",

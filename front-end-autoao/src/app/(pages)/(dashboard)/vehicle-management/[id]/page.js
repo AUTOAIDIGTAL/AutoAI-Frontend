@@ -2,7 +2,7 @@
 import VehicleManagementList from "@/components/UI/vehicle-managment-list";
 import ServiceHistory from "@/components/service-history/service-history";
 import { apiService } from "@/services";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";
@@ -25,15 +25,17 @@ const ClientInformation = () => {
 		getVehicle();
 	}, [params.id])
 
+	const router = useRouter();
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="flex-1 mb-4  overflow-auto">
 					{vehicle && <VehicleManagementList vehicle={vehicle} />}
-					<div className="bg-gray-100 p-3 rounded-ai p-5 border-0 my-4">
+					{/* <div className="bg-gray-100 p-3 rounded-ai p-5 border-0 my-4">
 						<div className="fs-5 fw-medium mb-4">Service History</div>
 						{vehicle && <ServiceHistory vehicle={vehicle} />}
-					</div>
+					</div> */}
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
 					<Button variant="outline-secondary" className="py-2">
