@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ModalComponent from "./modal-component";
+import ModalImage from "react-modal-image";
 
-export default function ImageGallery(data) {
+export default function ImageGallery({ data }) {
 
 	const [selectedImage, setSelectedImage] = useState(null);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [images, setImages] = useState([]);
 
 	useEffect(() => {
-		data = ['https://picsum.photos/200/200', 'https://picsum.photos/200/200', 'https://picsum.photos/200/200']
+		// data = ['https://picsum.photos/200/200', 'https://picsum.photos/200/200', 'https://picsum.photos/200/200']
 		console.log(data);
 		data && setImages(data);
 	}, []);
@@ -41,33 +42,18 @@ export default function ImageGallery(data) {
 	};
 
 	return (
-		<div className="flex">
+		<div className="flex flex-col">
 			{
 				images && images?.map((image, index) => (
-					<Image
-						key={index}
-						alt="test"
-						src={image}
+					<ModalImage
+						small={image}
+						large={image}
+						alt="Hello World!"
 						width={50}
 						height={50}
-						priority
-						className="m-2"
-						onClick={() => handleOnClicked(image, index)}
+						className="test"
 					/>
 				))
-			}
-
-			{
-				selectedImage && (
-					<ModalComponent
-						images={images}
-						selectedImage={selectedImage}
-						onClose={handleCloseModal}
-						onNext={handleNext}
-						onPrev={handlePrev}
-						selectedIndex={selectedIndex}
-					/>
-				)
 			}
 		</div >
 	);
