@@ -9,6 +9,7 @@ import { apiService } from "@/services";
 const GarageManagement = () => {
 
 	const [garageList, setGarageList] = useState(null);
+	const [refetch, setRefetch] = useState(false);
 
 	useEffect(() => {
 		const getGarages = async () => {
@@ -20,10 +21,10 @@ const GarageManagement = () => {
 			}
 		};
 		getGarages();
-	}, []);
+	}, [refetch]);
 
-	const handleGarageAdded = (newGarageData) => {
-		setGarageList([...garageList, newGarageData]);
+	const handleRefetch = () => {
+		setRefetch(!refetch);
 	};
 
 
@@ -32,7 +33,7 @@ const GarageManagement = () => {
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Garage Management</div>
-					<CreateGarage onGarageAdded={handleGarageAdded} />
+					<CreateGarage onGarageAdded={handleRefetch} />
 				</div>
 				<div className="flex-1 pt-3">
 					{garageList && <TableDM data={garageList} />}

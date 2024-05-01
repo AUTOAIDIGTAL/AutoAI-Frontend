@@ -5,5 +5,8 @@ export const constants = {
 	createGarage: '/garage',
 	createAdmin: '/user',
 	jobs: '/service_type',
-	vehicle: '/vehicle'
+	vehicle: '/vehicle',
+	searchVehicle: '/vehicle/search/filter',
+	searchCustomer: '/customer/search/filter',
+	customer: '/customer'
 }

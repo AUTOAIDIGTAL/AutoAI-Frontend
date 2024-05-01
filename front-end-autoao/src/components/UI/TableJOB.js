@@ -1,8 +1,16 @@
+import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import EditModal from "@/app/(pages)/(dashboard)/job-management/(update-modal)/modal";
+import { apiService } from "@/services";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
-const TableDM = ({ jobsList }) => {
+const TableDM = ({ jobsList, handleRefetch }) => {
 
-	console.log(jobsList);
+	const deleteItem = async (e, id) => {
+		e.preventDefault();
+		await apiService.delete(`${constants.jobs}/${id}`);
+		handleRefetch()
+	}
+
 	return (
 		<>
 			<Table hover responsive>
@@ -15,14 +23,6 @@ const TableDM = ({ jobsList }) => {
 						<th></th>
 					</tr>
 				</thead>
-				{/* {
-					"_id": "string",
-				"name": "string",
-				"description": "string",
-				"cost": 0,
-				"time": 0,
-				"status": "ACTIVE"
-  } */}
 				{jobsList && jobsList?.map((item, index) => (
 					<tbody key={index}>
 						<tr>
@@ -76,13 +76,11 @@ const TableDM = ({ jobsList }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-										<Dropdown.Item href="#/action-2">
-											Another action
-										</Dropdown.Item>
-										<Dropdown.Item href="#/action-3">
-											Something else
-										</Dropdown.Item>
+										{/* <Dropdown.Item> */}
+										<EditModal jobId={item._id} onJobEdited={handleRefetch} />
+										{/* </Dropdown.Item> */}
+										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
+
 									</Dropdown.Menu>
 								</Dropdown>
 							</td>

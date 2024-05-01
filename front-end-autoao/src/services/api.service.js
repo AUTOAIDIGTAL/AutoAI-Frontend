@@ -48,4 +48,16 @@ export class APIService {
 		}
 	};
 
+	delete = async (path, data) => {
+		try {
+			return await this.instance
+				.delete(path)
+				.then((res) => {
+					return res.data.status && res.data.data;
+				});
+		} catch (error) {
+			console.log(error)
+		}
+	};
+
 }

@@ -3,40 +3,83 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Dropdown } from "react-bootstrap";
+import { constants } from "../../garage-management/constant";
+import { apiService } from "@/services";
 
 const CreateModal = ({ onVehicleAdded }) => {
 	const [show, setShow] = useState(false);
-	const [firstName, setFirstName] = useState(null);
-	const [lastName, setLastName] = useState(null);
-	const [email, setEmail] = useState(null);
-	const [phoneNumber, setPhoneNumber] = useState(null);
+	const [vinNumber, setVinNumber] = useState(null);
+	const [regNumber, setRegNumber] = useState(null);
+	const [make, setMake] = useState(null);
+	const [model, setModel] = useState(null);
+	const [year, setyear] = useState(null);
+	const [mileage, setMileage] = useState(null);
+	const [client, setClient] = useState(null);
+	const [searchTerm, setSearchTerm] = useState('');
+	const [filteredOptions, setFilteredOptions] = useState([]);
+	const [showList, setShowList] = useState(false);
+	const [selectedFiles, setSelectedFiles] = useState(null);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const handleInputChange = async (event) => {
+		setSearchTerm(event.target.value);
+		if (searchTerm?.length > 3) {
+			const searchResult = await apiService.get(`${constants.searchCustomer}?search=${searchTerm}`);
+			setFilteredOptions(searchResult);
+		}
+	};
+
+	const handleOptionSelect = (selectedOption) => {
+		console.log('selected option', selectedOption);
+		const [clientId, clientName] = selectedOption.split('_');
+		setClient(clientId);
+		setSearchTerm(clientName);
+		setShowList(false);
+	};
+
+
+	const handleFileChange = (event) => {
+		setSelectedFiles([...event.target.files]);
+	};
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Creating new garage...',);
 
-		const response = await apiService.post(constants.createAdmin, {
-			email,
-			phoneNumber,
-			firstName,
-			lastName,
-			roles: "ADMIN"
-		});
+		if (!vinNumber || !regNumber || !make || !model || !year || !mileage || !selectedFiles) {
+			console.error('Please fill in all the required fields.');
+			return;
+		}
+
+		const data = new FormData();
+		data.append('vinNumber', vinNumber);
+		data.append('regPlate', regNumber);
+		data.append('make', make);
+		data.append('model', model);
+		data.append('year', year);
+		data.append('mileage', mileage);
+		if (client) data.append('owner', client);
+		data.append('files', selectedFiles);
+
+		const response = await apiService.post(constants.vehicle, data);
 
 		if (response) {
 			console.log('response', response);
+			onVehicleAdded(response)
 			setShow(false);
-			onAdminAdded(response)
-			setFirstName(null);
-			setLastName(null);
-			setEmail(null);
-			setPhoneNumber(null);
+			setVinNumber(null);
+			setRegNumber(null);
+			setMake(null);
+			setModel(null);
+			setyear(null);
+			setMileage(null);
+			setClient(null);
 		}
 	};
+
 	return (
 		<>
 			<Button variant="primary fw-medium" onClick={handleShow}>
@@ -48,18 +91,18 @@ const CreateModal = ({ onVehicleAdded }) => {
 					<Modal.Title>Add New Vehicle</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
+					<Form onSubmit={handleSubmit}>
 						<Row className="row-cols-1 row-cols-lg-2">
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>VIN Number</Form.Label>
-									<Form.Control type="text" placeholder="VIN Number" />
+									<Form.Control type="number" placeholder="VIN Number" value={vinNumber} onChange={(e) => setVinNumber(e.target.value)} />
 								</Form.Group>
 							</Col>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Registration Plate</Form.Label>
-									<Form.Control type="text" placeholder="Registration Plate" />
+									<Form.Control type="text" placeholder="Registration Plate" value={regNumber} onChange={(e) => setRegNumber(e.target.value)} />
 								</Form.Group>
 							</Col>
 						</Row>
@@ -67,19 +110,19 @@ const CreateModal = ({ onVehicleAdded }) => {
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Make</Form.Label>
-									<Form.Control type="text" placeholder="Make" />
+									<Form.Control type="text" placeholder="Make" value={make} onChange={(e) => setMake(e.target.value)} />
 								</Form.Group>
 							</Col>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Model</Form.Label>
-									<Form.Control type="text" placeholder="Model" />
+									<Form.Control type="text" placeholder="Model" value={model} onChange={(e) => setModel(e.target.value)} />
 								</Form.Group>
 							</Col>
 							<Col>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Year</Form.Label>
-									<Form.Control type="text" placeholder="Year" />
+									<Form.Control type="number" placeholder="Year" value={year} onChange={(e) => setyear(e.target.value)} />
 								</Form.Group>
 							</Col>
 						</Row>
@@ -87,7 +130,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 							<Col sm={12} xl={7}>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Mileage</Form.Label>
-									<Form.Control type="text" placeholder="Garage Name" />
+									<Form.Control type="number" placeholder="Mileage" value={mileage} onChange={(e) => setMileage(e.target.value)} />
 								</Form.Group>
 							</Col>
 							<Col sm={12} xl={5}>
@@ -95,7 +138,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 									<Form.Label>Add Client</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Search Client" />
+										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
@@ -111,45 +154,64 @@ const CreateModal = ({ onVehicleAdded }) => {
 											</svg>
 										</span>
 									</div>
+									<Dropdown onSelect={handleOptionSelect} show={showList}>
+										<Dropdown.Menu>
+											{
+												filteredOptions?.map((item) => (
+													<Dropdown.Item key={item._id} eventKey={`${item._id}_${item.name}`}>{item.name}</Dropdown.Item>
+												))
+											}
+										</Dropdown.Menu>
+									</Dropdown>
 								</Form.Group>
+
 							</Col>
 						</Row>
 						<div>
-
-							<Button variant="primary" onClick={handleClose}>
-								Add Vehicle
-							</Button>
-							<Button variant="outline-primary" onClick={handleClose}>
-								<svg
-									className="me-2"
-									width={16}
-									height={14}
-									viewBox="0 0 16 14"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fillRule="evenodd"
-										clipRule="evenodd"
-										d="M0.5 8.90002C0.776142 8.90002 1 9.12388 1 9.40002V11.9C1 12.4523 1.44772 12.9 2 12.9H14C14.5523 12.9 15 12.4523 15 11.9V9.40002C15 9.12388 15.2239 8.90002 15.5 8.90002C15.7761 8.90002 16 9.12388 16 9.40002V11.9C16 13.0046 15.1046 13.9 14 13.9H2C0.895431 13.9 0 13.0046 0 11.9V9.40002C0 9.12388 0.223858 8.90002 0.5 8.90002Z"
-										fill="#1474FB"
-									/>
-									<path
-										fillRule="evenodd"
-										clipRule="evenodd"
-										d="M7.64645 0.146447C7.84171 -0.0488155 8.15829 -0.0488155 8.35355 0.146447L11.3536 3.14645C11.5488 3.34171 11.5488 3.65829 11.3536 3.85355C11.1583 4.04882 10.8417 4.04882 10.6464 3.85355L8.5 1.70711V10.5C8.5 10.7761 8.27614 11 8 11C7.72386 11 7.5 10.7761 7.5 10.5V1.70711L5.35355 3.85355C5.15829 4.04882 4.84171 4.04882 4.64645 3.85355C4.45118 3.65829 4.45118 3.34171 4.64645 3.14645L7.64645 0.146447Z"
-										fill="#1474FB"
-									/>
-								</svg>
-								Attach File
-							</Button>
+							<div className="my-2">
+								<Button variant="primary" type="submit">
+									Add Vehicle
+								</Button>
+								<Button variant="outline-primary" className="mx-2" onClick={() => document.getElementById('fileInput').click()}>
+									<svg
+										className="me-2"
+										width={16}
+										height={14}
+										viewBox="0 0 16 14"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fillRule="evenodd"
+											clipRule="evenodd"
+											d="M0.5 8.90002C0.776142 8.90002 1 9.12388 1 9.40002V11.9C1 12.4523 1.44772 12.9 2 12.9H14C14.5523 12.9 15 12.4523 15 11.9V9.40002C15 9.12388 15.2239 8.90002 15.5 8.90002C15.7761 8.90002 16 9.12388 16 9.40002V11.9C16 13.0046 15.1046 13.9 14 13.9H2C0.895431 13.9 0 13.0046 0 11.9V9.40002C0 9.12388 0.223858 8.90002 0.5 8.90002Z"
+											fill="#1474FB"
+										/>
+										<path
+											fillRule="evenodd"
+											clipRule="evenodd"
+											d="M7.64645 0.146447C7.84171 -0.0488155 8.15829 -0.0488155 8.35355 0.146447L11.3536 3.14645C11.5488 3.34171 11.5488 3.65829 11.3536 3.85355C11.1583 4.04882 10.8417 4.04882 10.6464 3.85355L8.5 1.70711V10.5C8.5 10.7761 8.27614 11 8 11C7.72386 11 7.5 10.7761 7.5 10.5V1.70711L5.35355 3.85355C5.15829 4.04882 4.84171 4.04882 4.64645 3.85355C4.45118 3.65829 4.45118 3.34171 4.64645 3.14645L7.64645 0.146447Z"
+											fill="#1474FB"
+										/>
+									</svg>
+									Attach File
+								</Button>
+								<Form.Control
+									id="fileInput"
+									type="file"
+									hidden
+									multiple
+									onChange={handleFileChange}
+								/>
+								{selectedFiles && <small>{selectedFiles?.map((file) => file?.name)}</small>}
+							</div>
 							<Button variant="secondary" onClick={handleClose}>
 								Cancel
 							</Button>
 						</div>
 					</Form>
 				</Modal.Body>
-			</Modal>
+			</Modal >
 		</>
 	);
 };
