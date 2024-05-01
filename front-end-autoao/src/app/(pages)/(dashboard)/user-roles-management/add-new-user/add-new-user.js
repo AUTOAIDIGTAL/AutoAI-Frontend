@@ -130,7 +130,7 @@ const AddNewUser = ({ onUserAdded }) => {
 									<Form.Group className="m-0" controlId="formBasicCheckbox">
 										<Form.Check
 											type="checkbox"
-											label="MECHANIC"
+											label="Mechanic"
 											checked={roles.includes("MECHANIC")}
 											onChange={() => handleRoleChange("MECHANIC")}
 										/>
@@ -138,9 +138,9 @@ const AddNewUser = ({ onUserAdded }) => {
 									<Form.Group className="m-0" controlId="formBasicCheckbox">
 										<Form.Check
 											type="checkbox"
-											label="MANAGER"
-											checked={roles.includes("MECHANIC")}
-											onChange={() => handleRoleChange("MECHANIC")}
+											label="Manager"
+											checked={roles.includes("MANAGER")}
+											onChange={() => handleRoleChange("MANAGER")}
 										/>
 									</Form.Group>
 									{/* Add more checkboxes for additional roles as needed */}
