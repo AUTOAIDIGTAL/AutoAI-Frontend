@@ -91,9 +91,6 @@ const CreateModal = ({ onJobAdded }) => {
 							</Button></div>
 					</Form>
 				</Modal.Body>
-				<Modal.Footer>
-
-				</Modal.Footer>
 			</Modal>
 		</>
 	);

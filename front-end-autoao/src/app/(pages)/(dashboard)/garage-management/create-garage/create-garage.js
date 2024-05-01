@@ -19,7 +19,8 @@ const CreateGarage = ({ onGarageAdded }) => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
-	console.log(onGarageAdded)
+
+
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 

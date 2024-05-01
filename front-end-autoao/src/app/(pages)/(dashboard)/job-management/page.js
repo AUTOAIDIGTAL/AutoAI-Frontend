@@ -5,10 +5,12 @@ import CreateModal from "./create-modal/modal";
 import { useEffect, useState } from "react";
 import { constants } from "../garage-management/constant";
 import { apiService } from "@/services";
+import EditModal from "./(update-modal)/modal";
 
 const JobManagement = () => {
 
 	const [jobsList, setJobsList] = useState(null);
+	const [refetch, setRefetch] = useState(false);
 
 	useEffect(() => {
 		const getJobs = async () => {
@@ -21,20 +23,21 @@ const JobManagement = () => {
 			}
 		};
 		getJobs();
-	}, []);
+	}, [refetch]);
 
-	const handleJobAdded = (newJobData) => {
-		setJobsList([...jobsList, newJobData]);
+	const handleRefetch = () => {
+		setRefetch(!refetch)
 	};
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Jobs List</div>
-					<CreateModal onJobAdded={handleJobAdded} />
+					<CreateModal onJobAdded={handleRefetch} />
 				</div>
 				<div className="flex-1 pt-3">
-					{jobsList && <TableJOB jobsList={jobsList} />}
+					{jobsList && <TableJOB jobsList={jobsList} handleRefetch={handleRefetch} />}
 					{/* <PaginationUi /> */}
 				</div>
 			</div>

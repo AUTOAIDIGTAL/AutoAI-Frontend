@@ -11,8 +11,9 @@ import { constants } from "../../garage-management/constant";
 const ClientInformation = () => {
 
 	const [vehicle, setVehicle] = useState(null);
-
+	const router = useRouter();
 	const params = useParams();
+
 	useEffect(() => {
 		const getVehicle = async () => {
 			try {
@@ -25,7 +26,10 @@ const ClientInformation = () => {
 		getVehicle();
 	}, [params.id])
 
-	const router = useRouter();
+	const handleDelete = async () => {
+		await apiService.delete(`${constants.vehicle}/${vehicle._id}`);
+		router.push('/vehicle-management')
+	}
 
 	return (
 		<>
@@ -38,14 +42,14 @@ const ClientInformation = () => {
 					</div> */}
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
-					<Button variant="outline-secondary" className="py-2">
+					<Button variant="outline-secondary" className="py-2" onClick={() => router.push('/vehicle-management')}>
 						Go Back
 					</Button>
 					<div className="d-flex align-items-center gap-2">
 						<Button variant="outline-primary" className="py-2">
 							Edit
 						</Button>
-						<Button variant="outline-danger" className="py-2">
+						<Button variant="outline-danger" className="py-2" onClick={handleDelete}>
 							Delete
 						</Button>
 					</div>

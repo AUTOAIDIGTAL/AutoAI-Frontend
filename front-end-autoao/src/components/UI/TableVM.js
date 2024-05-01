@@ -1,8 +1,17 @@
+import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import { apiService } from "@/services";
 import Link from "next/link";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
-const TableVM = ({ vehicleList }) => {
-	console.log(vehicleList);
+
+const TableVM = ({ vehicleList, handleRefetch }) => {
+
+	const deleteItem = async (e, id) => {
+		e.preventDefault();
+		await apiService.delete(`${constants.vehicle}/${id}`);
+		handleRefetch()
+	}
+
 	return (
 		<>
 			<Table hover responsive>
@@ -51,9 +60,8 @@ const TableVM = ({ vehicleList }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-										<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-										<Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+										<Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
 							</td>

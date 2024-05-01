@@ -9,6 +9,7 @@ import { constants } from "../garage-management/constant";
 const GarageManagement = () => {
 
 	const [vehicleList, setVehicleList] = useState(null);
+	const [refetch, setRefetch] = useState(false);
 
 	useEffect(() => {
 		const getVehicles = async () => {
@@ -20,10 +21,10 @@ const GarageManagement = () => {
 			}
 		};
 		getVehicles();
-	}, []);
+	}, [refetch]);
 
-	const handleAdminAdded = (newAdminData) => {
-		setAdminList([...adminList, newAdminData]);
+	const handleRefetch = () => {
+		setRefetch(!refetch)
 	};
 
 	return (
@@ -31,10 +32,10 @@ const GarageManagement = () => {
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Vehicle management</div>
-					<CreateModal onVehicleAdded={handleAdminAdded} />
+					<CreateModal onVehicleAdded={handleRefetch} />
 				</div>
 				<div className="flex-1 pt-3">
-					{vehicleList && <TableVM vehicleList={vehicleList} />}
+					{vehicleList && <TableVM vehicleList={vehicleList} handleRefetch={handleRefetch} />}
 					{/* <PaginationUi /> */}
 				</div>
 			</div>
