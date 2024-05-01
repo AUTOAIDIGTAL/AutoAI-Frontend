@@ -34,7 +34,7 @@ export const linksMap = {
 	"userRolesManagement": {
 		image: "./../../assets/images/icons/users.svg",
 		title: "User Roles Management",
-		link: "/dashboard"
+		link: "/user-roles-management"
 	},
 	"clientManagement": {
 		image: "./../../assets/images/icons/help.svg",
