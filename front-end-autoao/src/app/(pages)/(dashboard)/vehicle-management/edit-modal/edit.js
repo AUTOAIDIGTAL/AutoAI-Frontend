@@ -8,7 +8,7 @@ import { apiService } from '@/services';
 
 const EditModal = ({ vehicle, onVehicleUpdated }) => {
 
-	console.log('vehicle', vehicle);
+	// vehicle', vehicle);
 
 	const [show, setShow] = useState(false);
 	const [vinNumber, setVinNumber] = useState('');
@@ -49,7 +49,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 	};
 
 	const handleOptionSelect = (selectedOption) => {
-		console.log('selected option', selectedOption);
+		// selected option', selectedOption);
 		const [clientId, clientName] = selectedOption.split('_');
 		setClient(clientId);
 		setSearchTerm(clientName);
@@ -65,7 +65,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		console.log('submitting form');
+		// submitting form');
 
 		if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
 			console.error('Please fill in all the required fields.');
@@ -88,7 +88,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 		const response = await apiService.put(`${constants.vehicle}/${vehicle._id}`, data);
 
 		if (response) {
-			console.log('Vehicle updated successfully:', response);
+			// Vehicle updated successfully:', response);
 			onVehicleUpdated(response);
 			setShow(false);
 		}

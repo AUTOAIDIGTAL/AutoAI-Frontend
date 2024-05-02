@@ -33,7 +33,6 @@ const CreateModal = ({ handleRefetch }) => {
 	};
 
 	const handleOptionSelect = (selectedOption) => {
-		console.log('selected option', selectedOption);
 		const [vehicleId, vehicleName] = selectedOption.split('_');
 		setVehicle([...vehicleIds, vehicleId]);
 		setSearchTerm(vehicleName);
@@ -43,7 +42,6 @@ const CreateModal = ({ handleRefetch }) => {
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
-			console.log('Creating new Job...', name, company, phoneNumber, email, vehicleIds, location);
 
 			const response = await apiService.post(constants.customer, {
 				name, company, phoneNumber, email, vehicleIds, address: location

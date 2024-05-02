@@ -34,7 +34,6 @@ const EditGarageOwner = ({ owner, onOwnerUpdated }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Updating garage owner...');
 
 		// Send a request to update the owner's data
 		const response = await apiService.put(`${constants.createAdmin}/${owner._id}`, {
@@ -46,7 +45,6 @@ const EditGarageOwner = ({ owner, onOwnerUpdated }) => {
 		});
 
 		if (response) {
-			console.log('response', response);
 			setShow(false);
 			onOwnerUpdated();
 

@@ -20,14 +20,12 @@ const CreateModal = ({ onJobAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Creating new Job...',);
 
 		const response = await apiService.post(constants.jobs, {
 			name, time, description, cost
 		});
 
 		if (response) {
-			console.log('response', response);
 			setShow(false);
 			onJobAdded(response)
 			setName(null)

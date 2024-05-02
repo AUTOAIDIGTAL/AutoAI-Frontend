@@ -33,7 +33,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 	};
 
 	const handleOptionSelect = (selectedOption) => {
-		console.log('selected option', selectedOption);
+		// selected option', selectedOption);
 		const [clientId, clientName] = selectedOption.split('_');
 		setClient(clientId);
 		setSearchTerm(clientName);
@@ -67,7 +67,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 		const response = await apiService.post(constants.vehicle, data);
 
 		if (response) {
-			console.log('response', response);
+			// response', response);
 			onVehicleAdded(response)
 			setShow(false);
 			setVinNumber(null);

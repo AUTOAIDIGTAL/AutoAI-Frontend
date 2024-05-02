@@ -15,7 +15,6 @@ const ClientManagement = () => {
 		const getClients = async () => {
 			try {
 				const data = await apiService.get(constants.customer)
-				console.log('data', data);
 				setClients(data)
 			} catch (error) {
 				console.log(error);

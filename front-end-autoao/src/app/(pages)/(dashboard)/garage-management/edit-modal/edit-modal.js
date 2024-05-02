@@ -10,7 +10,6 @@ import { apiService } from "@/services";
 import { constants } from "../constant";
 
 const EditGarage = ({ data, onGarageUpdated }) => {
-	console.log('data', data);
 	const [show, setShow] = useState(false);
 	const [garageAdmin, setGarageAdmin] = useState(data.owner);
 	const [garageName, setGarageName] = useState(data.name);
@@ -40,7 +39,6 @@ const EditGarage = ({ data, onGarageUpdated }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Updating data...',);
 
 		// Send a PUT request to update the data's details
 		const response = await apiService.put(`${constants.createGarage}/${data._id}`, {

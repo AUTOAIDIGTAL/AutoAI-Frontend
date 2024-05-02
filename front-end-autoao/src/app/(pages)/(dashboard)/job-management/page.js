@@ -16,7 +16,6 @@ const JobManagement = () => {
 		const getJobs = async () => {
 			try {
 				const data = await apiService.get(constants.jobs)
-				console.log('data', data);
 				setJobsList(data)
 			} catch (error) {
 				console.log(error);

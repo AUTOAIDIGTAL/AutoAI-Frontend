@@ -27,7 +27,6 @@ const Profile = () => {
 	const closeModal = () => {
 		setShowChangePassword(false)
 	}
-	console.log(currentUser)
 
 	const address = `${currentUser?.address?.city || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
 

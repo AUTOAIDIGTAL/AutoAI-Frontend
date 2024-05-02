@@ -41,7 +41,6 @@ const CreateGarage = ({ onGarageAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Creating new garage...',);
 
 		const response = await apiService.post(constants.createGarage, {
 			owner: garageAdmin,

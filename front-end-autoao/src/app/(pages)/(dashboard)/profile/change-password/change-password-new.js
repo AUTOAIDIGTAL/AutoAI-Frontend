@@ -41,7 +41,6 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 			});
 			if (response) {
 				setOtpModal(true)
-				console.log(otpModal)
 				setShow(false)
 			}
 		}

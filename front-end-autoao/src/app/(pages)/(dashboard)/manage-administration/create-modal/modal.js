@@ -19,7 +19,6 @@ const CreateGarage = ({ onAdminAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Creating new garage...',);
 
 		const response = await apiService.post(constants.createAdmin, {
 			email,
@@ -30,7 +29,6 @@ const CreateGarage = ({ onAdminAdded }) => {
 		});
 
 		if (response) {
-			console.log('response', response);
 			setShow(false);
 			onAdminAdded()
 			setFirstName(null);

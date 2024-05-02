@@ -9,16 +9,16 @@ const PreHeader = () => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [pageTitle, setPageTitle] = useState('');
 	const pathName = usePathname();
-	console.log('pathName', pathName);
+	// pathName', pathName);
 
 	const { user: currentUser } = useCurrentUser();
 
 
 	useEffect(() => {
-		console.log('currentUser', currentUser);
+		// currentUser', currentUser);
 		for (const key in linksMap) {
 			if (linksMap[key].link == pathName && pathName != '/profile') {
-				console.log('here', linksMap[key].title)
+				// here', linksMap[key].title)
 				setPageTitle(linksMap[key].title)
 			} else if (currentUser?.roles.includes('SUPER_ADMIN')) {
 				setPageTitle(`Welcome ${currentUser?.firstName} ${currentUser?.lastName}`)

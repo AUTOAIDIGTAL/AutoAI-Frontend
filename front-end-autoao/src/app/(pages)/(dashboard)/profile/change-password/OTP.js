@@ -10,7 +10,6 @@ import Timer from "@/components/UI/modal-components/timer";
 
 const OTP = ({ otpModal, password, email }) => {
 
-	console.log("OTP Modal", otpModal);
 	const [show, setShow] = useState(otpModal);
 	const [otp1, setOTP1] = useState(null);
 	const [otp2, setOTP2] = useState(null);
@@ -27,11 +26,6 @@ const OTP = ({ otpModal, password, email }) => {
 
 		try {
 
-			console.log("Password changed successfully", {
-				otp: otpString,
-				newPassword: password,
-				email
-			});
 			const response = await apiService.post("/user/reset-password", {
 				otp: otpString,
 				newPassword: password,
@@ -41,7 +35,6 @@ const OTP = ({ otpModal, password, email }) => {
 			if (response && currentUser) {
 				setShow(false);
 				setOTP([]);
-				console.log("Password changed successfully", currentUser._id);
 				await refetchUser(currentUser._id);
 			} else if (response && !currentUser) {
 				setShow(false);

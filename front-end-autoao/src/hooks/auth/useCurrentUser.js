@@ -34,7 +34,7 @@ export const useCurrentUser = () => {
 					return;
 				}
 
-				console.log('REFETCH ERRROR ', currentUser);
+				// REFETCH ERRROR ', currentUser);
 
 				if (userInfo?.data && currentUser?.accessToken) {
 					const newUser = { accessToken: currentUser?.accessToken, ...userInfo.data };

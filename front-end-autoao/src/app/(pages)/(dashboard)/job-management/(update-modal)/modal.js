@@ -19,7 +19,6 @@ const EditModal = ({ jobId, onJobEdited }) => {
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => {
-		console.log('im called');
 		setShow(true)
 	};
 

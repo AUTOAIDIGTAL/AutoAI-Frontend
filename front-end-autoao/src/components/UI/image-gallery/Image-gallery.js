@@ -29,13 +29,13 @@ export default function ImageGallery({ data }) {
 	};
 
 	const handleOnClicked = (imageSrc, index) => {
-		console.log('imageSrc', imageSrc);
+		// imageSrc', imageSrc);
 		setSelectedImage(imageSrc);
 		setSelectedIndex(index);
 	};
 
 	const handleCloseModal = () => {
-		console.log('close')
+		// close')
 		setSelectedImage(null);
 		setSelectedIndex(0);
 	};

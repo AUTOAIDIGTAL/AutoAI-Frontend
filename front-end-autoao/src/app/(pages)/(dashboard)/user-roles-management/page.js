@@ -15,7 +15,6 @@ const Profile = () => {
 		const getUsers = async () => {
 			try {
 				const data = await apiService.get(constants.createAdmin)
-				console.log('data', data);
 				setUsers(data)
 			} catch (error) {
 				console.log(error);

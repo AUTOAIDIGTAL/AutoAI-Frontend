@@ -20,13 +20,13 @@ const AddNewUser = ({ onUserAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log({
-			firstName,
-			lastName,
-			phoneNumber,
-			email,
-			roles,
-		});
+		// console.log({
+		// firstName,
+		// 	lastName,
+		// 	phoneNumber,
+		// 	email,
+		// 	roles,
+		// });
 
 		const formData = new FormData();
 		formData.append("firstName", firstName);
@@ -40,7 +40,7 @@ const AddNewUser = ({ onUserAdded }) => {
 		const response = await apiService.post(constants.createAdmin, formData);
 
 		if (response) {
-			console.log("User added successfully:", response);
+			// console.log("User added successfully:", response);
 			setShow(false);
 			onUserAdded();
 			setFirstName(null);

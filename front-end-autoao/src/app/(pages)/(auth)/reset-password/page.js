@@ -30,7 +30,6 @@ const ResetPassword = () => {
 
 	useEffect(() => {
 		setEmail(search)
-		console.log(search)
 	}, [search])
 
 	const handleSubmission = async (event) => {

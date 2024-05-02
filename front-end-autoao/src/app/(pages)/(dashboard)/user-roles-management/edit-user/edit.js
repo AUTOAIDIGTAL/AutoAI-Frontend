@@ -30,8 +30,8 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 	}, [user]);
 
 	// useEffect(() => {
-	// 	console.log('magrr:', isManager);
-	// 	console.log('mech:', isMechanic);
+	// 	// magrr:', isManager);
+	// 	// mech:', isMechanic);
 	// }, [isMechanic, isManager])
 
 	const handleSubmit = async (e) => {
@@ -55,7 +55,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 			// Edit mode: update the existing user
 			response = await apiService.put(`${constants.createAdmin}/${user._id}`, formData);
 			if (response) {
-				console.log('User updated successfully:', response);
+				// User updated successfully:', response);
 				setShow(false);
 				onUserUpdated();
 			}
@@ -63,7 +63,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 			// Add mode: create a new user
 			response = await apiService.post(constants.createAdmin, formData);
 			if (response) {
-				console.log('User added successfully:', response);
+				// User added successfully:', response);
 				setShow(false);
 				onUserAdded();
 			}
@@ -82,8 +82,8 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 	const onRoleSelection = (isMechanic, isManager) => {
 		setIsManager(!isManager)
 		setIsMechanic(!isMechanic)
-		console.log('mech:', isMechanic);
-		console.log('magrr:', isManager);
+		// mech:', isMechanic);
+		// magrr:', isManager);
 	}
 
 	return (

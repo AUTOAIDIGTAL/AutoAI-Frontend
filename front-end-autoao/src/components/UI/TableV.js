@@ -1,7 +1,7 @@
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
 const TableCM = ({ vehicles }) => {
-	console.log("vehicleIds", vehicles);
+	// console.log("vehicleIds", vehicles);
 	return (
 		<>
 			<Table hover responsive>

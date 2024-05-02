@@ -97,7 +97,6 @@ const EditModal = ({ customerId, handleRefetch }) => {
 	const handleVehicleSelect = (selectedOption) => {
 		const [vehicleId, vehicleName] = selectedOption.split("_");
 		if (!vehicleIds.includes(vehicleId)) {
-			console.log(vehicleId);
 			setCustomerData((prevData) => ({
 				...prevData,
 				vehicleIds: [vehicleId],
@@ -235,9 +234,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 									<Dropdown onSelect={handleVehicleSelect} show={showList}>
 										<Dropdown.Menu>
 											{filteredOptionsIds.map((item) => {
-												console.log(vehicleIds);
 												const isAlreadyAdded = vehicleIds.includes(item._id);
-												console.log("isAlreadyAdded", isAlreadyAdded);
 												return (
 													<Dropdown.Item
 														key={item._id}
