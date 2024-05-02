@@ -55,7 +55,6 @@ const OTP = ({ otpModal, password, email }) => {
 	const handleSubmitOtp = (e) => {
 		e.preventDefault();
 		try {
-			console.log(otp);
 			changePassword();
 		} catch (error) {
 			console.log(error);
