@@ -5,7 +5,7 @@ export function middleware(request) {
 	let currentUser = request.cookies.get("currentUser")?.value;
 
 	if (currentUser) {
-		currentUser = JSON.parse(currentUser)?.data
+		currentUser = JSON.parse(currentUser)
 	}
 
 	if (

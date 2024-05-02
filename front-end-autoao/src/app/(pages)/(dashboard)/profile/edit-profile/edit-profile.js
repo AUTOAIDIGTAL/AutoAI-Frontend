@@ -1,42 +1,21 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
-import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
 
-const EditProfile = ({ currentUser }) => {
-	console.log('IN EDIT', currentUser)
+const EditProfile = ({ currentUser, refetchUser }) => {
 	const [show, setShow] = useState(false);
-	const [firstName, setFirstName] = useState(currentUser?.firstName);
-	const [phoneNumber, setPhoneNumber] = useState(currentUser?.phoneNumber);
-	const [address, setAddress] = useState(currentUser?.address);
-	const [street, setStreet] = useState(address?.street);
-	const [locality, setLocality] = useState(address?.locality);
-	const [city, setCity] = useState(address?.city);
-	const [postalCode, setPostCode] = useState(address?.postalCode);
+	const [firstName, setFirstName] = useState(currentUser?.firstName || "");
+	const [phoneNumber, setPhoneNumber] = useState(currentUser?.phoneNumber || "");
+	const [address, setAddress] = useState(currentUser?.address || {});
 
 	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
 
-	const handleClose = () => {
-		setShow(false);
-		resetForm();
-	};
-
-	const resetForm = () => {
-		setFirstName(currentUser?.firstName || "");
-		setPhoneNumber(currentUser?.phoneNumber || "");
-		setStreet(address?.street || "");
-		setLocality(address?.locality || "");
-		setCity(address?.city || "");
-		setPostCode(address?.postalCode || "");
-		setAddress(currentUser?.address || {});
-	};
-
-	// Handle form submission to update user information
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -45,24 +24,32 @@ const EditProfile = ({ currentUser }) => {
 			firstName,
 			phoneNumber,
 			address: {
-				street,
-				locality,
-				city,
-				postalCode
+				street: address.street,
+				city: address.city,
+				country: address.country,
+				postalCode: address.postalCode,
 			}
 		});
 
-		// Refresh user information in the client
+		// Refresh user information in the client if update is successful
 		if (response) {
-			refreshUser();
+			refetchUser(currentUser?._id);
 			handleClose();
 		}
+	};
+
+	// Event handler to update the address state when form inputs change
+	const handleAddressChange = (field, value) => {
+		setAddress((prevAddress) => ({
+			...prevAddress,
+			[field]: value
+		}));
 	};
 
 	return (
 		<>
 			<Button variant="outline-primary fw-medium" onClick={handleShow}>
-				Edit Profile information
+				Edit Profile Information
 			</Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
@@ -73,18 +60,18 @@ const EditProfile = ({ currentUser }) => {
 					<Form onSubmit={handleSubmit}>
 						<Row>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicName">
-									<Form.Label>Name</Form.Label>
+								<Form.Group className="mb-3" controlId="formFirstName">
+									<Form.Label>First Name</Form.Label>
 									<Form.Control
 										type="text"
-										placeholder="Name"
+										placeholder="First Name"
 										value={firstName}
 										onChange={(e) => setFirstName(e.target.value)}
 									/>
 								</Form.Group>
 							</Col>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+								<Form.Group className="mb-3" controlId="formPhoneNumber">
 									<Form.Label>Phone Number</Form.Label>
 									<Form.Control
 										type="text"
@@ -100,51 +87,52 @@ const EditProfile = ({ currentUser }) => {
 							<h6 className="mb-3">Address</h6>
 							<Row>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicStreet">
+									<Form.Group className="mb-3" controlId="formStreetName">
 										<Form.Label>Street Name</Form.Label>
 										<Form.Control
 											type="text"
 											placeholder="Street Name"
-											value={street}
-											onChange={(e) => setStreet(e.target.value)}
+											value={address?.street}
+											onChange={(e) => handleAddressChange("street", e.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicLocality">
-										<Form.Label>Locality</Form.Label>
+									<Form.Group className="mb-3" controlId="formCountry">
+										<Form.Label>Country</Form.Label>
 										<Form.Control
 											type="text"
-											placeholder="Locality"
-											value={locality}
-											onChange={(e) => setLocality(e.target.value)}
+											placeholder="Country"
+											value={address?.country}
+											onChange={(e) => handleAddressChange("country", e.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicCity">
-										<Form.Label>City/ Post Town</Form.Label>
+									<Form.Group className="mb-3" controlId="formCity">
+										<Form.Label>City/Post Town</Form.Label>
 										<Form.Control
 											type="text"
-											placeholder="City/ Post Town"
-											value={city}
-											onChange={(e) => setCity(e.target.value)}
+											placeholder="City/Post Town"
+											value={address?.city}
+											onChange={(e) => handleAddressChange("city", e.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicPostCode">
+									<Form.Group className="mb-3" controlId="formPostCode">
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control
 											type="text"
 											placeholder="Post Code"
-											value={postalCode}
-											onChange={(e) => setPostCode(e.target.value)}
+											value={address?.postCode}
+											onChange={(e) => handleAddressChange("postCode", e.target.value)}
 										/>
 									</Form.Group>
 								</Col>
 							</Row>
 						</div>
+
 						<div className="my-3">
 							<Button type="submit" variant="primary">
 								Update Information

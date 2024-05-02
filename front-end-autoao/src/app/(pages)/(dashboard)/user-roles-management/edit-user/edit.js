@@ -1,11 +1,7 @@
-"use client";
-import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { Row, Col } from "react-bootstrap";
-import { apiService } from "@/services";
-import { constants } from "../../garage-management/constant";
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Form, Button, Modal } from 'react-bootstrap';
+import { apiService } from '@/services';
+import { constants } from '../../garage-management/constant';
 
 const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 	const [show, setShow] = useState(false);
@@ -13,7 +9,10 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 	const [lastName, setLastName] = useState(user ? user.lastName : "");
 	const [phoneNumber, setPhoneNumber] = useState(user ? user.phoneNumber : "");
 	const [email, setEmail] = useState(user ? user.email : "");
-	const [roles, setRoles] = useState(user ? user.roles : []);
+
+	// Separate state variables for each role
+	const [isMechanic, setIsMechanic] = useState(user ? user.roles.includes('MECHANIC') : false);
+	const [isManager, setIsManager] = useState(user ? user.roles.includes('MANAGER') : false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -25,26 +24,38 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 			setLastName(user.lastName);
 			setPhoneNumber(user.phoneNumber);
 			setEmail(user.email);
-			setRoles(user.roles);
+			setIsMechanic(user.roles.includes('MECHANIC'));
+			setIsManager(user.roles.includes('MANAGER'));
 		}
 	}, [user]);
 
+	// useEffect(() => {
+	// 	console.log('magrr:', isManager);
+	// 	console.log('mech:', isMechanic);
+	// }, [isMechanic, isManager])
+
 	const handleSubmit = async (e) => {
-		// e.preventDefault();
-		console.log('test')
+		e.preventDefault();
 		const formData = new FormData();
-		formData.append("firstName", firstName);
-		formData.append("lastName", lastName);
-		formData.append("phoneNumber", phoneNumber);
-		formData.append("email", email);
-		roles.forEach((role) => formData.append("roles", role));
+		formData.append('firstName', firstName);
+		formData.append('lastName', lastName);
+		formData.append('phoneNumber', phoneNumber);
+		formData.append('email', email);
+
+		// Combine separate state variables into an array of roles
+		const roles = [];
+		if (isMechanic) roles.push('MECHANIC');
+		if (isManager) roles.push('MANAGER');
+
+		// Add roles to form data
+		roles.forEach((role) => formData.append('roles', role));
 
 		let response;
 		if (user) {
 			// Edit mode: update the existing user
 			response = await apiService.put(`${constants.createAdmin}/${user._id}`, formData);
 			if (response) {
-				console.log("User updated successfully:", response);
+				console.log('User updated successfully:', response);
 				setShow(false);
 				onUserUpdated();
 			}
@@ -52,45 +63,44 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 			// Add mode: create a new user
 			response = await apiService.post(constants.createAdmin, formData);
 			if (response) {
-				console.log("User added successfully:", response);
+				console.log('User added successfully:', response);
 				setShow(false);
 				onUserAdded();
 			}
 		}
 
 		// Reset form fields and close modal
-		setFirstName("");
-		setLastName("");
-		setPhoneNumber("");
-		setEmail("");
-		setRoles([]);
+		setFirstName('');
+		setLastName('');
+		setPhoneNumber('');
+		setEmail('');
+		setIsMechanic(false);
+		setIsManager(false);
 	};
 
-	const handleRoleChange = (role) => {
-		setRoles((prevRoles) => {
-			if (prevRoles.includes(role)) {
-				return prevRoles.filter((r) => r !== role);
-			} else {
-				return [...prevRoles, role];
-			}
-		});
-	};
+
+	const onRoleSelection = (isMechanic, isManager) => {
+		setIsManager(!isManager)
+		setIsMechanic(!isMechanic)
+		console.log('mech:', isMechanic);
+		console.log('magrr:', isManager);
+	}
 
 	return (
 		<>
 			<p onClick={handleShow}>
-				{user ? "Edit User" : "Add New User"}
+				{user ? 'Edit User' : 'Add New User'}
 			</p>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
-					<Modal.Title>{"Edit User"}</Modal.Title>
+					<Modal.Title>{user ? 'Edit User' : 'Add New User'}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form onSubmit={(e) => { handleSubmit(e) }}>
+					<Form onSubmit={handleSubmit}>
 						<Row>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicName">
+								<Form.Group className="mb-3" controlId="formFirstName">
 									<Form.Label>First Name</Form.Label>
 									<Form.Control
 										type="text"
@@ -101,7 +111,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 								</Form.Group>
 							</Col>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicName">
+								<Form.Group className="mb-3" controlId="formLastName">
 									<Form.Label>Last Name</Form.Label>
 									<Form.Control
 										type="text"
@@ -114,7 +124,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 						</Row>
 						<Row>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicPassword">
+								<Form.Group className="mb-3" controlId="formEmail">
 									<Form.Label>Email</Form.Label>
 									<Form.Control
 										type="email"
@@ -125,7 +135,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 								</Form.Group>
 							</Col>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
+								<Form.Group className="mb-3" controlId="formPhoneNumber">
 									<Form.Label>Phone Number</Form.Label>
 									<Form.Control
 										type="tel"
@@ -136,34 +146,35 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						<Row className="d-flex justify-content-between align-items-center">
+						<Row>
 							<Col>
-								<Form.Label className="my-2">Role(s)</Form.Label>
+								<Form.Label className="my-2">Roles</Form.Label>
 							</Col>
 							<Col className="col-auto">
 								<div className="bg-gray-100 gap-4 py-3 px-4 rounded-ai d-flex justify-content-between align-items-center">
-									<Form.Group className="m-0" controlId="formBasicCheckbox">
-										<Form.Check
-											type="checkbox"
-											label="Mechanic"
-											checked={roles.includes("MECHANIC")}
-											onChange={() => handleRoleChange("MECHANIC")}
-										/>
+									<Form.Group className="m-0" controlId="formRoleMechanic">
+										<div onClick={() => setIsMechanic(!isMechanic)}>
+											<Form.Check
+												type="checkbox"
+												label="Mechanic"
+												checked={isMechanic}
+												disabled
+											/>
+										</div>
+										<div onClick={() => setIsManager(!isManager)}>
+											<Form.Check
+												type="checkbox"
+												label="Manager"
+												checked={isManager}
+												disabled
+											/>
+										</div>
 									</Form.Group>
-									<Form.Group className="m-0" controlId="formBasicCheckbox">
-										<Form.Check
-											type="checkbox"
-											label="Manager"
-											checked={roles.includes("MANAGER")}
-											onChange={() => handleRoleChange("MANAGER")}
-										/>
-									</Form.Group>
-									{/* Add more checkboxes for additional roles as needed */}
 								</div>
 							</Col>
 						</Row>
-						<Button variant="primary" onClick={handleSubmit}>
-							Submit
+						<Button variant="primary" type="submit">
+							{user ? 'Update' : 'Add'}
 						</Button>
 						<Button variant="secondary" onClick={handleClose}>
 							Cancel

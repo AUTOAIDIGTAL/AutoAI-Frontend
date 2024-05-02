@@ -213,7 +213,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 											value={vehicleIds[0]?.regPlate || searchTerm}
 											onChange={handleVehicleSearch}
 											onClick={() => setShowList(!showList)}
-											disabled
+											disabled={vehicleIds.length > 0}
 											required
 										/>
 										<span className="position-absolute top-50 end-15 translate-middle">

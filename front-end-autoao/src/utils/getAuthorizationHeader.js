@@ -6,6 +6,6 @@ export function getAuthorizationHeader() {
 	if (currentUser) currentUser = JSON.parse(currentUser)
 
 	return {
-		Authorization: `Bearer ${currentUser?.data?.accessToken}`,
+		Authorization: `Bearer ${currentUser?.accessToken}`,
 	};
 }
