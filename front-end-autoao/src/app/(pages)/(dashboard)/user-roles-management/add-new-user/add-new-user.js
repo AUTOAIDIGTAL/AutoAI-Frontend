@@ -33,9 +33,9 @@ const AddNewUser = ({ onUserAdded }) => {
 		formData.append("lastName", lastName);
 		formData.append("phoneNumber", phoneNumber);
 		formData.append("email", email);
-		roles.forEach((role) => {
-			formData.append("roles", role);
-		});
+		// roles.forEach((role) => {
+		formData.append("roles", roles.join(","));
+		// });
 
 		const response = await apiService.post(constants.createAdmin, formData);
 
