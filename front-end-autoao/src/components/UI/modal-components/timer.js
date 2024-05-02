@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const Timer = ({ email }) => {
 	// Initialize the timer to 5 minutes (300 seconds)
-	const [time, setTime] = useState(5);
+	const [time, setTime] = useState(300);
 	const [timerExpired, setTimerExpired] = useState(false);
 	let intervalId;
 
