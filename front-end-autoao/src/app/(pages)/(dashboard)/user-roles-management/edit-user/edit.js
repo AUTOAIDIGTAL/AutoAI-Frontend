@@ -131,6 +131,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 										placeholder="Email"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
+										disabled
 									/>
 								</Form.Group>
 							</Col>
@@ -173,7 +174,7 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 								</div>
 							</Col>
 						</Row>
-						<Button variant="primary" type="submit">
+						<Button variant="primary" type="submit" onClick={handleSubmit}>
 							{user ? 'Update' : 'Add'}
 						</Button>
 						<Button variant="secondary" onClick={handleClose}>

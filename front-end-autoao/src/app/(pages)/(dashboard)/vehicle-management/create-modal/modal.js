@@ -49,8 +49,8 @@ const CreateModal = ({ onVehicleAdded }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!vinNumber || !regNumber || !make || !model || !year || !mileage || !selectedFiles) {
-			console.error('Please fill in all the required fields.');
+		if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
+			alert('Please fill in all the required fields.');
 			return;
 		}
 
