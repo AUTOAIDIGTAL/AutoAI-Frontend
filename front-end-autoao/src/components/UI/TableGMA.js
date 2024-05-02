@@ -23,7 +23,7 @@ const TableGMA = ({ adminList, handleRefetch }) => {
 							<td>{item?.firstName} {item?.lastName}</td>
 							<td>{item?.email}</td>
 							<td>{item?.garageId?.name || 'N/A'}</td>
-							<td>{item?.address || 'N/A'}</td>
+							<td>{item?.address?.street || 'N/A'}</td>
 							<td>{item?.roles}</td>
 							<td className="align-middle">
 								<div className="d-flex align-items-center gap-2 h-100">
