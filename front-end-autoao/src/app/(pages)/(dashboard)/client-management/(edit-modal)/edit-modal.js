@@ -213,7 +213,6 @@ const EditModal = ({ customerId, handleRefetch }) => {
 											onChange={handleVehicleSearch}
 											onClick={() => setShowList(!showList)}
 											disabled={vehicleIds.length > 0}
-											required
 										/>
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg

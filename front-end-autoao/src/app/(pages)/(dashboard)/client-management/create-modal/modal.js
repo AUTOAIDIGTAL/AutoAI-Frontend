@@ -113,7 +113,7 @@ const CreateModal = ({ handleRefetch }) => {
 									<Form.Label>Vehicle Reg</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} required />
+										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
