@@ -21,7 +21,7 @@ const ClientManagement = () => {
 			}
 		};
 		getClients();
-	}, []);
+	}, [refetch]);
 
 
 	const handleRefetch = () => {
