@@ -34,7 +34,7 @@ const OTP = ({ otpModal, password, email }) => {
 
 			if (response && currentUser) {
 				setShow(false);
-				setOTP([]);
+				// setOTP([]);
 				await refetchUser(currentUser._id);
 			} else if (response && !currentUser) {
 				setShow(false);
