@@ -9,26 +9,34 @@ import { Button, ListGroup } from "react-bootstrap";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { useLogout } from "@/hooks/auth/useLogout";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
 
 	const { user: currentUser } = useCurrentUser();
 	const { logout } = useLogout();
 	const router = useRouter();
-	const [showChangePassword, setShowChangePassword] = useState(currentUser?.isNew)
+	const [showChangePassword, setShowChangePassword] = useState(false)
+
+	useEffect(() => {
+		if (currentUser?.isNew == true) {
+			setShowChangePassword(true)
+		}
+	}, [currentUser])
 
 	const closeModal = () => {
 		setShowChangePassword(false)
 	}
 	console.log(currentUser)
 
+	const address = `${currentUser?.address?.city || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
+
 	return (
 		<>
 			{currentUser && <div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Profile Information</div>
-					<EditProfile />
+					{!currentUser?.roles.includes('SUPER_ADMIN') && <EditProfile currentUser={currentUser} />}
 				</div>
 				<div className="flex-1 my-4  overflow-auto">
 					<ListGroup variant="flush">
@@ -93,22 +101,22 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								{currentUser?.roles.includes("SUPER_ADMIN") ? 'Not Available' : currentUser?.address}
+								{currentUser?.roles.includes("SUPER_ADMIN") ? 'Not Available' : (`${address}`)}
 							</div>
 						</ListGroup.Item>
-						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
+						{!currentUser?.roles.includes('SUPER_ADMIN') && <ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Password</div>
 							<div className="fs-6 fw-medium text-dark">
-								<Button variant="outline-primary fw-medium" onClick={() => { setShowChangePassword(true); console.log("clicked") }}>
+								{<Button variant="outline-primary fw-medium" onClick={() => setShowChangePassword(!showChangePassword)}>
 									Change Password
-								</Button>
+								</Button>}
 								{showChangePassword && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
 							</div>
-						</ListGroup.Item>
+						</ListGroup.Item>}
 					</ListGroup>
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
-					<Button variant="outline-secondary" className="py-2">
+					<Button variant="outline-secondary" className="py-2" onClick={() => router.push('manage-administration')}>
 						Go Back
 					</Button>
 					<Button
@@ -123,7 +131,7 @@ const Profile = () => {
 					</Button>
 				</div>
 			</div>}
-			{currentUser && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
+			{showChangePassword && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
 		</>
 	);
 };

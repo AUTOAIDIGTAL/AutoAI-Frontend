@@ -3,6 +3,7 @@ import { apiService } from "@/services";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
 import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import EditGarage from "@/app/(pages)/(dashboard)/garage-management/edit-modal/edit-modal";
 
 const TableDM = ({ data, handleRefetch }) => {
 
@@ -58,7 +59,7 @@ const TableDM = ({ data, handleRefetch }) => {
 										</Dropdown.Toggle>
 
 										<Dropdown.Menu>
-											<Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+											<EditGarage data={index} onGarageUpdated={handleRefetch} />
 											<Dropdown.Item onClick={(e) => deleteItem(e, index._id)}>Delete</Dropdown.Item>
 										</Dropdown.Menu>
 									</Dropdown>

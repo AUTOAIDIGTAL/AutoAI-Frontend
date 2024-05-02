@@ -23,7 +23,8 @@ export const useCurrentUser = () => {
 		const currentUser = Cookies.get("currentUser");
 
 		if (userInfo && currentUser) {
-			Cookies.set("currentUser", JSON.stringify(userInfo));
+			const newUser = { accessToken: currentUser.accessToken, ...userInfo }
+			Cookies.set("currentUser", JSON.stringify(newUser));
 			setUser(userInfo);
 		}
 	};

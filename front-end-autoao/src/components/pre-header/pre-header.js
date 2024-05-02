@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import UserContent from "./user-content/user-content";
 import { usePathname } from 'next/navigation'
 import { linksMap, rolesMap } from "@/constants/user";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const PreHeader = () => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,20 +11,28 @@ const PreHeader = () => {
 	const pathName = usePathname();
 	console.log('pathName', pathName);
 
+	const { user: currentUser } = useCurrentUser();
 
 
 	useEffect(() => {
+		console.log('currentUser', currentUser);
 		for (const key in linksMap) {
-			if (linksMap[key].link == pathName) {
+			if (linksMap[key].link == pathName && pathName != '/profile') {
+				console.log('here', linksMap[key].title)
 				setPageTitle(linksMap[key].title)
+			} else if (currentUser?.roles.includes('SUPER_ADMIN')) {
+				setPageTitle(`Welcome ${currentUser?.firstName} ${currentUser?.lastName}`)
+			} else if (pathName == '/profile' && !currentUser?.roles.includes('SUPER_ADMIN')) {
+				setPageTitle(`Welcome ${currentUser?.firstName} ${currentUser?.lastName}`)
 			}
 		}
+
 		if (sidebarOpen) {
 			document.body.classList.add("sidebar-open");
 		} else {
 			document.body.classList.remove("sidebar-open");
 		}
-	}, [sidebarOpen]);
+	}, [sidebarOpen, currentUser, pathName]);
 
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);

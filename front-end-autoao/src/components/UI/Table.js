@@ -1,4 +1,6 @@
 import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import EditModal from "@/app/(pages)/(dashboard)/user-roles-management/edit-user/edit";
+import UserForm from "@/app/(pages)/(dashboard)/user-roles-management/edit-user/edit";
 import { apiService } from "@/services";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
@@ -28,7 +30,7 @@ const TableUi = ({ users, handleRefetch }) => {
 				<tbody>
 					{users?.map((item, index) => (
 						<tr key={index}>
-							<td>{item?.fistName} {item?.lastName}</td>
+							<td>{item?.firstName} {item?.lastName}</td>
 							<td>{item?.email}</td>
 							<td>{item?.phoneNumber}</td>
 							<td className="align-middle" colSpan={3}>
@@ -56,7 +58,7 @@ const TableUi = ({ users, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+										<Dropdown.Item><UserForm user={item} onUserAdded={handleRefetch} key={item._id} onUserUpdated={handleRefetch} /></Dropdown.Item>
 										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>

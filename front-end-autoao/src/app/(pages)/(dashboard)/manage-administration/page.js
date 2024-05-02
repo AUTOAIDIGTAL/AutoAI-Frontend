@@ -9,6 +9,7 @@ import { apiService } from "@/services";
 const GarageManagementAdministration = () => {
 
 	const [adminList, setAdminList] = useState(null);
+	const [refetch, setRefetch] = useState(false);
 
 	useEffect(() => {
 		const getGarages = async () => {
@@ -20,20 +21,21 @@ const GarageManagementAdministration = () => {
 			}
 		};
 		getGarages();
-	}, []);
+	}, [refetch]);
 
-	const handleAdminAdded = (newAdminData) => {
-		setAdminList([...adminList, newAdminData]);
+	const handleRefetch = () => {
+		setRefetch(!refetch)
 	};
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Manage Administration</div>
-					<CreateModal onAdminAdded={handleAdminAdded} />
+					<CreateModal onAdminAdded={handleRefetch} />
 				</div>
 				<div className="flex-1 pt-3">
-					{adminList && <TableGMA adminList={adminList} />}
+					{adminList && <TableGMA adminList={adminList} handleRefetch={handleRefetch} />}
 					{/* <PaginationUi /> */}
 				</div>
 			</div>

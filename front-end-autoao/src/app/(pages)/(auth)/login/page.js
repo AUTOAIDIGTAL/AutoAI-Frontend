@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [passwordVisible, setPasswordVisible] = useState(false);
 	const router = useRouter();
 
 	const { login } = useLogin();
@@ -26,6 +27,11 @@ const Login = () => {
 		setEmail("")
 		setPassword("")
 	};
+
+	const togglePasswordVisibility = () => {
+		setPasswordVisible(!passwordVisible);
+	};
+
 
 	return (
 		<div className="auth-page align-items-center px-5 py-5">
@@ -85,19 +91,19 @@ const Login = () => {
 										</svg>
 									</span>
 									<Form.Control
-										type="password"
+										type={passwordVisible ? 'text' : 'password'}
 										placeholder="Password"
 										value={password}
 										onChange={(e) => setPassword(e.target.value)
 										} />
-									<span className="position-absolute top-50 end-15 translate-middle">
+									<span className="position-absolute top-50 end-15 translate-middle" style={{ cursor: "pointer" }} onClick={togglePasswordVisibility}>
 										<span span className="mdi mdi-eye-outline"></span>
 									</span>
 								</div>
 							</div>
 							<Row className="row mb-3">
 								<Col>
-									<Form.Check type="checkbox" label="Check me out" />
+									<Form.Check type="checkbox" label="Keep me logged in" />
 								</Col>
 								<Col sm="auto">
 									<Link className="btn btn-link p-0" href="/forgot-password">Forgot Password?</Link>

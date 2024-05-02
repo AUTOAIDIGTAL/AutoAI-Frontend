@@ -38,7 +38,7 @@ const Profile = () => {
 				</div>
 				<div className="flex-1 pt-3">
 					{users && <TableUi handleRefetch={handleRefetch} users={users} />}
-					<PaginationUi />
+					{/* <PaginationUi /> */}
 				</div>
 			</div>
 		</>

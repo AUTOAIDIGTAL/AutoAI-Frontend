@@ -6,21 +6,25 @@ import Form from "react-bootstrap/Form";
 import { apiService } from "@/services";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { useRouter } from "next/navigation";
+import Timer from "@/components/UI/modal-components/timer";
 
 const OTP = ({ otpModal, password, email }) => {
 
 	console.log("OTP Modal", otpModal);
 	const [show, setShow] = useState(otpModal);
-	const [otp, setOTP] = useState([]);
+	const [otp1, setOTP1] = useState(null);
+	const [otp2, setOTP2] = useState(null);
+	const [otp3, setOTP3] = useState(null);
+	const [otp4, setOTP4] = useState(null);
 	const { user: currentUser, refetchUser } = useCurrentUser()
 	const router = useRouter();
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	// Assuming you have an API endpoint for changing the password
 	const changePassword = async () => {
-		const otpString = otp.join(""); // Convert otp array to a single string
+		const otpString = `${otp1}${otp2}${otp3}${otp4}`
+
 		try {
 
 			console.log("Password changed successfully", {
@@ -74,30 +78,30 @@ const OTP = ({ otpModal, password, email }) => {
 								className="text-center"
 								type="text"
 								placeholder="0"
-								value={otp[0]}
-								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP([...otp, e.target.value]) }}
+								value={otp1}
+								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP1(e.target.value) }}
 
 							/>
 							<Form.Control
 								className="text-center"
 								type="text"
 								placeholder="0"
-								value={otp[1]}
-								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP([...otp, e.target.value]) }}
+								value={otp2}
+								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP2(e.target.value) }}
 							/>
 							<Form.Control
 								className="text-center"
 								type="text"
 								placeholder="0"
-								value={otp[2]}
-								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP([...otp, e.target.value]) }}
+								value={otp3}
+								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP3(e.target.value) }}
 							/>
 							<Form.Control
 								className="text-center"
 								type="text"
 								placeholder="0"
-								value={otp[3]}
-								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP([...otp, e.target.value]) }}
+								value={otp4}
+								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP4(e.target.value) }}
 							/>
 						</Form.Group>
 						<div className="d-flex justify-content-between align-items-center">
@@ -105,8 +109,7 @@ const OTP = ({ otpModal, password, email }) => {
 								Pleas Check your Email
 							</div>
 							<div className="text-primary small fw-medium">
-								00:00
-							</div>
+								<Timer email={email} />							</div>
 						</div>
 						<div className="my-2">
 							<Button type="submit" variant="primary">

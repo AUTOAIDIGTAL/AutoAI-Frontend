@@ -32,7 +32,7 @@ const CreateGarage = ({ onAdminAdded }) => {
 		if (response) {
 			console.log('response', response);
 			setShow(false);
-			onAdminAdded(response)
+			onAdminAdded()
 			setFirstName(null);
 			setLastName(null);
 			setEmail(null);
@@ -93,18 +93,6 @@ const CreateGarage = ({ onAdminAdded }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						{/* <Row className="d-flex justify-content-between align-items-center">
-							<Col>
-								<Form.Label className="my-2">Role</Form.Label>
-							</Col>
-							<Col className="col-auto">
-								<div className="bg-gray-100 gap-4 py-3 px-4 rounded-ai d-flex justify-content-between align-items-center">
-									<Form.Group className="m-0" controlId="formBasicCheckbox">
-										<Form.Check type="checkbox" label="Admin" onChange={() => { setRoles(!roles) }} />
-									</Form.Group>
-								</div>
-							</Col>
-						</Row> */}
 						<div className="my-2">
 							<Button variant="primary" type="submit">
 								Add Owner

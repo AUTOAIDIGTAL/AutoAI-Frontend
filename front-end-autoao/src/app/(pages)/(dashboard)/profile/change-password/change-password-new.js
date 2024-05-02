@@ -50,7 +50,7 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 	return (
 		<>
 			<Modal size="md" show={show} centered scrollable>
-				<Modal.Header closeButton onClick={() => { setShow(false) }}>
+				<Modal.Header closeButton onClick={handleClose}>
 					<Modal.Title>Change Password</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
