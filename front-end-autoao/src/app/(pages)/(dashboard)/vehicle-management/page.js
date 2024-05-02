@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { apiService } from "@/services";
 import { constants } from "../garage-management/constant";
 
-const GarageManagement = () => {
+const VehicleManagement = () => {
 
 	const [vehicleList, setVehicleList] = useState(null);
 	const [refetch, setRefetch] = useState(false);
@@ -43,4 +43,4 @@ const GarageManagement = () => {
 	);
 };
 
-export default GarageManagement;
+export default VehicleManagement;

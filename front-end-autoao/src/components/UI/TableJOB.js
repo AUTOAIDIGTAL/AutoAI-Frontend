@@ -55,7 +55,7 @@ const TableDM = ({ jobsList, handleRefetch }) => {
 									/>
 								</svg>
 							</td>
-							<td className="text-primary fw-semibold">${item?.cost}</td>
+							<td className="text-primary fw-semibold">£ {item?.cost}</td>
 							<td className="align-middle text-end" colSpan={2}>
 								<Dropdown>
 									<Dropdown.Toggle

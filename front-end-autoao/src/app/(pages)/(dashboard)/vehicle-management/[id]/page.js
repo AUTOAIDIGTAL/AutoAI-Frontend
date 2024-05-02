@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";
+import EditModal from "../edit-modal/edit";
 
 
 const ClientInformation = () => {
@@ -46,9 +47,7 @@ const ClientInformation = () => {
 						Go Back
 					</Button>
 					<div className="d-flex align-items-center gap-2">
-						<Button variant="outline-primary" className="py-2">
-							Edit
-						</Button>
+						<EditModal onVehicleUpdated={() => router.push('/vehicle-management')} vehicle={vehicle} />
 						<Button variant="outline-danger" className="py-2" onClick={handleDelete}>
 							Delete
 						</Button>

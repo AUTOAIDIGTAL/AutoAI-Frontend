@@ -1,4 +1,5 @@
 import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import EditModal from "@/app/(pages)/(dashboard)/vehicle-management/edit-modal/edit";
 import { apiService } from "@/services";
 import Link from "next/link";
 import { Pagination } from "react-bootstrap";
@@ -60,7 +61,9 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item href="#/action-1">Edit</Dropdown.Item>
+										<Dropdown.Item className="border-none">
+											<EditModal onVehicleUpdated={() => router.push('/vehicle-management')} vehicle={item} />
+										</Dropdown.Item>
 										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
