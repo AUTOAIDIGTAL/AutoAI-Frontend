@@ -1,31 +1,63 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import OTP from "./OTP";
+import { apiService } from "@/services";
 
-const ChangePasswordNew = () => {
-	const [show, setShow] = useState(false);
+const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const [show, setShow] = useState(newUser);
+	const [otpModal, setOtpModal] = useState(false);
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+
+	const handleClose = () => {
+		setShow(false)
+		handleCloseModal()
+	};
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+		setErrorMessage('');
+	};
+
+	const handleConfirmPasswordChange = (event) => {
+		setConfirmPassword(event.target.value);
+		setErrorMessage('');
+	};
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		if (password !== confirmPassword) {
+			setErrorMessage('Passwords do not match. Please try again.');
+			return;
+		} else {
+			const response = await apiService.post("/user/forgot-password", {
+				email
+			});
+			if (response) {
+				setOtpModal(true)
+				setShow(false)
+			}
+		}
+	};
 
 	return (
 		<>
-			<Button variant="primary fw-medium" onClick={handleShow}>
-				Change New Password
-			</Button>
-
-			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
-				<Modal.Header closeButton>
+			<Modal size="md" show={show} centered scrollable>
+				<Modal.Header closeButton onClick={handleClose}>
 					<Modal.Title>Change Password</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
+					<Form onSubmit={handleSubmit}>
 						<Form.Group className="mb-3" controlId="formBasicPassword">
 							<Form.Label>New Password</Form.Label>
-							<div className="position-relative FormIconControl">
-								<span className="position-absolute top-50 start-20 translate-middle">
+							<div className="position-relative FormIconControl ">
+								<span className="position-absolute top-50 start-20 translate-middle" >
 									<svg
 										width={16}
 										height={9}
@@ -45,13 +77,13 @@ const ChangePasswordNew = () => {
 										/>
 									</svg>
 								</span>
-								<Form.Control type="email" placeholder="New Password" />
+								<Form.Control type="password" placeholder="New Password" value={password} onChange={handlePasswordChange} />
 							</div>
 						</Form.Group>
-						<Form.Group controlId="formBasicPassword">
+						<Form.Group>
 							<Form.Label>Confirm New Password</Form.Label>
 							<div className="position-relative FormIconControl">
-								<span className="position-absolute top-50 start-20 translate-middle">
+								<span className="position-absolute top-50 start-20 translate-middle" >
 									<svg
 										width={16}
 										height={9}
@@ -71,20 +103,23 @@ const ChangePasswordNew = () => {
 										/>
 									</svg>
 								</span>
-								<Form.Control type="email" placeholder="Confirm New Password" />
+								<Form.Control type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} placeholder="Confirm New Password" />
 							</div>
+							{errorMessage && <small className="font-red">{errorMessage}</small>}
+
 						</Form.Group>
+						<div className="my-2">
+							<Button variant="primary" type="submit">
+								Change Password
+							</Button>
+							<Button variant="secondary" onClick={handleClose} className="mx-2">
+								Cancel
+							</Button>
+						</div>
 					</Form>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="primary" onClick={handleClose}>
-						Change Password
-					</Button>
-					<Button variant="secondary" onClick={handleClose}>
-						Cancel
-					</Button>
-				</Modal.Footer>
 			</Modal>
+			{otpModal && <OTP otpModal={otpModal} password={password} email={email} />}
 		</>
 	);
 };

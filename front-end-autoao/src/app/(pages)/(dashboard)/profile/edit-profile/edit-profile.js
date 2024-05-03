@@ -4,85 +4,145 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
+import { apiService } from "@/services";
+import { constants } from "../../garage-management/constant";
 
-const EditProfile = () => {
+const EditProfile = ({ currentUser, refetchUser }) => {
 	const [show, setShow] = useState(false);
+	const [firstName, setFirstName] = useState(currentUser?.firstName || "");
+	const [phoneNumber, setPhoneNumber] = useState(currentUser?.phoneNumber || "");
+	const [address, setAddress] = useState(currentUser?.address || {});
 
-	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		// Update user information on the server
+		const response = await apiService.put(`${constants.createAdmin}/${currentUser._id}`, {
+			firstName,
+			phoneNumber,
+			address: {
+				street: address.street,
+				city: address.city,
+				country: address.country,
+				postalCode: address.postalCode,
+			}
+		});
+
+		// Refresh user information in the client if update is successful
+		if (response) {
+			refetchUser(currentUser?._id);
+			handleClose();
+		}
+	};
+
+	// Event handler to update the address state when form inputs change
+	const handleAddressChange = (field, value) => {
+		setAddress((prevAddress) => ({
+			...prevAddress,
+			[field]: value
+		}));
+	};
 
 	return (
 		<>
 			<Button variant="outline-primary fw-medium" onClick={handleShow}>
-				Edit Profile information
+				Edit Profile Information
 			</Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
-					<Modal.Title>Edit Profile information</Modal.Title>
+					<Modal.Title>Edit Profile Information</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
+					<Form onSubmit={handleSubmit}>
 						<Row>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicName">
-									<Form.Label>Name</Form.Label>
-									<Form.Control type="text" placeholder="Name" />
+								<Form.Group className="mb-3" controlId="formFirstName">
+									<Form.Label>First Name</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="First Name"
+										value={firstName}
+										onChange={(e) => setFirstName(e.target.value)}
+									/>
 								</Form.Group>
 							</Col>
 							<Col>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
-									<Form.Label>Number</Form.Label>
-									<Form.Control type="number" placeholder="Number" />
+								<Form.Group className="mb-3" controlId="formPhoneNumber">
+									<Form.Label>Phone Number</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Phone Number"
+										value={phoneNumber}
+										onChange={(e) => setPhoneNumber(e.target.value)}
+									/>
 								</Form.Group>
 							</Col>
 						</Row>
-
-						<Form.Group className="mb-3" controlId="formBasicPassword">
-							<Form.Label>Address</Form.Label>
-							<Form.Control type="text" placeholder="Address" />
-						</Form.Group>
 
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
 							<Row>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicName">
-										<Form.Label>Street name</Form.Label>
-										<Form.Control type="text" placeholder="Street name" />
+									<Form.Group className="mb-3" controlId="formStreetName">
+										<Form.Label>Street Name</Form.Label>
+										<Form.Control
+											type="text"
+											placeholder="Street Name"
+											value={address?.street}
+											onChange={(e) => handleAddressChange("street", e.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicEmail">
-										<Form.Label>Locality</Form.Label>
-										<Form.Control type="number" placeholder="Locality" />
+									<Form.Group className="mb-3" controlId="formCountry">
+										<Form.Label>Country</Form.Label>
+										<Form.Control
+											type="text"
+											placeholder="Country"
+											value={address?.country}
+											onChange={(e) => handleAddressChange("country", e.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicName">
-										<Form.Label>City/ Post Town</Form.Label>
-										<Form.Control type="text" placeholder="City/ Post Town" />
+									<Form.Group className="mb-3" controlId="formCity">
+										<Form.Label>City/Post Town</Form.Label>
+										<Form.Control
+											type="text"
+											placeholder="City/Post Town"
+											value={address?.city}
+											onChange={(e) => handleAddressChange("city", e.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Group className="mb-3" controlId="formPostCode">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" />
+										<Form.Control
+											type="text"
+											placeholder="Post Code"
+											value={address?.postCode}
+											onChange={(e) => handleAddressChange("postCode", e.target.value)}
+										/>
 									</Form.Group>
 								</Col>
 							</Row>
 						</div>
 
+						<div className="my-3">
+							<Button type="submit" variant="primary">
+								Update Information
+							</Button>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
+						</div>
 					</Form>
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="primary" onClick={handleClose}>
-						Update Information
-					</Button>
-					<Button variant="secondary" onClick={handleClose}>
-						Cancel
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</>
 	);

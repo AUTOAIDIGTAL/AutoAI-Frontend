@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	output: "export",
 	images: {
 		unoptimized: true,
-		domains: ['picsum.photos'], // Temporary
+		domains: ['picsum.photos', 'autoai.s3.amazonaws.com'], // Temporary
 	},
 };
 

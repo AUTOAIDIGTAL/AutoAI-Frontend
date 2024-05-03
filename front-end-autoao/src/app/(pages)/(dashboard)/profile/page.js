@@ -6,21 +6,43 @@ import ChangePassword from "./change-password/change-password";
 import ChangePasswordNew from "./change-password/change-password-new";
 import OTP from "./change-password/OTP";
 import { Button, ListGroup } from "react-bootstrap";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
+import { useLogout } from "@/hooks/auth/useLogout";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
+
+	const { user: currentUser, refetchUser } = useCurrentUser();
+	const { logout } = useLogout();
+	const router = useRouter();
+	const [showChangePassword, setShowChangePassword] = useState(false)
+
+	useEffect(() => {
+		if (currentUser?.isNew == true) {
+			setShowChangePassword(true)
+		}
+	}, [currentUser])
+
+	const closeModal = () => {
+		setShowChangePassword(false)
+	}
+
+	const address = `${currentUser?.address?.city || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
+
 	return (
 		<>
-			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
+			{currentUser && <div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Profile Information</div>
-					<EditProfile />
+					{!currentUser?.roles.includes('SUPER_ADMIN') && <EditProfile currentUser={currentUser} refetchUser={refetchUser} />}
 				</div>
 				<div className="flex-1 my-4  overflow-auto">
 					<ListGroup variant="flush">
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Full Name</div>
 							<div className="fs-6 fw-medium text-dark">
-								Raul Jaskolski IV
+								{currentUser?.firstName} {currentUser?.lastName}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -38,7 +60,7 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								Abbie_Mitchell47@gmail.com
+								{currentUser?.email}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -56,7 +78,7 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								968-885-5212
+								{currentUser?.phoneNumber}
 							</div>
 						</ListGroup.Item>
 						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
@@ -78,30 +100,37 @@ const Profile = () => {
 										fill="#1474FB"
 									/>
 								</svg>
-								Address Here
+								{currentUser?.roles.includes("SUPER_ADMIN") ? 'Not Available' : (`${address}`)}
 							</div>
 						</ListGroup.Item>
-						<ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
+						{!currentUser?.roles.includes('SUPER_ADMIN') && <ListGroup.Item className="px-0 py-3 d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Password</div>
 							<div className="fs-6 fw-medium text-dark">
-								<ChangePassword />
+								{<Button variant="outline-primary fw-medium" onClick={() => setShowChangePassword(!showChangePassword)}>
+									Change Password
+								</Button>}
+								{showChangePassword && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
 							</div>
-						</ListGroup.Item>
+						</ListGroup.Item>}
 					</ListGroup>
-					<div className="bg-primary-subtle gap-2 py-3 px-4 rounded d-flex justify-content-center align-items-center">
-						<OTP />
-						<ChangePasswordNew />
-					</div>
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
-					<Button variant="outline-secondary" className="py-2">
+					{!currentUser?.roles.includes('SUPER_ADMIN') && <Button variant="outline-secondary" className="py-2" onClick={() => router.push(currentUser?.roles.includes('SUPER_ADMIN') ? 'manage-administration' : 'user-roles-management')}>
 						Go Back
-					</Button>
-					<Button variant="outline-danger" className="py-2">
+					</Button>}
+					<Button
+						onClick={() => {
+							logout();
+							router.push("/login");
+						}}
+						variant="outline-danger"
+						className="py-2"
+					>
 						Log Out
 					</Button>
 				</div>
-			</div>
+			</div>}
+			{showChangePassword && <ChangePasswordNew newUser={showChangePassword} email={currentUser?.email} handleCloseModal={closeModal} />}
 		</>
 	);
 };

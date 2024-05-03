@@ -1,9 +1,11 @@
 "use client"
 import { Nav, Dropdown } from "react-bootstrap";
 import Avatar from "../../avatar/avatar";
-import Image from "next/image";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const DropdownUser = () => {
+
+	const { user: currentUser } = useCurrentUser();
 	return (
 		<div className="auto-ai-user-avatar-name">
 			<Dropdown>
@@ -13,14 +15,13 @@ const DropdownUser = () => {
 					id="dropdown-basic"
 				>
 					<div className="d-inline-flex align-items-center gap-2">
-						<Avatar />
-						<span className="pro-user-name">Umair Ali</span>
+						{currentUser?.profileImg && <Avatar imgSrc={`https://autoai.s3.amazonaws.com/${currentUser?.profileImg}`} />}
+						{!currentUser?.profileImg && <Avatar imgSrc={`/userprofile.png`} />}
+						<span className="pro-user-name">{currentUser?.firstName} {currentUser?.lastName}</span>
 					</div>
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
-					<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-					<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-					<Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+					<Dropdown.Item href="/profile">Profile</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown>
 		</div>

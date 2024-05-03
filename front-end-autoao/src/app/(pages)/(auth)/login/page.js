@@ -1,10 +1,37 @@
-import React from "react";
+"use client"
+import React, { use, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
 import Slide from "@/components/Carousel/slide";
+import { useLogin } from "@/hooks/auth/useLogin";
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [passwordVisible, setPasswordVisible] = useState(false);
+	const router = useRouter();
+
+	const { login } = useLogin();
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		await login(email, password).then((user) => {
+			if (user) {
+				router.push("/profile");
+			}
+		})
+		setEmail("")
+		setPassword("")
+	};
+
+	const togglePasswordVisibility = () => {
+		setPasswordVisible(!passwordVisible);
+	};
+
+
 	return (
 		<div className="auth-page align-items-center px-5 py-5">
 			<Container>
@@ -24,14 +51,19 @@ const Login = () => {
 							Welcome Back to Auto AI!
 						</div>
 						<div className="fs-6 text-muted mb-4 pb-2 text-center text-lg-start">Create Your Account</div>
-						<Form>
+						<Form onSubmit={handleSubmit}>
 							<div className="mb-3">
 								<Form.Label>Email address</Form.Label>
 								<div className="position-relative FormIconControl">
 									<span className="position-absolute top-50 start-20 translate-middle">
 										<span span className="mdi mdi-email-outline"></span>
 									</span>
-									<Form.Control type="email" placeholder="Email Address" />
+									<Form.Control
+										type="email"
+										placeholder="Email Address"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
 								</div>
 							</div>
 							<div className="mb-3">
@@ -57,21 +89,26 @@ const Login = () => {
 											/>
 										</svg>
 									</span>
-									<Form.Control type="email" placeholder="Password" />
-									<span className="position-absolute top-50 end-15 translate-middle">
+									<Form.Control
+										type={passwordVisible ? 'text' : 'password'}
+										placeholder="Password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)
+										} />
+									<span className="position-absolute top-50 end-15 translate-middle" style={{ cursor: "pointer" }} onClick={togglePasswordVisibility}>
 										<span span className="mdi mdi-eye-outline"></span>
 									</span>
 								</div>
 							</div>
 							<Row className="row mb-3">
 								<Col>
-									<Form.Check type="checkbox" label="Check me out" />
+									<Form.Check type="checkbox" label="Keep me logged in" />
 								</Col>
 								<Col sm="auto">
 									<Link className="btn btn-link p-0" href="/forgot-password">Forgot Password?</Link>
 								</Col>
 							</Row>
-							<Button variant="primary" className="w-100 mt-2">Log in</Button>
+							<Button type="submit" variant="primary" className="w-100 mt-2">Log in</Button>
 						</Form>
 					</Col>
 					<Col md={12} lg={5} xxl={6}>

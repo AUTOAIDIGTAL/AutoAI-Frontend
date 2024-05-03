@@ -1,72 +1,62 @@
+import { useEffect, useState } from "react";
+import { apiService } from "@/services";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
-const TableDM = () => {
-  return (
-    <>
-      <Table hover responsive>
-        <thead>
-          <tr>
-            <th>Owner Name</th>
-            <th>Garage Name</th>
-            <th>Address</th>
-            <th>Roles</th>
-            <th>Location</th>
-            <th>Contact</th>
-            <th></th>
-          </tr>
-        </thead>
-        {[...Array(10).keys()].map((index) => (
-          <tbody key={index}>
-            <tr>
-              <td>Owner Name</td>
-              <td>Garage Name</td>
-              <td>Address</td>
-              <td>Admin Name Here</td>
-              <td>
-                <svg
-                  className="me-1 mb-1"
-                  width={16}
-                  height={16}
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.00016 0C4.805 0 2.20557 2.59944 2.20557 5.79456C2.20557 9.75981 7.39116 15.581 7.61194 15.8269C7.81932 16.0579 8.18138 16.0575 8.38838 15.8269C8.60916 15.581 13.7948 9.75981 13.7948 5.79456C13.7947 2.59944 11.1953 0 8.00016 0ZM8.00016 14.679C6.25494 12.606 3.24907 8.516 3.24907 5.79462C3.24907 3.17481 5.38038 1.0435 8.00016 1.0435C10.6199 1.0435 12.7513 3.17481 12.7513 5.79459C12.7512 8.51609 9.74582 12.6053 8.00016 14.679Z"
-                    fill="#1474FB"
-                  />
-                  <path
-                    d="M7.99985 2.87918C6.39229 2.87918 5.08447 4.18702 5.08447 5.79459C5.08447 7.40215 6.39232 8.70999 7.99985 8.70999C9.60738 8.70999 10.9152 7.40215 10.9152 5.79459C10.9152 4.18702 9.60738 2.87918 7.99985 2.87918ZM7.99985 7.66649C6.96766 7.66649 6.12797 6.82677 6.12797 5.79459C6.12797 4.7624 6.96769 3.92268 7.99985 3.92268C9.032 3.92268 9.87172 4.7624 9.87172 5.79459C9.87172 6.82677 9.032 7.66649 7.99985 7.66649Z"
-                    fill="#1474FB"
-                  />
-                </svg>
-                Location
-              </td>
-              <td className="align-middle">
-                <div className="d-flex align-items-center gap-2 h-100">
-                  <Badge bg="light" className="fw-normal rounded-ai">
-                    000-000-000
-                  </Badge>
-                </div>
-              </td>
-              <td className="align-middle text-end" colSpan={2}>
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant="blank-icon"
-                    className="btn-remove-arrow"
-                    id="dropdown-basic"
-                  >
-                    <svg
-                      width="20px"
-                      height="20px"
-                      viewBox="0 0 16 16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#000000"
-                      className="bi bi-three-dots-vertical"
-                    >
-                      <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                    </svg>
-                  </Dropdown.Toggle>
+import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
+import EditGarage from "@/app/(pages)/(dashboard)/garage-management/edit-modal/edit-modal";
+
+const TableDM = ({ data, handleRefetch }) => {
+
+	const deleteItem = async (e, id) => {
+		e.preventDefault();
+		await apiService.delete(`${constants.getGarage}/${id}`);
+		handleRefetch()
+	}
+
+	return (
+		<>
+			<Table hover responsive>
+				<thead>
+					<tr>
+						<th>Owner Name</th>
+						<th>Garage Name</th>
+						<th>Address</th>
+						<th>Roles</th>
+						<th>Location</th>
+						<th>Contact</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody >
+					{
+						data?.map((index) => (
+							<tr key={index}>
+								<td>{index?.owner?.firstName} {index?.owner?.lastName}</td>
+								<td>{index?.name}</td>
+								<td>{`${index?.address?.street}, ${index?.address?.city}, ${index?.address?.country}`} </td>
+								<td>Garage Admin</td>
+								<td>{index?.address?.city}, {index?.address?.country}</td>
+								<td className="align-middle">
+									<div className="d-flex align-items-center gap-2 h-100">
+										<Badge bg="light" className="fw-normal rounded-ai">
+											{index?.phoneNumber}
+										</Badge>
+									</div>
+								</td>
+								<td className="align-middle text-end" colSpan={2}>
+									<Dropdown>
+										<Dropdown.Toggle variant="blank-icon" className="btn-remove-arrow" id="dropdown-basic">
+											<svg
+												width="20px"
+												height="20px"
+												viewBox="0 0 16 16"
+												xmlns="http:www.w3.org/2000/svg"
+												fill="#000000"
+												className="bi bi-three-dots-vertical"
+											>
+												<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg>
+										</Dropdown.Toggle>
 
                   <Dropdown.Menu>
                     <Dropdown.Item className="d-flex align-items-center gap-2" href="#/action-1">
