@@ -8,7 +8,7 @@ import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { useRouter } from "next/navigation";
 import Timer from "@/components/UI/modal-components/timer";
 
-const OTP = ({ otpModal, password, email }) => {
+const OTP = ({ otpModal, password, email, onSuccess }) => {
 
 	const [show, setShow] = useState(otpModal);
 	const [otp1, setOTP1] = useState(null);
@@ -34,7 +34,7 @@ const OTP = ({ otpModal, password, email }) => {
 
 			if (response && currentUser) {
 				setShow(false);
-				// setOTP([]);
+				onSuccess()
 				await refetchUser(currentUser._id);
 			} else if (response && !currentUser) {
 				setShow(false);
