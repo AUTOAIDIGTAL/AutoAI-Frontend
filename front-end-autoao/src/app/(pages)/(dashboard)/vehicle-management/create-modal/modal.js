@@ -95,7 +95,7 @@ const VehicleModal = ({ onVehicleAdded }) => {
 		<>
 			{pathName == '/vehicle-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
 				Add New Vehicle
-			</Button> : <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new vehicle</Link>}
+			</Button> : ''} // <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new vehicle</Link>}
 
 
 
