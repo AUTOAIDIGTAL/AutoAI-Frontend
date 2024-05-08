@@ -33,6 +33,11 @@ const VehicleModal = ({ onVehicleAdded }) => {
 		if (searchTerm?.length > 3) {
 			const searchResult = await apiService.get(`${constants.searchCustomer}?search=${searchTerm}`);
 			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			}
+		} else if (filteredOptions.length > 0) {
+			setShowList(false);
 		}
 	};
 
@@ -146,7 +151,7 @@ const VehicleModal = ({ onVehicleAdded }) => {
 									<Form.Label>Add Client</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
+										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
