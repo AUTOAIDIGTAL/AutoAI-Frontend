@@ -17,42 +17,42 @@ export const linksMap = {
 		link: "/manage-administration"
 	},
 	"dashboard": {
-		image: "./../../assets/images/icons/dashboard.svg",
+		icon: "icon-layout",
 		title: "Dashboard",
 		link: "/dashboard"
 	},
 	"workOrder": {
-		image: "./../../assets/images/icons/instrument.svg",
+		icon: "icon-instrument",
 		title: "Work Order",
 		link: "/work-order"
 	},
 	"scheduledTasks": {
-		image: "./../../assets/images/icons/list.svg",
+		icon: "icon-list",
 		title: "Scheduled tasks",
 		link: "/dashboard"
 	},
 	"userRolesManagement": {
-		image: "./../../assets/images/icons/users.svg",
+		icon: "icon-users",
 		title: "User Roles Management",
 		link: "/user-roles-management"
 	},
 	"clientManagement": {
-		image: "./../../assets/images/icons/help.svg",
+		icon: "icon-help",
 		title: "Client management",
 		link: "/client-management"
 	},
 	"vehicleManagement": {
-		image: "./../../assets/images/icons/car.svg",
+		icon: "icon-car",
 		title: "Vehicle management",
 		link: "/vehicle-management"
 	},
 	"mechanicsManagement": {
-		image: "./../../assets/images/icons/mechanic.svg",
+		icon: "icon-mechanic",
 		title: "Mechanics management",
 		link: "/dashboard"
 	},
 	"jobs": {
-		image: "./../../assets/images/icons/Jobs.svg",
+		icon: "icon-jobs",
 		title: "Jobs",
 		link: "/job-management"
 	},

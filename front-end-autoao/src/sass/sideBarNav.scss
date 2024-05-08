@@ -29,6 +29,15 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      border-radius: 3rem;
+      padding: 15px 15px;
+      i{
+        font-size: 18px;
+      }
+      &.active{
+        background-color: var(--theme-primary-100);
+        color: var(--theme-white-default);
+      }
     }
   }
   .side-nav-bottom {

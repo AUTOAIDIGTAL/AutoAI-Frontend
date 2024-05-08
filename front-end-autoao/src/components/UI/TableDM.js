@@ -6,60 +6,71 @@ import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant"
 import EditGarage from "@/app/(pages)/(dashboard)/garage-management/edit-modal/edit-modal";
 
 const TableDM = ({ data, handleRefetch }) => {
+  const deleteItem = async (e, id) => {
+    e.preventDefault();
+    await apiService.delete(`${constants.getGarage}/${id}`);
+    handleRefetch();
+  };
 
-	const deleteItem = async (e, id) => {
-		e.preventDefault();
-		await apiService.delete(`${constants.getGarage}/${id}`);
-		handleRefetch()
-	}
-
-	return (
-		<>
-			<Table hover responsive>
-				<thead>
-					<tr>
-						<th>Owner Name</th>
-						<th>Garage Name</th>
-						<th>Address</th>
-						<th>Roles</th>
-						<th>Location</th>
-						<th>Contact</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody >
-					{
-						data?.map((index) => (
-							<tr key={index}>
-								<td>{index?.owner?.firstName} {index?.owner?.lastName}</td>
-								<td>{index?.name}</td>
-								<td>{`${index?.address?.street}, ${index?.address?.city}, ${index?.address?.country}`} </td>
-								<td>Garage Admin</td>
-								<td>{index?.address?.city}, {index?.address?.country}</td>
-								<td className="align-middle">
-									<div className="d-flex align-items-center gap-2 h-100">
-										<Badge bg="light" className="fw-normal rounded-ai">
-											{index?.phoneNumber}
-										</Badge>
-									</div>
-								</td>
-								<td className="align-middle text-end" colSpan={2}>
-									<Dropdown>
-										<Dropdown.Toggle variant="blank-icon" className="btn-remove-arrow" id="dropdown-basic">
-											<svg
-												width="20px"
-												height="20px"
-												viewBox="0 0 16 16"
-												xmlns="http:www.w3.org/2000/svg"
-												fill="#000000"
-												className="bi bi-three-dots-vertical"
-											>
-												<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-											</svg>
-										</Dropdown.Toggle>
+  return (
+    <>
+      <Table hover responsive>
+        <thead>
+          <tr>
+            <th>Owner Name</th>
+            <th>Garage Name</th>
+            <th>Address</th>
+            <th>Roles</th>
+            <th>Location</th>
+            <th>Contact</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.map((index) => (
+            <tr key={index}>
+              <td>
+                {index?.owner?.firstName} {index?.owner?.lastName}
+              </td>
+              <td>{index?.name}</td>
+              <td>
+                {`${index?.address?.street}, ${index?.address?.city}, ${index?.address?.country}`}{" "}
+              </td>
+              <td>Garage Admin</td>
+              <td>
+                {index?.address?.city}, {index?.address?.country}
+              </td>
+              <td className="align-middle">
+                <div className="d-flex align-items-center gap-2 h-100">
+                  <Badge bg="light" className="fw-normal rounded-ai">
+                    {index?.phoneNumber}
+                  </Badge>
+                </div>
+              </td>
+              <td className="align-middle text-end" colSpan={2}>
+                <Dropdown className="position-static">
+                  <Dropdown.Toggle
+                    variant="blank-icon"
+                    className="btn-remove-arrow"
+                    id="dropdown-basic"
+                  >
+                    <svg
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 16 16"
+                      xmlns="http:www.w3.org/2000/svg"
+                      fill="#000000"
+                      className="bi bi-three-dots-vertical"
+                    >
+                      <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    </svg>
+                  </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item className="d-flex align-items-center gap-2" href="#/action-1">
+                    <Dropdown.Item
+                      className="d-flex align-items-center gap-2"
+                      href="#/action-1"
+                    >
                       <svg
                         className="edit-svg-btn"
                         width={16}
@@ -77,7 +88,10 @@ const TableDM = ({ data, handleRefetch }) => {
                       </svg>
                       Edit
                     </Dropdown.Item>
-                    <Dropdown.Item className="d-flex align-items-center gap-2" href="#/action-2">
+                    <Dropdown.Item
+                      className="d-flex align-items-center gap-2"
+                      href="#/action-2"
+                    >
                       <svg
                         className="del-svg-btn"
                         width={16}
@@ -109,8 +123,8 @@ const TableDM = ({ data, handleRefetch }) => {
                 </Dropdown>
               </td>
             </tr>
-          </tbody>
-        ))}
+          ))}
+        </tbody>
       </Table>
     </>
   );

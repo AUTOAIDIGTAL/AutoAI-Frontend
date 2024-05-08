@@ -43,7 +43,7 @@ const TableUi = ({ users, handleRefetch }) => {
 								</div>
 							</td>
 							<td className="align-middle text-end">
-								<Dropdown>
+								<Dropdown className="position-static">
 									<Dropdown.Toggle variant="blank-icon" className="btn-remove-arrow" id="dropdown-basic">
 										<svg
 											width="20px"

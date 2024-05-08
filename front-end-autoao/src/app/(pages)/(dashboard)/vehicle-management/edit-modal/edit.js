@@ -217,7 +217,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 							</Col>
 						</Row>
 						<div>
-							<div className="my-2">
+							<div className="my-2 d-flex">
 								<Button variant="primary" type="submit">
 									Save Changes
 								</Button>
@@ -257,10 +257,10 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 									onChange={handleFileChange}
 								/>
 								{selectedFiles && <small>{selectedFiles.map((file) => file.name).join(', ')}</small>}
+								<Button variant="secondary" onClick={handleClose}>
+									Cancel
+								</Button>
 							</div>
-							<Button variant="secondary" onClick={handleClose}>
-								Cancel
-							</Button>
 						</div>
 					</Form>
 				</Modal.Body>
