@@ -84,7 +84,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 		data.append('model', model);
 		data.append('year', year);
 		data.append('mileage', mileage);
-		if (client._id) data.append('owner', client._id);
+		client._id ? data.append('owner', client._id) : data.append('owner', client);
 		if (selectedFiles) {
 			selectedFiles.forEach((file, index) => data.append(`files[${index}]`, file));
 		}
@@ -93,8 +93,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 		const response = await apiService.put(`${constants.vehicle}/${vehicle._id}`, data);
 
 		if (response) {
-			// Vehicle updated successfully:', response);
-			onVehicleUpdated(response);
+			onVehicleUpdated();
 			setShow(false);
 		}
 	};
