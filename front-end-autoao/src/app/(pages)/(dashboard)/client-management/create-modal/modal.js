@@ -7,8 +7,12 @@ import { Row, Col, Dropdown } from "react-bootstrap";
 import Link from "next/link";
 import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
+import { usePathname } from "next/navigation";
+import VehicleModal from "../../vehicle-management/create-modal/modal";
 
-const CreateModal = ({ handleRefetch }) => {
+
+const ClientModal = ({ handleRefetch }) => {
+	const pathName = usePathname();
 	const [name, setName] = useState(null);
 	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);
@@ -29,6 +33,11 @@ const CreateModal = ({ handleRefetch }) => {
 		if (searchTerm?.length > 2) {
 			const searchResult = await apiService.get(`${constants.searchVehicle}?search=${searchTerm}`);
 			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			}
+		} else if (filteredOptions.length > 0) {
+			setShowList(false);
 		}
 	};
 
@@ -42,6 +51,7 @@ const CreateModal = ({ handleRefetch }) => {
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
+			e.stopPropagation();
 
 			const response = await apiService.post(constants.customer, {
 				name, company, phoneNumber, email, vehicleIds, address: location
@@ -63,13 +73,12 @@ const CreateModal = ({ handleRefetch }) => {
 		}
 	};
 
-	useEffect
-
 	return (
 		<>
-			<Button variant="primary fw-medium" onClick={handleShow}>
+			{pathName == '/client-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
 				Add New Customer
-			</Button>
+			</Button> : <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new Customer</Link>}
+
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
@@ -113,7 +122,7 @@ const CreateModal = ({ handleRefetch }) => {
 									<Form.Label>Vehicle Reg</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
+										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
@@ -142,7 +151,9 @@ const CreateModal = ({ handleRefetch }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						{/* <Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">Add new vehicle</Link> */}
+						<VehicleModal onVehicleAdded={(e) => {
+							setSearchTerm('')
+						}} />
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
 							<Row>
@@ -190,4 +201,4 @@ const CreateModal = ({ handleRefetch }) => {
 	);
 };
 
-export default CreateModal;
+export default ClientModal;

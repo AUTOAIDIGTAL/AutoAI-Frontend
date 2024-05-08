@@ -71,7 +71,12 @@ const OTP = ({ otpModal, password, email, onSuccess }) => {
 								type="text"
 								placeholder="0"
 								value={otp1}
-								onChange={(e) => { e.target.value.length > 1 ? e.target.value = e.target.value.slice(0, 1) : setOTP1(e.target.value) }}
+								onChange={(e) => {
+									e.target.value.length > 1 ?
+										e.target.value = e.target.value.slice(0, 1) :
+										setOTP1(e.target.value)
+								}
+								}
 
 							/>
 							<Form.Control

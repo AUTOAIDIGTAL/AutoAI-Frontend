@@ -6,8 +6,12 @@ import Form from "react-bootstrap/Form";
 import { Row, Col, Dropdown } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import ClientModal from "../../client-management/create-modal/modal";
 
-const CreateModal = ({ onVehicleAdded }) => {
+const VehicleModal = ({ onVehicleAdded }) => {
+	const pathName = usePathname();
 	const [show, setShow] = useState(false);
 	const [vinNumber, setVinNumber] = useState(null);
 	const [regNumber, setRegNumber] = useState(null);
@@ -48,6 +52,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 
 		if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
 			alert('Please fill in all the required fields.');
@@ -62,7 +67,7 @@ const CreateModal = ({ onVehicleAdded }) => {
 		data.append('year', year);
 		data.append('mileage', mileage);
 		if (client) data.append('owner', client);
-		data.append('files', selectedFiles);
+		selectedFiles?.map((file) => data.append('files', file))
 
 		const response = await apiService.post(constants.vehicle, data);
 
@@ -83,9 +88,11 @@ const CreateModal = ({ onVehicleAdded }) => {
 
 	return (
 		<>
-			<Button variant="primary fw-medium" onClick={handleShow}>
+			{pathName == '/vehicle-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
 				Add New Vehicle
-			</Button>
+			</Button> : <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new vehicle</Link>}
+
+
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
@@ -165,9 +172,12 @@ const CreateModal = ({ onVehicleAdded }) => {
 										</Dropdown.Menu>
 									</Dropdown>
 								</Form.Group>
-
+								<ClientModal onVehicleAdded={(e) => {
+									setSearchTerm('')
+								}} />
 							</Col>
 						</Row>
+
 						<div>
 							<div className="my-2">
 								<Button variant="primary" type="submit">
@@ -217,4 +227,4 @@ const CreateModal = ({ onVehicleAdded }) => {
 	);
 };
 
-export default CreateModal;
+export default VehicleModal;
