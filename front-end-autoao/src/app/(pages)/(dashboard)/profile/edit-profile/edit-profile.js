@@ -74,7 +74,7 @@ const EditProfile = ({ currentUser, refetchUser }) => {
 								<Form.Group className="mb-3" controlId="formPhoneNumber">
 									<Form.Label>Phone Number</Form.Label>
 									<Form.Control
-										type="text"
+										type="number"
 										placeholder="Phone Number"
 										value={phoneNumber}
 										onChange={(e) => setPhoneNumber(e.target.value)}
