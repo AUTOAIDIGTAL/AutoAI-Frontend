@@ -64,7 +64,7 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 										<div className="border-none manage-btn-drop">
 											<EditModal onVehicleUpdated={() => router.push('/vehicle-management')} vehicle={item} />
 										</div>
-										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
+										<Dropdown.Item className="d-inline-flex align-items-center" onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash-2 pe-1 text-danger"></i> Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
 							</td>

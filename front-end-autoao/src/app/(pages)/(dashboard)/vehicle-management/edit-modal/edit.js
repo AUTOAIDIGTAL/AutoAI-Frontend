@@ -101,8 +101,8 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 
 	return (
 		<>
-			<Button variant="outline-primary" onClick={handleShow}>
-				Edit Vehicle
+			<Button variant="outline-primary" className='className="d-inline-flex align-items-center"' onClick={handleShow}>
+				<i className="icon-pencil text-primary pe-1"></i> Edit Vehicle
 			</Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>

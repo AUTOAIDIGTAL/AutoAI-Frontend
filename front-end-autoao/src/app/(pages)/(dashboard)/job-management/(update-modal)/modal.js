@@ -68,7 +68,7 @@ const EditModal = ({ jobId, onJobEdited }) => {
 	return (
 		<>
 			<span variant="" onClick={handleShow}>
-				<Dropdown.Item>Edit</Dropdown.Item>
+				<Dropdown.Item><i className="icon-pencil text-primary pe-1"></i> Edit</Dropdown.Item>
 			</span>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>

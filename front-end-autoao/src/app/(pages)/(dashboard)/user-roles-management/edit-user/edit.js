@@ -94,7 +94,17 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 
 	return (
 		<>
-			<div onClick={handleShow}>{user ? "Edit User" : "Add New User"}</div>
+			<div onClick={handleShow}>
+				{user ? (
+					<div className="d-inline-flex align-items-center">
+						<i className="icon-pencil text-primary pe-1"></i> Edit User
+					</div>
+				) : (
+					<div  className="d-inline-flex align-items-center">
+						<i className="icon-plus text-primary pe-1"></i> Add New User
+					</div>
+				)}
+			</div>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>

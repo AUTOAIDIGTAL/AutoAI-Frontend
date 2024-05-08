@@ -148,12 +148,14 @@ const AddNewUser = ({ onUserAdded }) => {
 								</div>
 							</Col>
 						</Row>
-						<Button variant="primary" type="submit">
-							Add User
-						</Button>
-						<Button variant="secondary" onClick={handleClose}>
-							Cancel
-						</Button>
+						<div className="d-flex gap-2 pt-3">
+							<Button variant="primary" type="submit">
+								Add User
+							</Button>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
+						</div>
 					</Form>
 				</Modal.Body>
 			</Modal >

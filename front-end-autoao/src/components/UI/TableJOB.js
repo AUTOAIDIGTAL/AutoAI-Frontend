@@ -79,7 +79,7 @@ const TableDM = ({ jobsList, handleRefetch }) => {
 										{/* <Dropdown.Item> */}
 										<EditModal jobId={item._id} onJobEdited={handleRefetch} />
 										{/* </Dropdown.Item> */}
-										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
+										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash-2 text-danger"></i> Delete</Dropdown.Item>
 
 									</Dropdown.Menu>
 								</Dropdown>
