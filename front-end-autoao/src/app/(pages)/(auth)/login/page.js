@@ -23,11 +23,12 @@ const Login = () => {
 
 		await login(email, password).then((user, error) => {
 			if ((user?.data?.garageId == null || user?.data?.garageId == '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
+				console.log('ERROR FROM COMPOMNENT', user)
 				Cookies.remove("currentUser");
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: error?.message,
+					text: user?.response?.data?.message,
 				})
 			} else if (user) {
 				router.push("/profile");

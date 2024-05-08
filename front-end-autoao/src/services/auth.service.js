@@ -18,11 +18,15 @@ export class AuthService {
 					email,
 					password,
 				})
-				.then((res) => {
+				.then((res, err) => {
+					if (err) {
+						console.log('ERROR FROM HERE', err)
+					}
 					return res.data;
-				});
+				})
 		} catch (error) {
-			console.log(error)
+			console.log('ERROR FROM HERE', error)
+			return error
 		}
 	};
 
