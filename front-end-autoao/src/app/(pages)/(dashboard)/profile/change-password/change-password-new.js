@@ -119,7 +119,7 @@ const ChangePasswordNew = ({ newUser, email, handleCloseModal }) => {
 					</Form>
 				</Modal.Body>
 			</Modal>
-			{otpModal && <OTP otpModal={otpModal} password={password} email={email} />}
+			{otpModal && <OTP otpModal={otpModal} password={password} email={email} onSuccess={handleClose} />}
 		</>
 	);
 };
