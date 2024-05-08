@@ -6,6 +6,9 @@ import Link from "next/link";
 import Slide from "@/components/Carousel/slide";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2'
+import { Cookie } from "next/font/google";
+import Cookies from "js-cookie";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -19,7 +22,14 @@ const Login = () => {
 		event.preventDefault();
 
 		await login(email, password).then((user) => {
-			if (user) {
+			if ((user?.data?.garageId == null || user?.data?.garageId == '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
+				Cookies.remove("currentUser");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'You do not have a garage yet!',
+				})
+			} else if (user) {
 				router.push("/profile");
 			}
 		})
