@@ -27,6 +27,11 @@ const EditGarage = ({ data, onGarageUpdated }) => {
 		if (searchTerm?.length > 3) {
 			const searchResult = await apiService.get(`${constants.getAdmins}?search=${searchTerm}`);
 			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			}
+		} else if (filteredOptions.length > 0) {
+			setShowList(false);
 		}
 	};
 
@@ -74,7 +79,6 @@ const EditGarage = ({ data, onGarageUpdated }) => {
 									value={searchTerm || `${garageAdmin?.firstName} ${garageAdmin?.lastName}`}
 									onChange={handleInputChange}
 									placeholder="Search..."
-									onClick={() => setShowList(!showList)}
 								/>
 
 								<Dropdown onSelect={handleOptionSelect} show={showList}>

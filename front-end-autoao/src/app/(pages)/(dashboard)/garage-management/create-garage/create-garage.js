@@ -29,6 +29,11 @@ const CreateGarage = ({ onGarageAdded }) => {
 		if (searchTerm?.length > 3) {
 			const searchResult = await apiService.get(`${constants.getAdmins}?search=${searchTerm}`);
 			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			}
+		} else if (filteredOptions.length > 0) {
+			setShowList(false);
 		}
 	};
 
@@ -76,7 +81,7 @@ const CreateGarage = ({ onGarageAdded }) => {
 						<Form.Group className="mb-3" controlId="formBasicPassword">
 							<Form.Label>Add Admin</Form.Label>
 							<div>
-								<Form.Control type="text" value={searchTerm} onChange={handleInputChange} placeholder="Search..." onClick={() => setShowList(!showList)} />
+								<Form.Control type="text" value={searchTerm} onChange={handleInputChange} placeholder="Search..." />
 
 								<Dropdown onSelect={handleOptionSelect} show={showList}>
 									<Dropdown.Menu>

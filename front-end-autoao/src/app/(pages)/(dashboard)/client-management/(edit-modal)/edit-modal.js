@@ -91,6 +91,11 @@ const EditModal = ({ customerId, handleRefetch }) => {
 				`${constants.searchVehicle}?search=${searchTerm}`
 			);
 			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			} else if (filteredOptions.length > 0) {
+				setShowList(false);
+			}
 		}
 	};
 
@@ -211,7 +216,6 @@ const EditModal = ({ customerId, handleRefetch }) => {
 											placeholder={vehicleIds}
 											value={vehicleIds[0]?.regPlate || searchTerm}
 											onChange={handleVehicleSearch}
-											onClick={() => setShowList(!showList)}
 											disabled={vehicleIds.length > 0}
 										/>
 										<span className="position-absolute top-50 end-15 translate-middle">

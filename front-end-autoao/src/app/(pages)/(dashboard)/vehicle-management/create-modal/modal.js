@@ -28,15 +28,18 @@ const VehicleModal = ({ onVehicleAdded }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleInputChange = async (event) => {
-    setSearchTerm(event.target.value);
-    if (searchTerm?.length > 3) {
-      const searchResult = await apiService.get(
-        `${constants.searchCustomer}?search=${searchTerm}`
-      );
-      setFilteredOptions(searchResult);
-    }
-  };
+	const handleInputChange = async (event) => {
+		setSearchTerm(event.target.value);
+		if (searchTerm?.length > 3) {
+			const searchResult = await apiService.get(`${constants.searchCustomer}?search=${searchTerm}`);
+			setFilteredOptions(searchResult);
+			if (searchResult.length > 0) {
+				setShowList(true);
+			}
+		} else if (filteredOptions.length > 0) {
+			setShowList(false);
+		}
+	};
 
   const handleOptionSelect = (selectedOption) => {
     // selected option', selectedOption);
@@ -177,7 +180,7 @@ const VehicleModal = ({ onVehicleAdded }) => {
                   <Form.Label>Add Client</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} onClick={() => setShowList(!showList)} />
+										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} />
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}

@@ -21,17 +21,19 @@ const Login = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		await login(email, password).then((user) => {
+		await login(email, password).then((user, error) => {
 			if ((user?.data?.garageId == null || user?.data?.garageId == '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
 				Cookies.remove("currentUser");
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
-					text: 'You do not have a garage yet!',
+					text: error?.message,
 				})
 			} else if (user) {
 				router.push("/profile");
 			}
+		}).catch((error) => {
+			console.log('T', error)
 		})
 		setEmail("")
 		setPassword("")

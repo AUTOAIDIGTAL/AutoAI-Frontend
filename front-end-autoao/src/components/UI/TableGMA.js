@@ -1,8 +1,15 @@
+import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant";
 import EditGarageOwner from "@/app/(pages)/(dashboard)/manage-administration/edit-modal/modal";
+import { apiService } from "@/services";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
 const TableGMA = ({ adminList, handleRefetch }) => {
-	console.log(adminList);
+
+	const deleteItem = async (e, id) => {
+		e.preventDefault();
+		await apiService.delete(`${constants.createAdmin}/${id}`);
+		handleRefetch()
+	}
 	return (
 		<>
 			<Table hover responsive>
@@ -74,7 +81,7 @@ const TableGMA = ({ adminList, handleRefetch }) => {
 										{/* </Dropdown.Item> */}
 										<Dropdown.Item
 											className="d-flex align-items-center gap-2"
-											href="#/action-2"
+											onClick={(e) => deleteItem(e, item._id)}
 										>
 											<svg
 												className="del-svg-btn"
