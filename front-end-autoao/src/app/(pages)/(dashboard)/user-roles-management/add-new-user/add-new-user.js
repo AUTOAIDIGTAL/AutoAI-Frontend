@@ -63,7 +63,8 @@ const AddNewUser = ({ onUserAdded }) => {
 
 	return (
 		<>
-			<Button variant="outline-primary fw-medium" onClick={handleShow}>
+			<Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+				<i class="icon-plus fs-5 me-1"></i>
 				Add New User
 			</Button>
 

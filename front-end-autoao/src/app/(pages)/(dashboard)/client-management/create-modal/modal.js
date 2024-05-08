@@ -79,7 +79,8 @@ const CreateModal = ({ handleRefetch }) => {
 
   return (
     <>
-      <Button variant="primary fw-medium" onClick={handleShow}>
+      <Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+      <i class="icon-plus fs-5 me-1"></i>
         Add New Customer
       </Button>
 
