@@ -10,17 +10,20 @@ import { apiService } from "@/services";
 import { usePathname } from "next/navigation";
 import VehicleModal from "../../vehicle-management/create-modal/modal";
 
-
-const ClientModal = ({ handleRefetch }) => {
-	const pathName = usePathname();
+const CreateModal = ({ handleRefetch }) => {
 	const [name, setName] = useState(null);
 	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [email, setEmail] = useState(null);
 	const [vehicleIds, setVehicle] = useState([]);
-	const [location, setLocation] = useState({ street: '', city: '', country: '', postCode: '' });
+	const [location, setLocation] = useState({
+		street: "",
+		city: "",
+		country: "",
+		postCode: "",
+	});
 	const [show, setShow] = useState(false);
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
 	const [errorMsg, setErrorMsg] = useState(null);
@@ -31,18 +34,15 @@ const ClientModal = ({ handleRefetch }) => {
 	const handleInputChange = async (event) => {
 		setSearchTerm(event.target.value);
 		if (searchTerm?.length > 2) {
-			const searchResult = await apiService.get(`${constants.searchVehicle}?search=${searchTerm}`);
+			const searchResult = await apiService.get(
+				`${constants.searchVehicle}?search=${searchTerm}`
+			);
 			setFilteredOptions(searchResult);
-			if (searchResult.length > 0) {
-				setShowList(true);
-			}
-		} else if (filteredOptions.length > 0) {
-			setShowList(false);
 		}
 	};
 
 	const handleOptionSelect = (selectedOption) => {
-		const [vehicleId, vehicleName] = selectedOption.split('_');
+		const [vehicleId, vehicleName] = selectedOption.split("_");
 		setVehicle([...vehicleIds, vehicleId]);
 		setSearchTerm(vehicleName);
 		setShowList(false);
@@ -51,10 +51,14 @@ const ClientModal = ({ handleRefetch }) => {
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
-			e.stopPropagation();
 
 			const response = await apiService.post(constants.customer, {
-				name, company, phoneNumber, email, vehicleIds, address: location
+				name,
+				company,
+				phoneNumber,
+				email,
+				vehicleIds,
+				address: location,
 			});
 
 			if (response) {
@@ -63,22 +67,23 @@ const ClientModal = ({ handleRefetch }) => {
 				setPhoneNumber(null);
 				setEmail(null);
 				setVehicle(null);
-				setLocation({ street: '', city: '', country: '', postCode: '' });
-				handleRefetch()
-				setShow(false)
-				setVehicle([])
+				setLocation({ street: "", city: "", country: "", postCode: "" });
+				handleRefetch();
+				setShow(false);
+				setVehicle([]);
 			}
 		} catch (error) {
-			setErrorMsg(error.message)
+			setErrorMsg(error.message);
 		}
 	};
 
+	useEffect;
+
 	return (
 		<>
-			{pathName == '/client-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
+			<Button variant="primary fw-medium" onClick={handleShow}>
 				Add New Customer
-			</Button> : <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new Customer</Link>}
-
+			</Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
@@ -90,39 +95,76 @@ const ClientModal = ({ handleRefetch }) => {
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicName">
 									<Form.Label>Name</Form.Label>
-									<Form.Control type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+									<Form.Control
+										type="text"
+										placeholder="Name"
+										value={name}
+										onChange={(e) => setName(e.target.value)}
+										required
+									/>
+									{errorMsg && (
+										<Form.Text className="text-danger">{errorMsg}</Form.Text>
+									)}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Number</Form.Label>
-									<Form.Control type="tel" placeholder="Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
-									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+									<Form.Control
+										type="number"
+										placeholder="Number"
+										value={phoneNumber}
+										onChange={(e) => setPhoneNumber(e.target.value)}
+										required
+									/>
+									{errorMsg && (
+										<Form.Text className="text-danger">{errorMsg}</Form.Text>
+									)}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasicEmail">
 									<Form.Label>Email</Form.Label>
-									<Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+									<Form.Control
+										type="text"
+										placeholder="Email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+									/>
+									{errorMsg && (
+										<Form.Text className="text-danger">{errorMsg}</Form.Text>
+									)}
 								</Form.Group>
 							</Col>
 							<Col lg={6}>
 								<Form.Group className="mb-3" controlId="formBasic">
 									<Form.Label>Company</Form.Label>
-									<Form.Control type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} required />
-									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+									<Form.Control
+										type="text"
+										placeholder="Company"
+										value={company}
+										onChange={(e) => setCompany(e.target.value)}
+										required
+									/>
+									{errorMsg && (
+										<Form.Text className="text-danger">{errorMsg}</Form.Text>
+									)}
 								</Form.Group>
 							</Col>
-
 
 							<Col xs={12}>
 								<Form.Group className="mb-3" controlId="formBasicVehicle">
 									<Form.Label>Vehicle Reg</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control type="text" placeholder="Vehicle Reg" value={searchTerm} onChange={handleInputChange} />
+										<Form.Control
+											type="text"
+											placeholder="Vehicle Reg"
+											value={searchTerm}
+											onChange={handleInputChange}
+											onClick={() => setShowList(!showList)}
+										/>
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
 												width={14}
@@ -140,42 +182,75 @@ const ClientModal = ({ handleRefetch }) => {
 									</div>
 									<Dropdown onSelect={handleOptionSelect} show={showList}>
 										<Dropdown.Menu>
-											{
-												filteredOptions?.map((item) => (
-													<Dropdown.Item key={item._id} eventKey={`${item._id}_${item.regPlate}`}>{item.regPlate}</Dropdown.Item>
-												))
-											}
+											{filteredOptions?.map((item) => (
+												<Dropdown.Item
+													key={item._id}
+													eventKey={`${item._id}_${item.regPlate}`}
+												>
+													{item.regPlate}
+												</Dropdown.Item>
+											))}
 										</Dropdown.Menu>
 									</Dropdown>
-									{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+									{errorMsg && (
+										<Form.Text className="text-danger">{errorMsg}</Form.Text>
+									)}
 								</Form.Group>
 							</Col>
 						</Row>
-						<VehicleModal onVehicleAdded={(e) => {
-							setSearchTerm('')
-						}} />
+						{/* <Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">Add new vehicle</Link> */}
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
 							<Row>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicName">
 										<Form.Label>Street name</Form.Label>
-										<Form.Control type="text" placeholder="Street name" value={location.street} onChange={(e) => setLocation({ ...location, street: e.target.value })} required />
-										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+										<Form.Control
+											type="text"
+											placeholder="Street name"
+											value={location.street}
+											onChange={(e) =>
+												setLocation({ ...location, street: e.target.value })
+											}
+											required
+										/>
+										{errorMsg && (
+											<Form.Text className="text-danger">{errorMsg}</Form.Text>
+										)}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicCountry">
 										<Form.Label>Country</Form.Label>
-										<Form.Control type="text" placeholder="Country" value={location.country} onChange={(e) => setLocation({ ...location, country: e.target.value })} required />
-										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+										<Form.Control
+											type="text"
+											placeholder="Country"
+											value={location.country}
+											onChange={(e) =>
+												setLocation({ ...location, country: e.target.value })
+											}
+											required
+										/>
+										{errorMsg && (
+											<Form.Text className="text-danger">{errorMsg}</Form.Text>
+										)}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicCity">
 										<Form.Label>City/ Post Town</Form.Label>
-										<Form.Control type="text" placeholder="City/ Post Town" value={location.city} onChange={(e) => setLocation({ ...location, city: e.target.value })} required />
-										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
+										<Form.Control
+											type="text"
+											placeholder="City/ Post Town"
+											value={location.city}
+											onChange={(e) =>
+												setLocation({ ...location, city: e.target.value })
+											}
+											required
+										/>
+										{errorMsg && (
+											<Form.Text className="text-danger">{errorMsg}</Form.Text>
+										)}
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
@@ -183,19 +258,32 @@ const ClientModal = ({ handleRefetch }) => {
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} required />
 										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
-									</Form.Group>
-								</Col>
-							</Row>
+										<Form.Control
+											type="number"
+											placeholder="Post Code"
+											value={location.postCode}
+											onChange={(e) =>
+												setLocation({ ...location, postCode: e.target.value })
+											}
+											required
+										/>
+										{errorMsg && (
+											<Form.Text className="text-danger">{errorMsg}</Form.Text>
+										)}
+									</Form.Group >
+								</Col >
+							</Row >
+						</div >
+						<div className="d-flex gap-2 pt-3">
+							<Button variant="primary" type="submit">
+								Add Client
+							</Button>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
 						</div>
-						<Button variant="primary" type="submit">
-							Add Client
-						</Button>
-						<Button variant="secondary" onClick={handleClose}>
-							Cancel
-						</Button>
 					</Form>
 				</Modal.Body>
-
 			</Modal >
 		</>
 	);

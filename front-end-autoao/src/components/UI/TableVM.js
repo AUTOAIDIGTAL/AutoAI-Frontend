@@ -46,7 +46,7 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 							</td>
 							<td>{item?.color} - {item?.fuelType}</td>
 							<td className="align-middle text-end" colSpan={2}>
-								<Dropdown>
+								<Dropdown className="position-static">
 									<Dropdown.Toggle variant="blank-icon" className="btn-remove-arrow" id="dropdown-basic">
 										<svg
 											width="20px"
@@ -61,9 +61,9 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item className="border-none">
+										<div className="border-none manage-btn-drop">
 											<EditModal onVehicleUpdated={() => router.push('/vehicle-management')} vehicle={item} />
-										</Dropdown.Item>
+										</div>
 										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}>Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>

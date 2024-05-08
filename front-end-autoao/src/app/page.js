@@ -10,6 +10,7 @@ export default function Home() {
 				<Link className="btn btn-primary" href="/login">Go To Login Page</Link>
 				<Link className="btn btn-primary" href="/profile/">Go To Dashboard</Link>
 				<Link className="btn btn-primary" href="/garage-management/">Go To Garage Management</Link>
+				<Link className="btn btn-primary" href="/manage-administration/">Go To Manage Administration</Link>
 				<Link className="btn btn-primary" href="/client-management/">Go To Client Management</Link>
 				<Link className="btn btn-primary" href="/vehicle-management/">Go To Vehicle Management</Link>
 				<Link className="btn btn-primary" href="/job-management/">Go To Job Management</Link>

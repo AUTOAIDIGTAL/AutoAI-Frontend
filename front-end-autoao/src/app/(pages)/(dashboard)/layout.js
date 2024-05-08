@@ -14,13 +14,13 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
 	return (
-		<div>
+		<>
 			<NavBar />
 			<div className="main">
 				<PreHeader />
 				{children}
 			</div>
-		</div>
+		</>
 	);
 }
 

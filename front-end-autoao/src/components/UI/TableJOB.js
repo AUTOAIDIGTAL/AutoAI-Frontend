@@ -57,7 +57,7 @@ const TableDM = ({ jobsList, handleRefetch }) => {
 							</td>
 							<td className="text-primary fw-semibold">£ {item?.cost}</td>
 							<td className="align-middle text-end" colSpan={2}>
-								<Dropdown>
+								<Dropdown className="position-static">
 									<Dropdown.Toggle
 										variant="blank-icon"
 										className="btn-remove-arrow"
