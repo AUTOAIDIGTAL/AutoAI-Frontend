@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
 	render() {
 		if (this.state.hasError) {
 			return (
-				<div>
+				<div className="m-auto">
 					<h2>Oops, there is an error!</h2>
 					<button
 						type="button"

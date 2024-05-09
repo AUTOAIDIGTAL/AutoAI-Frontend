@@ -178,9 +178,9 @@ const VehicleModal = ({ onVehicleAdded }) => {
 										</Dropdown.Menu>
 									</Dropdown>
 								</Form.Group>
-								<ClientModal onVehicleAdded={(e) => {
+								{/* <ClientModal onVehicleAdded={(e) => {
 									setSearchTerm('')
-								}} />
+								}} /> */}
 							</Col>
 						</Row>
 
