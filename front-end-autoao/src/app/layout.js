@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/sass/app.scss";
 import NavBar from "@/components/side-nav-bar/side-navbar";
 import PreHeader from "@/components/pre-header/pre-header";
+import ErrorBoundary from "./error-boundry";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ const RootLayout = ({ children }) => {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				{children}
+				<ErrorBoundary>
+					{children}
+				</ErrorBoundary>
 			</body>
 		</html>
 	);
