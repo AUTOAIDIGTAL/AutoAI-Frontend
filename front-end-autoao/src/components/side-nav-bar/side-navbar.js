@@ -41,7 +41,7 @@ const NavBar = () => {
 			<Nav defaultActiveKey="/dashboard" className="flex-column gap-4">
 
 				{rolesToBeDisplayed.map((role, index) => {
-					return <Nav.Link key={index} href={linksMap[role].link} active={window.location.pathname === linksMap[role].link}>
+					return <Nav.Link key={index} href={linksMap[role].link} active={window.location.pathname.includes(linksMap[role].link)}>
 						<i className={`${linksMap[role].icon}`}></i>
 						<div className="menu-text-wrap">{linksMap[role].title}</div>
 					</Nav.Link>
