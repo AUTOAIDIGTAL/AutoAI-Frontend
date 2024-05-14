@@ -9,11 +9,14 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2'
 import { Cookie } from "next/font/google";
 import Cookies from "js-cookie";
+import { message } from "antd";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordVisible, setPasswordVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
+
 	const router = useRouter();
 
 	const { login } = useLogin();
@@ -21,22 +24,34 @@ const Login = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		await login(email, password).then((user) => {
-			if ((user?.data?.garageId == null || user?.data?.garageId == '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
-				console.log('ERROR FROM COMPOMNENT', user)
+		setLoading(true);
+		message.open({
+			type: 'loading',
+			content: 'Logging in...',
+			duration: 0,
+		});
+
+		try {
+			const user = await login(email, password);
+
+			if ((user?.data?.garageId == null || user?.data?.garageId === '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
 				Cookies.remove("currentUser");
-			} else if (user) {
+				message.destroy();
+				message.error('Login failed due to invalid garage ID or permissions.', 2.5);
+			} else {
+				message.destroy();
 				router.push("/profile");
+				message.success('Login successful!', 2.5);
 			}
-		}).catch((error) => {
-			console.log('MESSAGE', error)
-			Swal.fire({
-				icon: 'error',
-				text: error,
-			})
-		})
-		setEmail("")
-		setPassword("")
+		} catch (error) {
+			message.destroy();
+			message.error(`Login failed: ${error.message}`, 2.5);
+
+		} finally {
+			setLoading(false);
+			setEmail("");
+			setPassword("");
+		}
 	};
 
 	const togglePasswordVisibility = () => {

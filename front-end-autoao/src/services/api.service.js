@@ -43,6 +43,7 @@ export class APIService {
 			return await this.instance
 				.put(path, data)
 				.then((res) => {
+					console.log('res', res)
 					return res.data.status && res.data.data;
 				});
 		} catch (error) {
