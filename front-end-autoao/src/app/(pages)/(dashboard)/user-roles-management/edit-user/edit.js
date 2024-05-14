@@ -3,27 +3,23 @@ import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
 
-const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
+const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 	const [show, setShow] = useState(false);
+	const [user, setUser] = useState(userData);
 	const [firstName, setFirstName] = useState(user ? user.firstName : "");
 	const [lastName, setLastName] = useState(user ? user.lastName : "");
 	const [phoneNumber, setPhoneNumber] = useState(user ? user.phoneNumber : "");
 	const [email, setEmail] = useState(user ? user.email : "");
 
 	// Separate state variables for each role
-	const [isMechanic, setIsMechanic] = useState(
-		user ? user.roles.includes("MECHANIC") : false
-	);
-	const [isManager, setIsManager] = useState(
-		user ? user.roles.includes("MANAGER") : false
-	);
+	const [isMechanic, setIsMechanic] = useState(false);
+	const [isManager, setIsManager] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
 	useEffect(() => {
 		if (user) {
-			// Set initial values for edit mode
 			setFirstName(user.firstName);
 			setLastName(user.lastName);
 			setPhoneNumber(user.phoneNumber);
@@ -33,13 +29,10 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 		}
 	}, [user]);
 
-	// useEffect(() => {
-	// 	// magrr:', isManager);
-	// 	// mech:', isMechanic);
-	// }, [isMechanic, isManager])
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		console.log('IS MANAGER', isManager)
+		console.log('IS MECHANIC', isMechanic)
 		const formData = new FormData();
 		formData.append("firstName", firstName);
 		formData.append("lastName", lastName);
@@ -48,11 +41,9 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 
 		// Combine separate state variables into an array of roles
 		const roles = [];
-		if (isMechanic) roles.push("MECHANIC");
-		if (isManager) roles.push("MANAGER");
 
 		// Add roles to form data
-		roles.forEach((role) => formData.append("roles", role));
+		formData.append("roles", user.roles.join(","));
 
 		let response;
 		if (user) {
@@ -67,30 +58,21 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 				onUserUpdated();
 			}
 		} else {
-			// Add mode: create a new user
 			response = await apiService.post(constants.createAdmin, formData);
 			if (response) {
-				// User added successfully:', response);
 				setShow(false);
 				onUserAdded();
 			}
 		}
-
-		// Reset form fields and close modal
-		setFirstName("");
-		setLastName("");
-		setPhoneNumber("");
-		setEmail("");
-		setIsMechanic(false);
-		setIsManager(false);
 	};
 
-	const onRoleSelection = (isMechanic, isManager) => {
-		setIsManager(!isManager);
-		setIsMechanic(!isMechanic);
-		// mech:', isMechanic);
-		// magrr:', isManager);
+	const handleRoleToggle = (role) => {
+		const updatedRoles = user.roles.includes(role)
+			? user.roles.filter((r) => r !== role)
+			: [...user.roles, role];
+		setUser({ ...user, roles: updatedRoles });
 	};
+
 
 	return (
 		<>
@@ -167,23 +149,21 @@ const UserForm = ({ user, onUserAdded, onUserUpdated }) => {
 							</Col>
 							<Col className="col-auto">
 								<div className="bg-gray-100 gap-4 py-3 px-4 rounded-ai d-flex justify-content-between align-items-center">
-									<Form.Group className="m-0 d-flex align-items-center gap-3" controlId="formRoleMechanic">
-										<div onClick={() => setIsMechanic(!isMechanic)}>
-											<Form.Check
-												type="checkbox"
-												label="Mechanic"
-												checked={isMechanic}
-												disabled
-											/>
-										</div>
-										<div onClick={() => setIsManager(!isManager)}>
-											<Form.Check
-												type="checkbox"
-												label="Manager"
-												checked={isManager}
-												disabled
-											/>
-										</div>
+									<Form.Group className="m-0 d-flex align-items-center gap-3">
+										<Form.Check
+											type="checkbox"
+											label="Mechanic"
+											checked={isMechanic}
+											onChange={() => handleRoleToggle("MECHANIC")}
+											id={`default-mechanic`}
+										/>
+										<Form.Check
+											type="checkbox"
+											label="Manager"
+											checked={isManager}
+											onChange={() => handleRoleToggle("MANAGER")}
+											id={`default-manager`}
+										/>
 									</Form.Group>
 								</div>
 							</Col>

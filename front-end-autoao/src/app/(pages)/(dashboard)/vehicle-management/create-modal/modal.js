@@ -92,9 +92,10 @@ const VehicleModal = ({ onVehicleAdded }) => {
 
 	return (
 		<>
-			{pathName == '/vehicle-management' ? <Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
-      <i class="icon-plus fs-5 me-1"></i> Add New Vehicle
-			</Button> : <Link href='#' className="btn btn-link p-0 mb-3 d-inline-flex align-items-center" onClick={handleShow}><i class="icon-plus fs-5 me-1"></i> Add new vehicle</Link>}
+			{pathName == '/vehicle-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
+				Add New Vehicle
+			</Button> : ''} {// <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new vehicle</Link>
+			}
 
 
 
@@ -206,39 +207,19 @@ const VehicleModal = ({ onVehicleAdded }) => {
 										</Dropdown.Menu>
 									</Dropdown>
 								</Form.Group>
-								<ClientModal onVehicleAdded={(e) => {
+								{/* <ClientModal onVehicleAdded={(e) => {
 									setSearchTerm('')
-								}} />
+								}} /> */}
 							</Col>
 						</Row>
 
 						<div>
-							<div className="my-2">
+							<div className="my-2 d-inline-flex">
 								<Button variant="primary" type="submit">
 									Add Vehicle
 								</Button>
-								<Button variant="outline-primary" className="mx-2" onClick={() => document.getElementById('fileInput').click()}>
-									<svg
-										className="me-2"
-										width={16}
-										height={14}
-										viewBox="0 0 16 14"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											fillRule="evenodd"
-											clipRule="evenodd"
-											d="M0.5 8.90002C0.776142 8.90002 1 9.12388 1 9.40002V11.9C1 12.4523 1.44772 12.9 2 12.9H14C14.5523 12.9 15 12.4523 15 11.9V9.40002C15 9.12388 15.2239 8.90002 15.5 8.90002C15.7761 8.90002 16 9.12388 16 9.40002V11.9C16 13.0046 15.1046 13.9 14 13.9H2C0.895431 13.9 0 13.0046 0 11.9V9.40002C0 9.12388 0.223858 8.90002 0.5 8.90002Z"
-											fill="#1474FB"
-										/>
-										<path
-											fillRule="evenodd"
-											clipRule="evenodd"
-											d="M7.64645 0.146447C7.84171 -0.0488155 8.15829 -0.0488155 8.35355 0.146447L11.3536 3.14645C11.5488 3.34171 11.5488 3.65829 11.3536 3.85355C11.1583 4.04882 10.8417 4.04882 10.6464 3.85355L8.5 1.70711V10.5C8.5 10.7761 8.27614 11 8 11C7.72386 11 7.5 10.7761 7.5 10.5V1.70711L5.35355 3.85355C5.15829 4.04882 4.84171 4.04882 4.64645 3.85355C4.45118 3.65829 4.45118 3.34171 4.64645 3.14645L7.64645 0.146447Z"
-											fill="#1474FB"
-										/>
-									</svg>
+								<Button variant="outline-primary" className="mx-2  d-inline-flex align-items-center gap-2" onClick={() => document.getElementById('fileInput').click()}>
+									<i class="icon-upload"></i>
 									Attach File
 								</Button>
 								<Form.Control
@@ -249,10 +230,11 @@ const VehicleModal = ({ onVehicleAdded }) => {
 									onChange={handleFileChange}
 								/>
 								{selectedFiles && <small>{selectedFiles?.map((file) => file?.name)}</small>}
+								<Button variant="secondary" onClick={handleClose}>
+									Cancel
+								</Button>
 							</div>
-							<Button variant="secondary" onClick={handleClose}>
-								Cancel
-							</Button>
+							
 						</div>
 					</Form>
 				</Modal.Body>

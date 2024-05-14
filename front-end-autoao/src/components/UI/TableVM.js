@@ -2,6 +2,7 @@ import { constants } from "@/app/(pages)/(dashboard)/garage-management/constant"
 import EditModal from "@/app/(pages)/(dashboard)/vehicle-management/edit-modal/edit";
 import { apiService } from "@/services";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Pagination } from "react-bootstrap";
 import { Badge, Dropdown, Table } from "react-bootstrap";
 
@@ -12,6 +13,8 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 		await apiService.delete(`${constants.vehicle}/${id}`);
 		handleRefetch()
 	}
+
+	const router = useRouter();
 
 	return (
 		<>
@@ -62,9 +65,9 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 
 									<Dropdown.Menu>
 										<div className="border-none manage-btn-drop">
-											<EditModal onVehicleUpdated={() => router.push('/vehicle-management')} vehicle={item} />
+											<EditModal onVehicleUpdated={handleRefetch} vehicle={item} />
 										</div>
-										<Dropdown.Item className="d-inline-flex align-items-center" onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash-2 pe-1 text-danger"></i> Delete</Dropdown.Item>
+										<Dropdown.Item className="d-inline-flex align-items-center" onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash pe-1 text-danger"></i> Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
 							</td>

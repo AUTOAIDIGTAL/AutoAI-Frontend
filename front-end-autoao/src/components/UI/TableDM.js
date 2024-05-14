@@ -67,7 +67,7 @@ const TableDM = ({ data, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item
+										{/* <Dropdown.Item
 											className="d-flex align-items-center gap-2"
 											href="#/action-1"
 										>
@@ -87,7 +87,8 @@ const TableDM = ({ data, handleRefetch }) => {
 												/>
 											</svg>
 											Edit
-										</Dropdown.Item>
+										</Dropdown.Item> */}
+										<EditGarage data={index} handleRefetch={handleRefetch} />
 										<Dropdown.Item
 											className="d-flex align-items-center gap-2"
 											onClick={(e) => deleteItem(e, index._id)}

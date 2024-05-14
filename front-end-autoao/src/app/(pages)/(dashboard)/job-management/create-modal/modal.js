@@ -81,7 +81,7 @@ const CreateModal = ({ onJobAdded }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						<div className="my-2">
+						<div className="my-2 d-inline-flex">
 							<Button variant="primary" type="submit">
 								Create Job
 							</Button>

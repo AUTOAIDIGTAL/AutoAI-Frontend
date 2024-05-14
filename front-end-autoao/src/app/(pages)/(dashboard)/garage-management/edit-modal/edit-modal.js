@@ -10,6 +10,8 @@ import { apiService } from "@/services";
 import { constants } from "../constant";
 
 const EditGarage = ({ data, onGarageUpdated }) => {
+
+
 	const [show, setShow] = useState(false);
 	const [garageAdmin, setGarageAdmin] = useState(data.owner);
 	const [garageName, setGarageName] = useState(data.name);
@@ -61,9 +63,31 @@ const EditGarage = ({ data, onGarageUpdated }) => {
 
 	return (
 		<>
-			<Button variant="outline-primary fw-medium" onClick={handleShow}>
+			{/* <Button variant="outline-primary fw-medium" onClick={handleShow}>
 				Edit Garage
-			</Button>
+			</Button> */}
+
+			<Dropdown.Item
+				className="d-flex align-items-center gap-2"
+				onClick={handleShow}
+			>
+				<svg
+					className="edit-svg-btn"
+					width={16}
+					height={16}
+					viewBox="0 0 17 16"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						fillRule="evenodd"
+						clipRule="evenodd"
+						d="M12.3965 0.146569C12.5917 -0.0486935 12.9083 -0.0486935 13.1036 0.146569L16.1036 3.14657C16.2988 3.34183 16.2988 3.65841 16.1036 3.85368L6.10357 13.8537C6.05569 13.9016 5.99858 13.9392 5.93571 13.9644L0.93571 15.9644C0.750001 16.0386 0.537892 15.9951 0.396461 15.8537C0.25503 15.7122 0.211493 15.5001 0.285776 15.3144L2.28578 10.3144C2.31092 10.2516 2.34858 10.1944 2.39646 10.1466L12.3965 0.146569ZM11.4571 2.50012L13.75 4.79302L15.0429 3.50012L12.75 1.20723L11.4571 2.50012ZM13.0429 5.50012L10.75 3.20723L4.25001 9.70723V10.0001H4.75001C5.02616 10.0001 5.25001 10.224 5.25001 10.5001V11.0001H5.75001C6.02616 11.0001 6.25001 11.224 6.25001 11.5001V12.0001H6.54291L13.0429 5.50012ZM3.28167 10.6756L3.17614 10.7811L1.64754 14.6026L5.46903 13.074L5.57456 12.9685C5.38496 12.8974 5.25001 12.7145 5.25001 12.5001V12.0001H4.75001C4.47387 12.0001 4.25001 11.7763 4.25001 11.5001V11.0001H3.75001C3.53561 11.0001 3.35272 10.8652 3.28167 10.6756Z"
+						fill="black"
+					/>
+				</svg>
+				Edit
+			</Dropdown.Item>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>

@@ -21,19 +21,19 @@ const Login = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		await login(email, password).then((user, error) => {
+		await login(email, password).then((user) => {
 			if ((user?.data?.garageId == null || user?.data?.garageId == '') && !user?.data?.roles?.includes("SUPER_ADMIN")) {
+				console.log('ERROR FROM COMPOMNENT', user)
 				Cookies.remove("currentUser");
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: error?.message,
-				})
 			} else if (user) {
 				router.push("/profile");
 			}
 		}).catch((error) => {
-			console.log('T', error)
+			console.log('MESSAGE', error)
+			Swal.fire({
+				icon: 'error',
+				text: error,
+			})
 		})
 		setEmail("")
 		setPassword("")

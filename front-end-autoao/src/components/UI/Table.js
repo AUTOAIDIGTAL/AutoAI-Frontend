@@ -58,8 +58,8 @@ const TableUi = ({ users, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item><UserForm user={item} onUserAdded={handleRefetch} key={item._id} onUserUpdated={handleRefetch} /></Dropdown.Item>
-										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash-2 text-danger"></i> Delete</Dropdown.Item>
+										<Dropdown.Item><UserForm userData={item} onUserAdded={handleRefetch} key={item._id} onUserUpdated={handleRefetch} /></Dropdown.Item>
+										<Dropdown.Item onClick={(e) => deleteItem(e, item._id)}><i className="icon-trash text-danger"></i> Delete</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>
 							</td>

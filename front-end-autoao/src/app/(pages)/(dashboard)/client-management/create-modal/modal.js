@@ -259,18 +259,6 @@ const ClientModal = ({ handleRefetch }) => {
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} required />
 										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
-										<Form.Control
-											type="number"
-											placeholder="Post Code"
-											value={location.postCode}
-											onChange={(e) =>
-												setLocation({ ...location, postCode: e.target.value })
-											}
-											required
-										/>
-										{errorMsg && (
-											<Form.Text className="text-danger">{errorMsg}</Form.Text>
-										)}
 									</Form.Group >
 								</Col >
 							</Row >
