@@ -115,7 +115,7 @@ const Profile = () => {
 					</ListGroup>
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
-					{!currentUser?.roles?.includes('SUPER_ADMIN') && <Button variant="outline-secondary" className="py-2" onClick={() => router.push(currentUser?.roles.includes('SUPER_ADMIN') ? 'manage-administration' : 'user-roles-management')}>
+					{!currentUser?.roles?.includes('SUPER_ADMIN') && <Button variant="outline-secondary" onClick={() => router.push(currentUser?.roles.includes('SUPER_ADMIN') ? 'manage-administration' : 'user-roles-management')}>
 						Go Back
 					</Button>}
 					<Button
@@ -124,7 +124,6 @@ const Profile = () => {
 							router.push("/login");
 						}}
 						variant="outline-danger"
-						className="py-2"
 					>
 						Log Out
 					</Button>

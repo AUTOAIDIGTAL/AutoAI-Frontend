@@ -79,11 +79,12 @@ const ClientModal = ({ handleRefetch }) => {
 
 	useEffect;
 
-	return (
-		<>
-			<Button variant="primary fw-medium" onClick={handleShow}>
-				Add New Customer
-			</Button>
+  return (
+    <>
+      <Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+      <i class="icon-plus fs-5 me-1"></i>
+        Add New Customer
+      </Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>

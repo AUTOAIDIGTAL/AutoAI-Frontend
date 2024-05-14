@@ -37,7 +37,8 @@ const CreateModal = ({ onJobAdded }) => {
 
 	return (
 		<>
-			<Button variant="btn btn-primary fw-medium" onClick={handleShow}>
+			<Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+			<i class="icon-plus fs-5 me-1"></i>
 				Create Job
 			</Button>
 
@@ -80,7 +81,7 @@ const CreateModal = ({ onJobAdded }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						<div className="my-2">
+						<div className="my-2 d-inline-flex">
 							<Button variant="primary" type="submit">
 								Create Job
 							</Button>

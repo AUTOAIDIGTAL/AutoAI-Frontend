@@ -41,7 +41,7 @@ export default function ImageGallery({ data }) {
 	};
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col d-inline-flex gap-2">
 			{
 				images && images?.map((image, index) => (
 					<ModalImage
@@ -51,7 +51,7 @@ export default function ImageGallery({ data }) {
 						alt="Hello World!"
 						width={50}
 						height={50}
-						className="test"
+						className="img-thumb"
 					/>
 				))
 			}

@@ -51,13 +51,13 @@ const ClientInformation = () => {
 					</div>
 				</div>
 				<div className="d-flex justify-content-between align-items-center top-white-shadow">
-					<Button variant="outline-secondary" className="py-2" onClick={() => router.push('/client-management')
+					<Button variant="outline-secondary" onClick={() => router.push('/client-management')
 					}>
 						Go Back
 					</Button>
 					<div className="d-flex align-items-center gap-2">
 						<EditModal customerId={client?._id} handleRefetch={handleRefetch} />
-						<Button variant="outline-danger" className="py-2" onClick={handleDelete}>
+						<Button variant="outline-danger" onClick={handleDelete}>
 							Delete
 						</Button>
 					</div>

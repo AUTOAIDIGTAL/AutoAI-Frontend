@@ -72,7 +72,8 @@ const AddNewUser = ({ onUserAdded }) => {
 
 	return (
 		<>
-			<Button variant="outline-primary fw-medium" onClick={handleShow}>
+			<Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+				<i class="icon-plus fs-5 me-1"></i>
 				Add New User
 			</Button>
 
@@ -156,12 +157,14 @@ const AddNewUser = ({ onUserAdded }) => {
 								</div>
 							</Col>
 						</Row>
-						<Button variant="primary" type="submit">
-							Add User
-						</Button>
-						<Button variant="secondary" onClick={handleClose}>
-							Cancel
-						</Button>
+						<div className="d-flex gap-2 pt-3">
+							<Button variant="primary" type="submit">
+								Add User
+							</Button>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
+						</div>
 					</Form>
 				</Modal.Body>
 			</Modal >

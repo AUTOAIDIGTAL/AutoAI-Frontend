@@ -1,5 +1,6 @@
 // @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "~@mdi/font/scss/materialdesignicons.scss";
+@import "./fontKit";
 @import "./variables";
 @import "./table";
 @import "./dropdown";
@@ -11,112 +12,6 @@
 @import "./formInputs";
 @import "./silckCustom.scss";
 
-@font-face {
-  font-family: 'icomoon';
-  src:  url('../../public/assets/fonts/icomoon.eot?ne7dh7');
-  src:  url('../../public/assets/fonts/icomoon.eot?ne7dh7#iefix') format('embedded-opentype'),
-    url('../../public/assets/fonts/icomoon.ttf?ne7dh7') format('truetype'),
-    url('../../public/assets/fonts/icomoon.woff?ne7dh7') format('woff'),
-    url('../../public/assets/fonts/icomoon.svg?ne7dh7#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: never;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-board:before {
-  content: "\e900";
-}
-.icon-bell:before {
-  content: "\e901";
-}
-.icon-calendar:before {
-  content: "\e902";
-}
-.icon-car:before {
-  content: "\e903";
-}
-.icon-email:before {
-  content: "\e904";
-}
-.icon-search:before {
-  content: "\e905";
-}
-.icon-google .path1:before {
-  content: "\e906";
-  color: rgb(255, 193, 7);
-}
-.icon-google .path2:before {
-  content: "\e907";
-  margin-left: -1em;
-  color: rgb(255, 61, 0);
-}
-.icon-google .path3:before {
-  content: "\e908";
-  margin-left: -1em;
-  color: rgb(76, 175, 80);
-}
-.icon-google .path4:before {
-  content: "\e909";
-  margin-left: -1em;
-  color: rgb(25, 118, 210);
-}
-.icon-garage:before {
-  content: "\e90a";
-}
-.icon-help:before {
-  content: "\e90b";
-}
-.icon-instrument:before {
-  content: "\e90c";
-}
-.icon-jobs:before {
-  content: "\e90d";
-}
-.icon-layout:before {
-  content: "\e90e";
-}
-.icon-list:before {
-  content: "\e90f";
-}
-.icon-list-1:before {
-  content: "\e910";
-}
-.icon-pin:before {
-  content: "\e911";
-}
-.icon-pin-2:before {
-  content: "\e912";
-}
-.icon-mechanic:before {
-  content: "\e913";
-}
-.icon-chat:before {
-  content: "\e914";
-}
-.icon-Phone:before {
-  content: "\e915";
-}
-.icon-Report:before {
-  content: "\e916";
-}
-.icon-users:before {
-  content: "\e917";
-}
 
 html,
 body {
@@ -170,6 +65,9 @@ body {
   margin-bottom: 20px;
   overflow: auto;
   // transition: margin-left 0.35s ease-in-out, left 0.35s ease-in-out, margin-right 0.35s ease-in-out, right 0.35s ease-in-out;
+  @media (max-width:991px) {
+    margin-left: 0;
+  }
 }
 
 /* navbar */
@@ -234,6 +132,9 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 0;
+    @media(max-width:991px){
+      flex-direction: column;
+    }
     &:first-child{
       padding-top: 0;
     }
@@ -271,5 +172,22 @@ body {
   border-bottom: 1px solid var(--ai-gray-300);
   .list-group-item{
     border: 0 !important;
+  }
+}
+
+.img-thumb{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  position: relative;
+  &:before{
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 1;
   }
 }
