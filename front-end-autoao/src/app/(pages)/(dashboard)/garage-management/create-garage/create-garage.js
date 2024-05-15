@@ -135,7 +135,7 @@ const CreateGarage = ({ onGarageAdded }) => {
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicEmail">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" value={location?.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} />
+										<Form.Control type="number" placeholder="Post Code" value={location?.postalCode} onChange={(e) => setLocation({ ...location, postalCode: e.target.value })} />
 									</Form.Group>
 								</Col>
 							</Row>

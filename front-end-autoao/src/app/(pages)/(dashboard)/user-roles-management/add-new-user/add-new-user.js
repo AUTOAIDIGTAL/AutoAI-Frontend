@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
+import { message } from "antd";
 
 const AddNewUser = ({ onUserAdded }) => {
 	const [show, setShow] = useState(false);
@@ -20,35 +21,43 @@ const AddNewUser = ({ onUserAdded }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// console.log({
-		// firstName,
-		// 	lastName,
-		// 	phoneNumber,
-		// 	email,
-		// 	roles,
-		// });
+		message.open({
+			type: 'loading',
+			content: 'Adding User...',
+			duration: 0,
+		})
+		try {
+			const formData = new FormData();
+			formData.append("firstName", firstName);
+			formData.append("lastName", lastName);
+			formData.append("phoneNumber", phoneNumber);
+			formData.append("email", email);
+			// roles.forEach((role) => {
+			formData.append("roles", roles.join(","));
+			// });
 
-		const formData = new FormData();
-		formData.append("firstName", firstName);
-		formData.append("lastName", lastName);
-		formData.append("phoneNumber", phoneNumber);
-		formData.append("email", email);
-		// roles.forEach((role) => {
-		formData.append("roles", roles.join(","));
-		// });
+			const response = await apiService.post(constants.createAdmin, formData);
 
-		const response = await apiService.post(constants.createAdmin, formData);
-
-		if (response) {
-			// console.log("User added successfully:", response);
-			setShow(false);
-			onUserAdded();
-			setFirstName(null);
-			setLastName(null);
-			setPhoneNumber(null);
-			setEmail(null);
-			setRoles([]);
+			if (response) {
+				// console.log("User added successfully:", response);
+				message.destroy();
+				message.success('User added successfully!', 2);
+				setShow(false);
+				onUserAdded();
+				setFirstName(null);
+				setLastName(null);
+				setPhoneNumber(null);
+				setEmail(null);
+				setRoles([]);
+			}
+		} catch (error) {
+			console.error(error)
+			message.destroy();
+			error.response.data.errors.forEach((error) => {
+				message.error(`Failed to add user: ${JSON.stringify(error)}`, 2);
+			})
 		}
+
 	};
 
 	const handleRoleChange = (role) => {

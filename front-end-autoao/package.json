@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "antd": "^5.17.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "js-cookie": "^3.0.5",

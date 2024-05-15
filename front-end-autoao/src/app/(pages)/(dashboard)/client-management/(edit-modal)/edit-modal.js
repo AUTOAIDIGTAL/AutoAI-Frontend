@@ -6,6 +6,7 @@ import { Row, Col, Dropdown } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
 import Link from "next/link";
+import { message } from 'antd'
 
 const EditModal = ({ customerId, handleRefetch }) => {
 	const [show, setShow] = useState(false);
@@ -17,7 +18,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 		phoneNumber: "",
 		email: "",
 		vehicleIds: [],
-		address: { street: "", city: "", country: "", postCode: "" },
+		address: { street: "", city: "", country: "", postalCode: "" },
 	});
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredOptions, setFilteredOptions] = useState([]);
@@ -47,7 +48,7 @@ const EditModal = ({ customerId, handleRefetch }) => {
 							street: "",
 							city: "",
 							country: "",
-							postCode: "",
+							postalCode: "",
 						},
 					});
 
@@ -116,16 +117,31 @@ const EditModal = ({ customerId, handleRefetch }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+
+		message.open({
+			type: 'loading',
+			content: 'Updating Customer Data!',
+			duration: 0,
+		});
 		const form = e.currentTarget;
-		if (form.checkValidity()) {
-			const response = await apiService.put(
-				`${constants.customer}/${customerId}`,
-				customerData
-			);
-			if (response) {
-				handleRefetch();
-				setShow(false);
+
+		try {
+			if (form.checkValidity()) {
+				const response = await apiService.put(
+					`${constants.customer}/${customerId}`,
+					customerData
+				);
+				if (response) {
+					message.destroy()
+					handleRefetch();
+					setShow(false);
+					message.success('Customer information is updated successfully!')
+				}
 			}
+		} catch (error) {
+			console.log(error)
+			message.error("Something went wrong!")
 		}
 	};
 
@@ -316,13 +332,13 @@ const EditModal = ({ customerId, handleRefetch }) => {
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicPostCode">
+									<Form.Group className="mb-3" controlId="formBasicpostalCode">
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control
 											type="number"
-											name="postCode"
+											name="postalCode"
 											placeholder="Post Code"
-											value={customerData.address.postCode}
+											value={customerData.address.postalCode}
 											onChange={handleLocationChange}
 											required
 										/>

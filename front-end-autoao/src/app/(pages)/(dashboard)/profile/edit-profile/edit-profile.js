@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
+import { message } from "antd";
 
 const EditProfile = ({ currentUser, refetchUser }) => {
 	const [show, setShow] = useState(false);
@@ -18,23 +19,35 @@ const EditProfile = ({ currentUser, refetchUser }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		// Update user information on the server
-		const response = await apiService.put(`${constants.createAdmin}/${currentUser._id}`, {
-			firstName,
-			phoneNumber,
-			address: {
-				street: address.street,
-				city: address.city,
-				country: address.country,
-				postalCode: address.postalCode,
-			}
+		message.open({
+			type: 'loading',
+			content: 'Updating Profile...',
+			duration: 0,
 		});
+		// Update user information on the server
+		try {
+			const response = await apiService.put(`${constants.createAdmin}/${currentUser._id}`, {
+				firstName,
+				phoneNumber,
+				address: {
+					street: address.street,
+					city: address.city,
+					country: address.country,
+					postalCode: address.postalCode,
+				}
+			});
 
-		// Refresh user information in the client if update is successful
-		if (response) {
-			refetchUser(currentUser?._id);
-			handleClose();
+			// Refresh user information in the client if update is successful
+			if (response) {
+				message.destroy();
+				refetchUser(currentUser?._id);
+				handleClose();
+				message.success('Profile information updated successfully!', 2.5);
+			}
+		}
+		catch (error) {
+			message.destroy();
+			message.error(`Update Failed: ${error.message}`, 2.5);
 		}
 	};
 
@@ -120,13 +133,13 @@ const EditProfile = ({ currentUser, refetchUser }) => {
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formPostCode">
+									<Form.Group className="mb-3" controlId="formpostalCode">
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control
 											type="text"
 											placeholder="Post Code"
-											value={address?.postCode}
-											onChange={(e) => handleAddressChange("postCode", e.target.value)}
+											value={address?.postalCode}
+											onChange={(e) => handleAddressChange("postalCode", e.target.value)}
 										/>
 									</Form.Group>
 								</Col>

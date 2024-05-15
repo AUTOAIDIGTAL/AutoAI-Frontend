@@ -41,8 +41,11 @@ export class APIService {
 	put = async (path, data) => {
 		try {
 			return await this.instance
-				.put(path, data)
+				.put(path, data, {
+					headers: getAuthorizationHeader(),
+				})
 				.then((res) => {
+					console.log('res', res)
 					return res.data.status && res.data.data;
 				});
 		} catch (error) {

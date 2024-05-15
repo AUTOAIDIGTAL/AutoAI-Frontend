@@ -28,6 +28,8 @@ const Profile = () => {
 		setShowChangePassword(false)
 	}
 
+	console.log('CURRENT USER: ', currentUser)
+
 	const address = `${currentUser?.address?.city || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
 
 	return (
