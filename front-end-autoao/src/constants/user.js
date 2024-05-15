@@ -49,7 +49,7 @@ export const linksMap = {
 	"mechanicsManagement": {
 		icon: "icon-mechanic",
 		title: "Mechanics management",
-		link: "/dashboard"
+		link: "/mechanic-management"
 	},
 	"jobs": {
 		icon: "icon-jobs",

@@ -10,7 +10,7 @@ import { apiService } from "@/services";
 import { usePathname } from "next/navigation";
 import VehicleModal from "../../vehicle-management/create-modal/modal";
 
-const ClientModal = ({ handleRefetch }) => {
+const 	ClientModal = ({ handleRefetch }) => {
 	const [name, setName] = useState(null);
 	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);

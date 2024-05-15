@@ -81,6 +81,17 @@ button:active .btn,
     }
 }
 
+.bg-soft-primary {
+    color: var(--theme-primary-100);
+    background-color: var(--theme-primary-0);
+    border-color: rgba(40, 146, 253, .12);
+}
+
+.bg-soft-danger {
+    color: #f75964;
+    background-color: rgba(247, 89, 100, .18);
+    border-color: rgba(247, 89, 100, .12);
+}
 
 .manage-btn-drop{
     .btn{
