@@ -1,5 +1,5 @@
 import MechanicInformationDetails from "@/components/UI/mechanic-information";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 const MechanicInformation = () => {
   return (
@@ -13,7 +13,7 @@ const MechanicInformation = () => {
           <Row className="g-4">
             <Col lg={6}>
               <div className="rounded-5 p-4 bg-gray-100">
-				<div className="fs-5 fw-medium pt-1 pb-3">Availability</div>
+                <div className="fs-5 fw-medium pt-1 pb-3">Availability</div>
                 <div className="schedule-poppver bg-white rounded-5 py-2 px-4">
                   <ul>
                     {Array.from({ length: 5 }, (_, index) => (
@@ -52,7 +52,7 @@ const MechanicInformation = () => {
             </Col>
             <Col lg={6}>
               <div className="rounded-5 p-4 bg-gray-100">
-				<div className="fs-5 fw-medium pt-1 pb-3">Work Schedule </div>
+                <div className="fs-5 fw-medium pt-1 pb-3">Work Schedule </div>
                 <div className="schedule-poppver bg-white rounded-5 py-2 px-4">
                   <ul>
                     {Array.from({ length: 5 }, (_, index) => (
@@ -90,6 +90,12 @@ const MechanicInformation = () => {
               </div>
             </Col>
           </Row>
+        </div>
+        <div className="d-flex justify-content-between align-items-center top-white-shadow mt-2">
+          <Button variant="outline-secondary">Go Back</Button>
+          <div className="d-flex align-items-center gap-2">
+            <Button variant="outline-danger">Delete</Button>
+          </div>
         </div>
       </div>
     </>
