@@ -1,4 +1,5 @@
 "use client";
+import AvatarEdit from "@/components/UI/AvatarEdit";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 const MechanicInformation = () => {
@@ -18,6 +19,12 @@ const MechanicInformation = () => {
                 </Form.Group>
               </Col>
               <Col xs={12} md={6} xl={3}>
+                <Form.Group controlId="formGroupEmail">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control type="text" placeholder="Last Name" />
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={6} xl={3}>
                 {" "}
                 <Form.Group controlId="formGroupPassword">
                   <Form.Label>Position</Form.Label>
@@ -31,7 +38,7 @@ const MechanicInformation = () => {
                   <Form.Control type="text" placeholder="Phone Number" />
                 </Form.Group>
               </Col>
-              <Col xs={12} md={6} lg={3}>
+              <Col xs={12} md={6} lg={6}>
                 {" "}
                 <Form.Group controlId="formGroupPassword">
                   <Form.Label>Emergency Contact Number</Form.Label>
@@ -41,8 +48,37 @@ const MechanicInformation = () => {
                   />
                 </Form.Group>
               </Col>
+              <Col xs={12} md={6} lg={6}>
+                <div className="form-label">Skills</div>
+                <div className="rounded-ai-md border border-ai bg-gray-100 d-flex flex-wrap gap-3 p-2">
+                  <Button
+                    variant="soft-secondary"
+                    className="d-inline-flex align-items-center py-1 px-2 gap-2 fw-normal"
+                  >
+                    Brake CHange <i className="icon-x fs-6"></i>
+                  </Button>
+                  <Button
+                    variant="soft-secondary"
+                    className="d-inline-flex align-items-center py-1 px-2 gap-2 fw-normal"
+                  >
+                    Brake CHange <i className="icon-x fs-6"></i>
+                  </Button>
+                  <Button
+                    variant="soft-secondary"
+                    className="d-inline-flex align-items-center py-1 px-2 gap-2 fw-normal"
+                  >
+                    Brake CHange <i className="icon-x fs-6"></i>
+                  </Button>
+                </div>
+              </Col>
             </Row>
           </Form>
+          <div className="d-flex justify-content-between align-items-center top-white-shadow mt-5">
+            <div className="form-label">Profile Image</div>
+            <div className="avatar">
+              <AvatarEdit size="md" />
+            </div>
+          </div>
           <hr className="text-muted my-5" />
           <div className="rounded-ai bg-gray-100 p-4">
             <div className="h6 mb-3">Address</div>
@@ -105,7 +141,10 @@ const MechanicInformation = () => {
                         <Form.Control type="text" placeholder="End Time" />
                       </Form.Group>
                     </Col>
-                    <Col lg={"auto"} className="d-flex justify-content-end mt-xl-auto">
+                    <Col
+                      lg={"auto"}
+                      className="d-flex justify-content-end mt-xl-auto"
+                    >
                       <Button variant="soft-primary rounded-pill p-3 d-flex">
                         <i className="icon-plus fs-4"></i>
                       </Button>
@@ -115,13 +154,6 @@ const MechanicInformation = () => {
               ))}
             </ul>
           </Form>
-          <div className="rounded-ai bg-gray-100 p-4 mt-5">
-            <div className="h6 mb-3">Additional Information</div>
-            <Button variant="outline-primary w-100 d-flex justify-content-center align-items-center gap-2 py-3">
-              <i class="icon-upload"></i>
-              Upload Profile Image
-            </Button>
-          </div>
         </div>
 
         <div className="d-flex justify-content-between align-items-center top-white-shadow mt-5">

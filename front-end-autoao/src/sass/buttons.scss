@@ -46,6 +46,24 @@ button:active .btn,
             background: var(--theme-primary-100);
         }
     }
+    &.btn-soft-secondary {
+        font-size: 12px;
+        color: var(--gray-600);
+        background: var(--gray-200);
+        border: 1px solid var(--theme-primary-0);
+        border-radius: 12px;
+        i{
+            color: var(--gray-700);
+        }
+        &:hover,
+        &:focus {
+            color: var(--gray-100);
+            background: var(--gray-600);
+            i{
+                color: var(--gray-100);
+            }
+        }
+    }
     
 
     &.btn-secondary {

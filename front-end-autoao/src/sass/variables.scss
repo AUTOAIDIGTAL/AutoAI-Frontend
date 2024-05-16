@@ -94,6 +94,7 @@
   --ai-gray-800: #2d3748;
   --ai-gray-900: #323a46;
   --rounded-ai: 32px;
+  --rounded-ai-md: 12px;
 
    /* SHADOWS */
    --welcome: 0 20px 80px -40px rgba(45 50 90 / 0.1), 0 1px 0 0 rgba(0 0 0 / 0.03);
@@ -121,6 +122,10 @@
   background-color: #ebf3ff;
 }
 
+.border.border-ai{
+  border-color: #EDF2F7 !important;
+}
+
 .start-20 {
   left: 20px !important;
 }
@@ -132,6 +137,9 @@
   right: 15px !important;
 }
 
+.rounded-ai-md {
+  border-radius: var(--rounded-ai-md);
+}
 .rounded-ai {
   border-radius: var(--rounded-ai);
 }
