@@ -43,7 +43,6 @@ const MechanicInformation = () => {
 		const getMechanic = async () => {
 			try {
 				const data = await apiService.get(`${constants.mechanic}/${params.id}`)
-				console.log(data)
 				if (data) {
 					setMechanic(data)
 					setFirstName(data?.user?.firstName)
@@ -92,8 +91,6 @@ const MechanicInformation = () => {
 					const skills = response.map((skill, index) => {
 						return { key: index, name: skill.name, id: skill._id }
 					})
-
-					console.log('SKILLS WITH KEY', skills)
 					setOptions(skills)
 				}
 			} catch (error) {
@@ -143,7 +140,7 @@ const MechanicInformation = () => {
 		}));
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 
@@ -153,6 +150,12 @@ const MechanicInformation = () => {
 				available: !unavailableDays[day]
 			}));
 
+			if (profileImage) {
+				const formData = new FormData();
+				formData.append('profileImg', profileImage);
+				await apiService.put(`${constants.createAdmin}/${mechanic?.user?._id}`, formData);
+			}
+
 			const data = {
 				firstName,
 				lastName,
@@ -161,10 +164,9 @@ const MechanicInformation = () => {
 				schedule,
 				services: skillsRef.current.getSelectedItems().map((skill) => skill.id),
 				address,
-				profileImage
 			}
 
-			const response = apiService.put(`${constants.mechanic}/${params.id}`, data)
+			const response = await apiService.put(`${constants.mechanic}/${params.id}`, data)
 			if (response) {
 				message.success('Profile updated successfully', 2.5);
 				router.push(`/mechanic-management/${params.id}`)
@@ -234,7 +236,7 @@ const MechanicInformation = () => {
 						<div className="d-flex justify-content-between align-items-center top-white-shadow mt-5">
 							<div className="form-label">Profile Image</div>
 							<div className="avatar">
-								<AvatarEdit size="lg" />
+								<AvatarEdit size="lg" img={mechanic?.user?.profileImg} addProfileImage={(img) => setProfileImage(img)} />
 							</div>
 						</div>
 						<hr className="text-muted my-5" />
