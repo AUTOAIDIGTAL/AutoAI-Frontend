@@ -224,7 +224,7 @@ const MechanicInformation = () => {
 									<Multiselect
 										isObject={true}
 										options={options}
-										displayValue="key"
+										displayValue="name"
 										selectedValues={services}
 										ref={skillsRef}
 									/>
