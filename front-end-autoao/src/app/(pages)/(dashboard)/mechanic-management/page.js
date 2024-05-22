@@ -1,44 +1,40 @@
 "use client";
-import TableCM from "@/components/UI/TableCM";
+import TableMM from "@/components/UI/TableMM";
 import PaginationUi from "@/components/UI/Pagination";
-import Link from "next/link";
 import { constants } from "../garage-management/constant";
 import { apiService } from "@/services";
 import { useEffect, useState } from "react";
-import ClientModal from "./create-modal/modal";
-import { message } from 'antd'
 
-const ClientManagement = () => {
-	const [clients, setClients] = useState(null);
+const MechanicManagement = () => {
+
+	const [mechanicList, setMechanicList] = useState(null);
 	const [refetch, setRefetch] = useState(false);
 
 	useEffect(() => {
-		const getClients = async () => {
+		const getMechanics = async () => {
 			try {
-				const data = await apiService.get(constants.customer)
-				setClients(data)
+				const data = await apiService.get(constants.mechanic)
+				console.log(data)
+				setMechanicList(data)
 			} catch (error) {
 				console.log(error);
 			}
 		};
-		getClients();
+		getMechanics();
 	}, [refetch]);
-
 
 	const handleRefetch = () => {
 		setRefetch(!refetch)
 	};
 
-
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4">
 				<div className="d-flex justify-content-between align-items-center">
-					<div className="fs-3 fw-medium">Client management</div>
-					<ClientModal handleRefetch={handleRefetch} />
+					<div className="fs-3 fw-medium">Mechanic Management</div>
 				</div>
 				<div className="flex-1 pt-3">
-					<TableCM clients={clients} />
+					{mechanicList && <TableMM mechanicList={mechanicList} handleRefetch={handleRefetch} />}
 					{/* <PaginationUi /> */}
 				</div>
 			</div>
@@ -46,4 +42,4 @@ const ClientManagement = () => {
 	);
 };
 
-export default ClientManagement;
+export default MechanicManagement;

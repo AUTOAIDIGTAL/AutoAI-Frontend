@@ -9,8 +9,9 @@ import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
 import { usePathname } from "next/navigation";
 import VehicleModal from "../../vehicle-management/create-modal/modal";
+import { message } from 'antd'
 
-const ClientModal = ({ handleRefetch }) => {
+const 	ClientModal = ({ handleRefetch }) => {
 	const [name, setName] = useState(null);
 	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);
@@ -20,7 +21,7 @@ const ClientModal = ({ handleRefetch }) => {
 		street: "",
 		city: "",
 		country: "",
-		postCode: "",
+		postalCode: "",
 	});
 	const [show, setShow] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -52,6 +53,12 @@ const ClientModal = ({ handleRefetch }) => {
 		try {
 			e.preventDefault();
 
+			message.open({
+				type: 'loading',
+				content: 'Adding Customer!',
+				duration: 0,
+			});
+
 			const response = await apiService.post(constants.customer, {
 				name,
 				company,
@@ -62,29 +69,32 @@ const ClientModal = ({ handleRefetch }) => {
 			});
 
 			if (response) {
+				message.destroy()
 				setName(null);
 				setCompany(null);
 				setPhoneNumber(null);
 				setEmail(null);
 				setVehicle(null);
-				setLocation({ street: "", city: "", country: "", postCode: "" });
+				setLocation({ street: "", city: "", country: "", postalCode: "" });
 				handleRefetch();
 				setShow(false);
 				setVehicle([]);
+				message.success("New customer is added successfully!")
 			}
 		} catch (error) {
 			setErrorMsg(error.message);
+			message.error("Something went wrong! Try again.")
 		}
 	};
 
 	useEffect;
 
-  return (
-    <>
-      <Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
-      <i class="icon-plus fs-5 me-1"></i>
-        Add New Customer
-      </Button>
+	return (
+		<>
+			<Button variant="primary fw-medium d-inline-flex align-items-center" onClick={handleShow}>
+				<i class="icon-plus fs-5 me-1"></i>
+				Add New Customer
+			</Button>
 
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
 				<Modal.Header closeButton>
@@ -257,7 +267,7 @@ const ClientModal = ({ handleRefetch }) => {
 								<Col lg={6}>
 									<Form.Group className="mb-3" controlId="formBasicNumber">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" value={location.postCode} onChange={(e) => setLocation({ ...location, postCode: e.target.value })} required />
+										<Form.Control type="number" placeholder="Post Code" value={location.postalCode} onChange={(e) => setLocation({ ...location, postalCode: e.target.value })} required />
 										{errorMsg && <Form.Text className="text-danger">{errorMsg}</Form.Text>}
 									</Form.Group >
 								</Col >

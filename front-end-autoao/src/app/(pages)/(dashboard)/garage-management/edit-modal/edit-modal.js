@@ -186,13 +186,13 @@ const EditGarage = ({ data, onGarageUpdated }) => {
 									</Form.Group>
 								</Col>
 								<Col lg={6}>
-									<Form.Group className="mb-3" controlId="formBasicPostCode">
+									<Form.Group className="mb-3" controlId="formBasicpostalCode">
 										<Form.Label>Post Code</Form.Label>
 										<Form.Control
 											type="number"
 											placeholder="Post Code"
 											value={location?.postalCode}
-											onChange={(e) => setLocation({ ...location, postCode: e.target.value })}
+											onChange={(e) => setLocation({ ...location, postalCode: e.target.value })}
 										/>
 									</Form.Group>
 								</Col>

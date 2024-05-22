@@ -1,4 +1,3 @@
-import { Nav, Dropdown } from "react-bootstrap";
 import Image from "next/image";
 
 const Avatar = ({ imgSrc }) => {

@@ -8,5 +8,6 @@ export const constants = {
 	vehicle: '/vehicle',
 	searchVehicle: '/vehicle/search/filter',
 	searchCustomer: '/customer/search/filter',
-	customer: '/customer'
+	customer: '/customer',
+	mechanic: '/userprofile'
 }
