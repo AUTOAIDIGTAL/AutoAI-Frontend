@@ -192,7 +192,7 @@ const TableMM = ({ mechanicList, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item className="d-flex align-items-center gap-1" onClick={() => router.push(`mechanic-management/${item?.profile?._id}`)}>
+										<Dropdown.Item className="d-flex align-items-center gap-1" onClick={() => router.push(`mechanic-management/${item?.profile?._id}/edit`)}>
 											<i className="icon-pencil"></i>
 											Edit
 										</Dropdown.Item>

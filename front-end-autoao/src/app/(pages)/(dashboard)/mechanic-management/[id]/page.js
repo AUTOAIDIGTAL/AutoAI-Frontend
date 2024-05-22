@@ -82,9 +82,9 @@ const MechanicInformation = () => {
 															<div className="small text-dark">Time slot</div>
 															{
 																_?.slots.map((_, i) => (
-																	<div key={i} className="text-muted">
+																	_?.start ? <div key={i} className="text-muted">
 																		<i className="icon-clock text-primary"></i>  {_.start || ''} - {_.end || ''}
-																	</div>
+																	</div> : ''
 																))
 															}
 														</Col>
@@ -110,7 +110,7 @@ const MechanicInformation = () => {
 						</Col>
 					</Row>
 					<div className="d-flex justify-content-between align-items-center top-white-shadow my-4">
-						<Button onClick={() => router.back()} variant="outline-secondary">Go Back</Button>
+						<Button onClick={() => router.push('/mechanic-management')} variant="outline-secondary">Go Back</Button>
 						<div className="d-flex align-items-center gap-2">
 							<Button onClick={() => router.push(`${mechanic._id}/edit`)} variant="outline-primary">Edit</Button>
 							<Button variant="outline-danger">Delete</Button>
@@ -119,7 +119,7 @@ const MechanicInformation = () => {
 				</div>
 			</div >
 		</>
-	);
+	)
 };
 
 export default MechanicInformation;
