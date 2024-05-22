@@ -89,8 +89,8 @@ const MechanicInformation = () => {
 															}
 														</Col>
 													</Row>
-												</li> : <li>
-													<Row className="align-items-center">
+												</li> : <li key={index}>
+													<Row className="align-items-center" >
 														<Col sm={6} className="schedule-popover-left">
 															<div className="small text-dark">Day</div>
 															<div className="text-dark fw-medium text-capitalize">{_?.day}</div>

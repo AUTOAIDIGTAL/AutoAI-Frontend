@@ -51,10 +51,11 @@ const MechanicInformation = () => {
 					setPhoneNumber(data?.user?.phoneNumber)
 					setAddress(data?.user?.address)
 					setEmergencyContactNumber(data?.emergencyContactNo)
-					setServices(data?.services.map((service) => {
+					setServices(data?.services.map((service, index) => {
 						return {
 							name: service.name,
-							id: service._id
+							id: service._id,
+							key: index
 						}
 					}))
 					setProfileImage(data?.profileImage)
@@ -81,16 +82,18 @@ const MechanicInformation = () => {
 		}
 
 		getMechanic();
-	}, [])
+	}, [params.id])
 
 	useEffect(() => {
 		const getSkills = async () => {
 			try {
 				const response = await apiService.get(constants.jobs)
 				if (response) {
-					const skills = response.map((skill) => {
-						return { name: skill.name, id: skill._id }
+					const skills = response.map((skill, index) => {
+						return { key: index, name: skill.name, id: skill._id }
 					})
+
+					console.log('SKILLS WITH KEY', skills)
 					setOptions(skills)
 				}
 			} catch (error) {
@@ -221,7 +224,7 @@ const MechanicInformation = () => {
 									<Multiselect
 										isObject={true}
 										options={options}
-										displayValue="name"
+										displayValue="key"
 										selectedValues={services}
 										ref={skillsRef}
 									/>

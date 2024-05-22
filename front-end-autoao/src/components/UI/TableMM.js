@@ -33,15 +33,15 @@ const Schedule = ({ scheduleData }) => {
 										<Col sm={6}>
 											<div className="small text-dark">Time slot</div>
 											{
-												_.slots.map((slot) => (
-													<div className="text-muted">
+												_.slots.map((slot, index) => (
+													<div className="text-muted" key={index}>
 														<i className="icon-clock text-primary"></i> {slot?.start} {slot?.startPeriod} - {slot?.end} {slot?.endPeriod}
 													</div>
 												))
 											}
 										</Col>
 									</Row>
-								</li> : <li>
+								</li> : <li key={index}>
 									<Row className="align-items-center">
 										<Col sm={6} className="schedule-popover-left">
 											<div className="small text-dark">Day</div>

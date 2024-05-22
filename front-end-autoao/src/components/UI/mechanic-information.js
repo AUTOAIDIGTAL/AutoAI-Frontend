@@ -104,8 +104,8 @@ const MechanicInformation = ({ mechanic }) => {
 							<div className="d-flex align-items-center gap-4">
 								{" "}
 								<div className="d-flex flex-wrap align-items-center gap-2">
-									{mechanic?.services.map((service) => (
-										<Badge bg="light" className="fw-normal rounded-ai fs-base-13">
+									{mechanic?.services.map((service, index) => (
+										<Badge bg="light" key={index} className="fw-normal rounded-ai fs-base-13">
 											{service.name}
 										</Badge>
 									))}
