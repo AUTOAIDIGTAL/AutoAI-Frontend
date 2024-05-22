@@ -244,28 +244,28 @@ const MechanicInformation = () => {
 								<Col xs={12} md={6} xl={3}>
 									<Form.Group controlId="formGroupEmail">
 										<Form.Label>Street name</Form.Label>
-										<Form.Control type="text" placeholder="Street name" name="street" value={address.street} onChange={handleLocationChange} />
+										<Form.Control type="text" placeholder="Street name" name="street" value={address?.street} onChange={handleLocationChange} />
 									</Form.Group>
 								</Col>
 								<Col xs={12} md={6} xl={3}>
 									{" "}
 									<Form.Group controlId="formGroupPassword">
 										<Form.Label>Country</Form.Label>
-										<Form.Control type="text" placeholder="Country" name="country" value={address.country} onChange={handleLocationChange} />
+										<Form.Control type="text" placeholder="Country" name="country" value={address?.country} onChange={handleLocationChange} />
 									</Form.Group>
 								</Col>
 								<Col xs={12} md={6} xl={3}>
 									{" "}
 									<Form.Group controlId="formGroupPassword">
 										<Form.Label>City/ Post Town</Form.Label>
-										<Form.Control type="text" placeholder="City/ Post Town" name="city" value={address.city} onChange={handleLocationChange} />
+										<Form.Control type="text" placeholder="City/ Post Town" name="city" value={address?.city} onChange={handleLocationChange} />
 									</Form.Group>
 								</Col>
 								<Col xs={12} md={6} xl={3}>
 									{" "}
 									<Form.Group controlId="formGroupPassword">
 										<Form.Label>Post Code</Form.Label>
-										<Form.Control type="number" placeholder="Post Code" name="postalCode" value={address.postalCode} onChange={handleLocationChange} />
+										<Form.Control type="number" placeholder="Post Code" name="postalCode" value={address?.postalCode} onChange={handleLocationChange} />
 									</Form.Group>
 								</Col>
 							</Row>

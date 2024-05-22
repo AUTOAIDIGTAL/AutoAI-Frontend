@@ -6,6 +6,7 @@ import Link from "next/link";
 import Slide from "@/components/Carousel/slide";
 import { useRouter } from 'next/navigation';
 import { apiService } from "@/services";
+import { message } from "antd";
 
 const ForgotPassowrd = () => {
 
