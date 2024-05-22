@@ -7,12 +7,14 @@ import { Row, Col } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 const EditProfile = ({ currentUser, refetchUser }) => {
 	const [show, setShow] = useState(false);
 	const [firstName, setFirstName] = useState(currentUser?.firstName || "");
 	const [phoneNumber, setPhoneNumber] = useState(currentUser?.phoneNumber || "");
 	const [address, setAddress] = useState(currentUser?.address || {});
+	const router = useRouter()
 
 	const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
@@ -42,6 +44,7 @@ const EditProfile = ({ currentUser, refetchUser }) => {
 				message.destroy();
 				refetchUser(currentUser?._id);
 				handleClose();
+				location.reload();
 				message.success('Profile information updated successfully!', 2.5);
 			}
 		}

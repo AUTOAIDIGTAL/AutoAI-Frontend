@@ -1,6 +1,8 @@
 import Image from "next/image";
 import ImageGallery from "./image-gallery/Image-gallery";
-const VehicleManagementList = ({ vehicle }) => {
+import { useState } from "react";
+const VehicleManagementList = ({ vehicle, handleRefetch }) => {
+
 	return (
 		<>
 			{vehicle && <div className="divider-list">
@@ -18,7 +20,8 @@ const VehicleManagementList = ({ vehicle }) => {
 						<div className="d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Car Model</div>
 							<div className="fs-6 text-dark fw-semibold d-flex align-items-center gap-2">
-								{vehicle?.model}							</div>
+								{vehicle?.model}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -108,7 +111,7 @@ const VehicleManagementList = ({ vehicle }) => {
 						<div className="d-flex justify-content-between align-items-center">
 							<div className="fs-6 text-dark">Images</div>
 							<div className="">
-								{vehicle?.images && <ImageGallery data={vehicle?.images} />}
+								{vehicle?.images && <ImageGallery id={vehicle?._id} data={vehicle?.images} handleRefetch={handleRefetch} />}
 							</div>
 						</div>
 					</div>
