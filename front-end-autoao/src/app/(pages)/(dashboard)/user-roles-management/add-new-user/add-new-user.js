@@ -7,6 +7,7 @@ import { Row, Col } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
 import { message } from "antd";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const AddNewUser = ({ onUserAdded }) => {
 	const [show, setShow] = useState(false);
@@ -15,6 +16,7 @@ const AddNewUser = ({ onUserAdded }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
 	const [email, setEmail] = useState(null);
 	const [roles, setRoles] = useState([]);
+	const { user: currentUser } = useCurrentUser();
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -145,14 +147,14 @@ const AddNewUser = ({ onUserAdded }) => {
 											onChange={() => handleRoleChange("MECHANIC")}
 										/>
 									</Form.Group>
-									<Form.Group className="m-0" controlId="formBasicCheckbox">
+									{currentUser?.roles.includes("ADMIN") && <Form.Group className="m-0" controlId="formBasicCheckbox">
 										<Form.Check
 											type="checkbox"
 											label="Manager"
 											checked={roles.includes("MANAGER")}
 											onChange={() => handleRoleChange("MANAGER")}
 										/>
-									</Form.Group>
+									</Form.Group>}
 									{/* Add more checkboxes for additional roles as needed */}
 								</div>
 							</Col>

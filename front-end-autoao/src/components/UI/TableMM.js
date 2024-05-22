@@ -18,50 +18,28 @@ import {
 const Schedule = ({ scheduleData }) => {
 
 	const popover = (
-		scheduleData ? <Popover style={{ width: "auto", minWidth: "350px", maxWidth: "350px" }}>
+		<Popover style={{ width: "auto", minWidth: "350px", maxWidth: "350px" }}>
 			<Popover.Body className="py-1 px-3">
 				<div className="schedule-popover">
 					<ul>
-						{scheduleData && scheduleData?.map((_, index) => (
-							_.avaliable == true ?
-								<li key={index}>
-									<Row className="g-2">
-										<Col sm={6}>
-											<div className="small text-dark">Day</div>
-											<div className="text-dark fw-medium text-capitalize">{_.day}</div>
-										</Col>
-										<Col sm={6}>
-											<div className="small text-dark">Time slot</div>
-											{
-												_.slots.map((slot, index) => (
-													<div className="text-muted" key={index}>
-														<i className="icon-clock text-primary"></i> {slot?.start} {slot?.startPeriod} - {slot?.end} {slot?.endPeriod}
-													</div>
-												))
-											}
-										</Col>
-									</Row>
-								</li> : <li key={index}>
-									<Row className="align-items-center">
-										<Col sm={6} className="schedule-popover-left">
-											<div className="small text-dark">Day</div>
-											<div className="text-dark fw-medium">{_.day}</div>
-										</Col>
-										<Col sm={6} className="text-end">
-											<div className="d-inline-block py-2 px-3 rounded-2 border bg-soft-danger">
-												Unavailable
-											</div>
-										</Col>
-									</Row>
-								</li>
-						))}
+						<li>
+							<Row className="g-2">
+								<Col sm={6}>
+									<div className="small text-dark">Day</div>
+									<div className="text-dark fw-medium text-capitalize">Monday</div>
+								</Col>
+								<Col sm={6}>
+									<div className="small text-dark">Time slot</div>
+									<div className="text-muted" >
+										<i className="icon-clock text-primary"></i> 10 PM  - 11 PM
+									</div>
+								</Col>
+							</Row>
+						</li>
 					</ul>
 				</div>
 			</Popover.Body>
-		</Popover> :
-			<Popover>
-				<Popover.Body>Add Schedule to view here!</Popover.Body>
-			</Popover>
+		</Popover>
 	);
 
 	return (

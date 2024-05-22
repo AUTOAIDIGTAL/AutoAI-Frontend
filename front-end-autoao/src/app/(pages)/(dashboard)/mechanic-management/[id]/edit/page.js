@@ -205,7 +205,7 @@ const MechanicInformation = () => {
 								{" "}
 								<Form.Group controlId="formGroupPassword">
 									<Form.Label>Phone Number</Form.Label>
-									<Form.Control type="text" placeholder="Phone Number" onChange={(e) => { setPhoneNumber(e.target.value) }} value={phoneNumber} />
+									<Form.Control type="number" placeholder="Phone Number" onChange={(e) => { setPhoneNumber(e.target.value) }} value={phoneNumber} />
 								</Form.Group>
 							</Col>
 							<Col xs={12} md={6} lg={6}>
@@ -213,7 +213,7 @@ const MechanicInformation = () => {
 								<Form.Group controlId="formGroupPassword">
 									<Form.Label>Emergency Contact Number</Form.Label>
 									<Form.Control
-										type="text"
+										type="number"
 										placeholder="Emergency Contact Number"
 										onChange={(e) => { setEmergencyContactNumber(e.target.value) }}
 										value={emergencyContactNumber}

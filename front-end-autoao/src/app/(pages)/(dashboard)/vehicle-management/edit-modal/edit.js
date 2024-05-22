@@ -22,6 +22,8 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
 	const [selectedFiles, setSelectedFiles] = useState(null);
+	const [color, setColor] = useState(null);
+	const [fuelType, setFuelType] = useState(null);
 
 	useEffect(() => {
 		if (vehicle) {
@@ -33,6 +35,8 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 			setMileage(vehicle.mileage);
 			setClient(vehicle.owner);
 			setSearchTerm(vehicle.owner?.name);
+			setColor(vehicle?.color);
+			setFuelType(vehicle?.fuelType);
 		}
 	}, [vehicle]);
 
@@ -72,7 +76,7 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 
 		// submitting form');
 
-		if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
+		if (!vinNumber || !regNumber || !make || !model || !year || !mileage || !color || !fuelType) {
 			console.error('Please fill in all the required fields.');
 			return;
 		}
@@ -84,9 +88,11 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 		data.append('model', model);
 		data.append('year', year);
 		data.append('mileage', mileage);
-		client._id ? data.append('owner', client._id) : data.append('owner', client);
+		data.append('color', color);
+		data.append('fuelType', fuelType);
+		client?._id ? data.append('owner', client._id) : ''
 		if (selectedFiles) {
-			selectedFiles.forEach((file, index) => data.append(`files[${index}]`, file));
+			selectedFiles.forEach((file, index) => data.append(`files`, file));
 		}
 
 		// Update existing vehicle
@@ -216,6 +222,30 @@ const EditModal = ({ vehicle, onVehicleUpdated }) => {
 											))}
 										</Dropdown.Menu>
 									</Dropdown>
+								</Form.Group>
+							</Col>
+						</Row>
+						<Row className="row-cols-1 row-cols-lg-2">
+							<Col>
+								<Form.Group className="mb-3" controlId="formVinNumber">
+									<Form.Label>Color</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Color"
+										value={color}
+										onChange={(e) => setColor(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3" controlId="formRegPlate">
+									<Form.Label>Fuel Type</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Fuel Type"
+										value={fuelType}
+										onChange={(e) => setFuelType(e.target.value)}
+									/>
 								</Form.Group>
 							</Col>
 						</Row>

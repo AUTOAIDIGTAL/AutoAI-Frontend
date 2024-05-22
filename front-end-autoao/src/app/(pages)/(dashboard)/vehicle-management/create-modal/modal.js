@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ClientModal from "../../client-management/create-modal/modal";
 import { message } from "antd";
+import { Cormorant } from "next/font/google";
 
 const VehicleModal = ({ onVehicleAdded }) => {
 	const pathName = usePathname();
@@ -25,7 +26,8 @@ const VehicleModal = ({ onVehicleAdded }) => {
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
 	const [selectedFiles, setSelectedFiles] = useState(null);
-
+	const [color, setColor] = useState(null)
+	const [fuelType, setFuelType] = useState(null)
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -71,6 +73,8 @@ const VehicleModal = ({ onVehicleAdded }) => {
 		data.append('model', model);
 		data.append('year', year);
 		data.append('mileage', mileage);
+		data.append('fuelType', fuelType);
+		data.append('color', color);
 		if (client) data.append('owner', client);
 		selectedFiles?.map((file) => data.append('files', file))
 
@@ -88,6 +92,8 @@ const VehicleModal = ({ onVehicleAdded }) => {
 			setMileage(null);
 			setClient(null);
 			setSelectedFiles(null);
+			setColor(null);
+			setFuelType(null);
 		}
 	};
 
@@ -211,6 +217,30 @@ const VehicleModal = ({ onVehicleAdded }) => {
 								{/* <ClientModal onVehicleAdded={(e) => {
 									setSearchTerm('')
 								}} /> */}
+							</Col>
+						</Row>
+						<Row className="row-cols-1 row-cols-lg-2">
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicName">
+									<Form.Label>Fuel Type</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Fuel Type"
+										value={fuelType}
+										onChange={(e) => setFuelType(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Color</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Color"
+										value={color}
+										onChange={(e) => setColor(e.target.value)}
+									/>
+								</Form.Group>
 							</Col>
 						</Row>
 
