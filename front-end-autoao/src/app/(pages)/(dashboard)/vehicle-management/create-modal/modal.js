@@ -9,6 +9,7 @@ import { apiService } from "@/services";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ClientModal from "../../client-management/create-modal/modal";
+import { message } from "antd";
 
 const VehicleModal = ({ onVehicleAdded }) => {
 	const pathName = usePathname();
@@ -25,8 +26,8 @@ const VehicleModal = ({ onVehicleAdded }) => {
 	const [showList, setShowList] = useState(false);
 	const [selectedFiles, setSelectedFiles] = useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	const handleInputChange = async (event) => {
 		setSearchTerm(event.target.value);
@@ -41,27 +42,27 @@ const VehicleModal = ({ onVehicleAdded }) => {
 		}
 	};
 
-  const handleOptionSelect = (selectedOption) => {
-    // selected option', selectedOption);
-    const [clientId, clientName] = selectedOption.split("_");
-    setClient(clientId);
-    setSearchTerm(clientName);
-    setShowList(false);
-  };
+	const handleOptionSelect = (selectedOption) => {
+		// selected option', selectedOption);
+		const [clientId, clientName] = selectedOption.split("_");
+		setClient(clientId);
+		setSearchTerm(clientName);
+		setShowList(false);
+	};
 
-  const handleFileChange = (event) => {
-    setSelectedFiles([...event.target.files]);
-  };
+	const handleFileChange = (event) => {
+		setSelectedFiles([...event.target.files]);
+	};
 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
-    if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
-      alert("Please fill in all the required fields.");
-      return;
-    }
+		if (!vinNumber || !regNumber || !make || !model || !year || !mileage) {
+			message.error("Please fill in all the required fields.");
+			return;
+		}
 
 		const data = new FormData();
 		data.append('vinNumber', vinNumber);
@@ -73,22 +74,22 @@ const VehicleModal = ({ onVehicleAdded }) => {
 		if (client) data.append('owner', client);
 		selectedFiles?.map((file) => data.append('files', file))
 
-    const response = await apiService.post(constants.vehicle, data);
+		const response = await apiService.post(constants.vehicle, data);
 
-    if (response) {
-      // response', response);
-      onVehicleAdded(response);
-      setShow(false);
-      setVinNumber(null);
-      setRegNumber(null);
-      setMake(null);
-      setModel(null);
-      setyear(null);
-      setMileage(null);
-      setClient(null);
-      setSelectedFiles(null);
-    }
-  };
+		if (response) {
+			// response', response);
+			onVehicleAdded(response);
+			setShow(false);
+			setVinNumber(null);
+			setRegNumber(null);
+			setMake(null);
+			setModel(null);
+			setyear(null);
+			setMileage(null);
+			setClient(null);
+			setSelectedFiles(null);
+		}
+	};
 
 	return (
 		<>
@@ -99,86 +100,86 @@ const VehicleModal = ({ onVehicleAdded }) => {
 
 
 
-      <Modal size="md" show={show} onHide={handleClose} centered scrollable>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Vehicle</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Row className="row-cols-1 row-cols-lg-2">
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>VIN Number</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="VIN Number"
-                    value={vinNumber}
-                    onChange={(e) => setVinNumber(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Registration Plate</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Registration Plate"
-                    value={regNumber}
-                    onChange={(e) => setRegNumber(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row className="row-cols-1 row-cols-lg-3">
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>Make</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Make"
-                    value={make}
-                    onChange={(e) => setMake(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Model</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Model"
-                    value={model}
-                    onChange={(e) => setModel(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Year</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Year"
-                    value={year}
-                    onChange={(e) => setyear(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={12} xl={7}>
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>Mileage</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="Mileage"
-                    value={mileage}
-                    onChange={(e) => setMileage(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} xl={5}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Add Client</Form.Label>
+			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
+				<Modal.Header closeButton>
+					<Modal.Title>Add New Vehicle</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Form onSubmit={handleSubmit}>
+						<Row className="row-cols-1 row-cols-lg-2">
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicName">
+									<Form.Label>VIN Number</Form.Label>
+									<Form.Control
+										type="number"
+										placeholder="VIN Number"
+										value={vinNumber}
+										onChange={(e) => setVinNumber(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Registration Plate</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Registration Plate"
+										value={regNumber}
+										onChange={(e) => setRegNumber(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+						</Row>
+						<Row className="row-cols-1 row-cols-lg-3">
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicName">
+									<Form.Label>Make</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Make"
+										value={make}
+										onChange={(e) => setMake(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Model</Form.Label>
+									<Form.Control
+										type="text"
+										placeholder="Model"
+										value={model}
+										onChange={(e) => setModel(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Year</Form.Label>
+									<Form.Control
+										type="number"
+										placeholder="Year"
+										value={year}
+										onChange={(e) => setyear(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+						</Row>
+						<Row>
+							<Col sm={12} xl={7}>
+								<Form.Group className="mb-3" controlId="formBasicName">
+									<Form.Label>Mileage</Form.Label>
+									<Form.Control
+										type="number"
+										placeholder="Mileage"
+										value={mileage}
+										onChange={(e) => setMileage(e.target.value)}
+									/>
+								</Form.Group>
+							</Col>
+							<Col sm={12} xl={5}>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>Add Client</Form.Label>
 
 									<div className="position-relative">
 										<Form.Control type="text" placeholder="Search Client" value={searchTerm} onChange={handleInputChange} />
@@ -234,7 +235,7 @@ const VehicleModal = ({ onVehicleAdded }) => {
 									Cancel
 								</Button>
 							</div>
-							
+
 						</div>
 					</Form>
 				</Modal.Body>
