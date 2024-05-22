@@ -38,7 +38,7 @@ const PreHeader = () => {
 		} else {
 			document.body.classList.remove("sidebar-open");
 		}
-	}, [sidebarOpen, currentUser, pathName]);
+	}, [sidebarOpen, currentUser, pathName, currentUser?.userName]);
 
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);
