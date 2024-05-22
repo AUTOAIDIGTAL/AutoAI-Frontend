@@ -79,17 +79,25 @@ const Schedule = ({ scheduleData }) => {
 const TagsOverlay = ({ tags }) => {
 
 	const popoverSkill = (
-		tags ? <Popover id="popover-skills" style={{ width: "auto", minWidth: "250px", maxWidth: "550px" }}>
-			<Popover.Body>
-				<div className="d-flex flex-wrap align-items-center gap-2">
-					{tags && tags.map((_, index) => (
-						<Badge key={index} bg="light" className="fw-normal rounded-ai fs-base-13">
-							{_?.name}
-						</Badge>
-					))}
-				</div>
-			</Popover.Body>
-		</Popover> :
+		tags
+			?
+			<Popover id="popover-skills" style={{ width: "auto", minWidth: "250px", maxWidth: "550px" }}>
+				<Popover.Body>
+					<div className="d-flex flex-wrap align-items-center gap-2">
+						{tags.length ?
+							tags.map((_, index) => (
+								<Badge key={index} bg="light" className="fw-normal rounded-ai fs-base-13">
+									{_?.name}
+								</Badge>
+							))
+							: <div className="d-flex flex-wrap align-items-center gap-2">
+								Add Skills to view here!
+							</div>}
+
+					</div>
+				</Popover.Body>
+			</Popover>
+			:
 			<Popover>
 				<Popover.Body>
 					<div className="d-flex flex-wrap align-items-center gap-2">
@@ -192,7 +200,7 @@ const TableMM = ({ mechanicList, handleRefetch }) => {
 									</Dropdown.Toggle>
 
 									<Dropdown.Menu>
-										<Dropdown.Item className="d-flex align-items-center gap-1" onClick={() => router.push(`mechanic-management/${item?.profile?._id}`)}>
+										<Dropdown.Item className="d-flex align-items-center gap-1" onClick={() => router.push(`mechanic-management/${item?.profile?._id}/edit`)}>
 											<i className="icon-pencil"></i>
 											Edit
 										</Dropdown.Item>
