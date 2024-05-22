@@ -1,0 +1,17 @@
+.wizard-form{
+  .nav-link{
+    flex: 1;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    color: var(--gray-600);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    &.active{
+      border-color: var(--theme-primary-100);
+      color: var(--gray-900);
+      p{
+        font-weight: 600;
+      }
+    }
+  }
+}

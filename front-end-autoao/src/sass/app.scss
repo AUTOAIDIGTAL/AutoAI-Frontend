@@ -12,6 +12,7 @@
 @import "./formInputs";
 @import "./silckCustom.scss";
 @import "./popover.scss";
+@import "./wizardForm.scss";
 
 
 html,
@@ -21,6 +22,7 @@ body {
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  background: var(--gray-50);
 }
 
 /* Define the scrollbar track style */
@@ -45,6 +47,10 @@ body {
 
 .fs-base{
   font-size: 14px;
+}
+
+hr {
+  border-color: var(--gray-500);
 }
 
 .position-static {
@@ -225,4 +231,12 @@ body {
       padding-bottom: 15px;
       margin-bottom: 15px;
     }
+}
+
+
+.list-line-loop{
+  border: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ai-gray-300);
 }
