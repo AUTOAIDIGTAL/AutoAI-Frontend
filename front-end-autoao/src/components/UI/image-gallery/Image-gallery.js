@@ -70,7 +70,7 @@ export default function ImageGallery({ data, id, handleRefetch }) {
 		<div className="flex flex-col d-inline-flex gap-2">
 			{
 				images && images?.map((image, index) => (
-					<div>
+					<div key={index}>
 						<Image
 							onClick={() => removeImage(image)}
 							width={20}
