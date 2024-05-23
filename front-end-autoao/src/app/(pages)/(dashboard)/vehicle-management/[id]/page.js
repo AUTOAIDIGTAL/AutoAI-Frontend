@@ -12,6 +12,7 @@ import EditModal from "../edit-modal/edit";
 const ClientInformation = () => {
 
 	const [vehicle, setVehicle] = useState(null);
+	const [refetch, setRefetch] = useState(false);
 	const router = useRouter();
 	const params = useParams();
 
@@ -25,18 +26,23 @@ const ClientInformation = () => {
 			}
 		}
 		getVehicle();
-	}, [params.id])
+	}, [params.id, refetch])
 
 	const handleDelete = async () => {
 		await apiService.delete(`${constants.vehicle}/${vehicle._id}`);
 		router.push('/vehicle-management')
 	}
 
+	const handleRefetch = () => {
+		console.log('refetch')
+		setRefetch(!refetch)
+	}
+
 	return (
 		<>
 			<div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="flex-1 mb-4  overflow-auto">
-					{vehicle && <VehicleManagementList vehicle={vehicle} />}
+					{vehicle && <VehicleManagementList vehicle={vehicle} handleRefetch={handleRefetch} />}
 					{/* <div className="bg-gray-100 p-3 rounded-ai p-5 border-0 my-4">
 						<div className="fs-5 fw-medium mb-4">Service History</div>
 						{vehicle && <ServiceHistory vehicle={vehicle} />}

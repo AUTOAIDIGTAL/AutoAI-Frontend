@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
+import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 
 const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 	const [show, setShow] = useState(false);
@@ -10,7 +11,7 @@ const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 	const [lastName, setLastName] = useState(user ? user.lastName : "");
 	const [phoneNumber, setPhoneNumber] = useState(user ? user.phoneNumber : "");
 	const [email, setEmail] = useState(user ? user.email : "");
-
+	const { user: currentUser } = useCurrentUser();
 	// Separate state variables for each role
 	const [isMechanic, setIsMechanic] = useState(false);
 	const [isManager, setIsManager] = useState(false);
@@ -82,7 +83,7 @@ const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 						<i className="icon-pencil text-primary pe-1"></i> Edit User
 					</div>
 				) : (
-					<div  className="d-inline-flex align-items-center">
+					<div className="d-inline-flex align-items-center">
 						<i className="icon-plus text-primary pe-1"></i> Add New User
 					</div>
 				)}
@@ -157,13 +158,13 @@ const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 											onChange={() => handleRoleToggle("MECHANIC")}
 											id={`default-mechanic`}
 										/>
-										<Form.Check
+										{currentUser.roles.includes("ADMIN") && <Form.Check
 											type="checkbox"
 											label="Manager"
 											checked={isManager}
 											onChange={() => handleRoleToggle("MANAGER")}
 											id={`default-manager`}
-										/>
+										/>}
 									</Form.Group>
 								</div>
 							</Col>
