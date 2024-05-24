@@ -158,7 +158,7 @@ const UserForm = ({ userData, onUserAdded, onUserUpdated }) => {
 											onChange={() => handleRoleToggle("MECHANIC")}
 											id={`default-mechanic`}
 										/>
-										{currentUser.roles.includes("ADMIN") && <Form.Check
+										{currentUser?.roles?.includes("ADMIN") && <Form.Check
 											type="checkbox"
 											label="Manager"
 											checked={isManager}
