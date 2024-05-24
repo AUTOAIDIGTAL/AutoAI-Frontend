@@ -39,7 +39,7 @@ const TableVM = ({ vehicleList, handleRefetch }) => {
 								</Link>
 							</td>
 							<td>{item?.owner?.name}</td>
-							<td>{item?.make}</td>
+							<td>{item?.owner?.company}</td>
 							<td>{item?.make} - {item?.model}</td>
 							<td className="align-middle">
 								<div className="d-flex align-items-center gap-2 h-100">

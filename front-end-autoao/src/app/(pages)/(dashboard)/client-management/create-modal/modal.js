@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -10,8 +10,11 @@ import { apiService } from "@/services";
 import { usePathname } from "next/navigation";
 import VehicleModal from "../../vehicle-management/create-modal/modal";
 import { message } from 'antd'
+import Multiselect from "multiselect-react-dropdown";
 
-const 	ClientModal = ({ handleRefetch }) => {
+const ClientModal = ({ handleRefetch }) => {
+
+	const vehicleRef = useRef(null);
 	const [name, setName] = useState(null);
 	const [company, setCompany] = useState(null);
 	const [phoneNumber, setPhoneNumber] = useState(null);
@@ -28,17 +31,19 @@ const 	ClientModal = ({ handleRefetch }) => {
 	const [filteredOptions, setFilteredOptions] = useState([]);
 	const [showList, setShowList] = useState(false);
 	const [errorMsg, setErrorMsg] = useState(null);
+	const [options, setOptions] = useState([]);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const handleInputChange = async (event) => {
-		setSearchTerm(event.target.value);
-		if (searchTerm?.length > 2) {
+	const handleInputChange = async (val) => {
+		console.log('VALUE ', val);
+		if (val?.length > 3) {
 			const searchResult = await apiService.get(
-				`${constants.searchVehicle}?search=${searchTerm}`
+				`${constants.searchVehicle}?search=${val}`
 			);
-			setFilteredOptions(searchResult);
+			console.log(searchResult);
+			setOptions(searchResult);
 		}
 	};
 
@@ -59,12 +64,16 @@ const 	ClientModal = ({ handleRefetch }) => {
 				duration: 0,
 			});
 
+			const ids = vehicleRef.current.getSelectedItems().map((item) => {
+				return item._id;
+			})
+
 			const response = await apiService.post(constants.customer, {
 				name,
 				company,
 				phoneNumber,
 				email,
-				vehicleIds,
+				vehicleIds: ids,
 				address: location,
 			});
 
@@ -169,12 +178,20 @@ const 	ClientModal = ({ handleRefetch }) => {
 									<Form.Label>Vehicle Reg</Form.Label>
 
 									<div className="position-relative">
-										<Form.Control
+										{/* <Form.Control
 											type="text"
 											placeholder="Vehicle Reg"
 											value={searchTerm}
 											onChange={handleInputChange}
 											onClick={() => setShowList(!showList)}
+										/> */}
+										<Multiselect
+											isObject={true}
+											options={options}
+											displayValue="regPlate"
+											className="bg-gray-100 rounded-ai"
+											onSearch={(val) => handleInputChange(val)}
+											ref={vehicleRef}
 										/>
 										<span className="position-absolute top-50 end-15 translate-middle">
 											<svg
@@ -191,7 +208,7 @@ const 	ClientModal = ({ handleRefetch }) => {
 											</svg>
 										</span>
 									</div>
-									<Dropdown onSelect={handleOptionSelect} show={showList}>
+									{/* <Dropdown onSelect={handleOptionSelect} show={showList}>
 										<Dropdown.Menu>
 											{filteredOptions?.map((item) => (
 												<Dropdown.Item
@@ -205,7 +222,8 @@ const 	ClientModal = ({ handleRefetch }) => {
 									</Dropdown>
 									{errorMsg && (
 										<Form.Text className="text-danger">{errorMsg}</Form.Text>
-									)}
+									)} */}
+
 								</Form.Group>
 							</Col>
 						</Row>
