@@ -17,7 +17,16 @@ const WorkOrderCreation = () => {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>Job Name</Form.Label>
-                  <Form.Control type="text" placeholder="Job Name" />
+                  <div className="position-relative">
+                    <span className="position-absolute top-50 end-15 translate-middle">
+                      <span span className="icon-search"></span>
+                    </span>
+                    <Form.Control
+                      type="text"
+                      className="pe-5"
+                      placeholder="Select Job"
+                    />
+                  </div>
                 </Form.Group>
               </Col>
               <Col xs="12" lg="3">

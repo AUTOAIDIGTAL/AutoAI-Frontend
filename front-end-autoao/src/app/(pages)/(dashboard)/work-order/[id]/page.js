@@ -39,9 +39,14 @@ const WorkOrderCreation = () => {
                 </Form.Group>
               </Col>
             </Row>
-			<Button variant="soft-primary fs-6 d-inline-flex align-items-center" size="sm"><i className="icon-plus fs-5 me-1"></i> Add new vehicle</Button>
-			<hr className="my-4"/>
-			<div className="fs-4 fw-semibold mb-3">Customer Details</div>
+            <Button
+              variant="soft-primary fs-6 d-inline-flex align-items-center"
+              size="sm"
+            >
+              <i className="icon-plus fs-5 me-1"></i> Add new vehicle
+            </Button>
+            <hr className="my-4" />
+            <div className="fs-4 fw-semibold mb-3">Customer Details</div>
             <Row>
               <Col xs="12" lg="4">
                 <Form.Group
@@ -49,7 +54,16 @@ const WorkOrderCreation = () => {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>Customer Name / Company Name</Form.Label>
-                  <Form.Control type="text" placeholder="Customer Name / Company Name" />
+                  <div className="position-relative">
+                    <span className="position-absolute top-50 end-15 translate-middle">
+                      <span span className="icon-search"></span>
+                    </span>
+                    <Form.Control
+                      type="text"
+                      className="pe-5"
+                      placeholder="Customer Name / Company Name"
+                    />
+                  </div>
                 </Form.Group>
               </Col>
               <Col xs="12" lg="4">
@@ -71,13 +85,22 @@ const WorkOrderCreation = () => {
                 </Form.Group>
               </Col>
             </Row>
-			<Button variant="soft-primary fs-6 d-inline-flex align-items-center" size="sm"><i className="icon-plus fs-5 me-1"></i> Add new customer</Button>
+            <Button
+              variant="soft-primary fs-6 d-inline-flex align-items-center"
+              size="sm"
+            >
+              <i className="icon-plus fs-5 me-1"></i> Add new customer
+            </Button>
 
-			<div className="d-flex justify-content-between mt-3 gap-2">
-				<Button variant="outline-secondary fs-6" size="sm">Cancel</Button>
-				<Button variant="primary fs-6" size="sm">Next</Button>
-			</div>
-		  </Form>
+            <div className="d-flex justify-content-between mt-3 gap-2">
+              <Button variant="outline-secondary fs-6" size="sm">
+                Cancel
+              </Button>
+              <Button variant="primary fs-6" size="sm">
+                Next
+              </Button>
+            </div>
+          </Form>
         </div>
       </div>
     </>
