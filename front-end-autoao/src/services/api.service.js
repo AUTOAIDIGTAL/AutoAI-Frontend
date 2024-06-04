@@ -25,6 +25,19 @@ export class APIService {
 		}
 	};
 
+	getWithParams = async (path, params) => {
+		try {
+			return await this.instance
+				.get(path, { params })
+				.then((res) => {
+					return res.data.status && res.data.data;
+				});
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
+	};
+
 	post = async (path, data) => {
 		try {
 			return await this.instance
