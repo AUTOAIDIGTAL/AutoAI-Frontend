@@ -58,9 +58,9 @@ const WorkOrderStep3 = () => {
 		}
 	};
 
-	if () services.find((ser) => {
-		return ser._id == activeService
-	})
+	// if () services.find((ser) => {
+	// 	return ser._id == activeService
+	// })
 
 
 	return (
