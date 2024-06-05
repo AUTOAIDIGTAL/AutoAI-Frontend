@@ -272,12 +272,9 @@ const WorkOrderStep2 = () => {
 										</Form.Group>
 									</Col>
 									<Col lg={"auto"} className="d-flex justify-content-end m-auto p-2">
-										<Button
-											variant="danger rounded-pill d-flex"
-											onClick={() => handleRemovePart(index, partIndex)}
-										>
-											<i className="icon-minus fs-4"></i>
-										</Button>
+										<div className="my-auto py-2 px-3 text-white bg-danger rounded-circle">
+											-
+										</div>
 									</Col>
 								</div>
 							))}
