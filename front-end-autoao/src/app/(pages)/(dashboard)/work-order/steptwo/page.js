@@ -231,9 +231,9 @@ const WorkOrderStep2 = () => {
 									/>
 								</Form.Group>
 							</Col>
-							<Form.Group className="m-3 text-muted ms-0" controlId={`partsRequired-${index}`}>
+							{/* <Form.Group className="m-3 text-muted ms-0" controlId={`partsRequired-${index}`}>
 								<Form.Check type="checkbox" label="Parts required" />
-							</Form.Group>
+							</Form.Group> */}
 
 							{job.parts.map((part, partIndex) => (
 								<div key={partIndex} className="d-flex">
