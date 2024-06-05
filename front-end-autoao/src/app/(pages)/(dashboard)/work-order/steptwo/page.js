@@ -104,7 +104,7 @@ const WorkOrderStep2 = () => {
 					comments: job.comments,
 					priority: job.priority
 				},
-				parts: job.parts,
+				parts: job.parts.filter((part) => part.name),
 				_id: job?._id
 			}
 
