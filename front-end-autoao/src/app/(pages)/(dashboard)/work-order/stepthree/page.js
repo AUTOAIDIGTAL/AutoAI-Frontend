@@ -21,7 +21,9 @@ const WorkOrderStep3 = () => {
 
 	useEffect(() => {
 		if (workOrder?.jobs) {
-			setServices(workOrder.jobs.map((job) => job.service));
+			setServices(workOrder.jobs.map((job) => {
+				return { ...job.service, mechanic: job.mechanic?._id }
+			}));
 		}
 	}, [workOrder]);
 
@@ -48,15 +50,18 @@ const WorkOrderStep3 = () => {
 	}, [activeService, value]);
 
 	const handleMechanicAssigned = () => {
-		console.log('IM CALLED')
 		const currentIndex = services.findIndex(service => service.id === activeService);
-		console.log('CURRENT IDEx', currentIndex)
 		if (currentIndex >= 0 && currentIndex < services.length - 1) {
 			setActiveService(services[currentIndex + 1].id);
 		} else {
 			setFormStage('4');
 		}
 	};
+
+	if () services.find((ser) => {
+		return ser._id == activeService
+	})
+
 
 	return (
 		<>
@@ -103,22 +108,35 @@ const WorkOrderStep3 = () => {
 						<Col md={4}>
 							<div className="bg-gray-100 p-4 rounded-ai-md mb-5">
 								<div className="fs-6 fw-semibold mb-3">Mechanics</div>
-								{mechanics?.length ? mechanics.map((mechanic) => (
-									<div key={mechanic?.id} className="bg-white p-4 rounded-ai-md mb-3">
-										<div className="d-flex flex-wrap justify-content-between">
-											<div className="fs-6 text-muted">Mechanic Name</div>
-											<div className="small fw-semibold">{mechanic?.user?.firstName} {mechanic?.user?.lastName}</div>
+								{mechanics?.length ? (
+									mechanics.map((mechanic) => (
+										<div key={mechanic?.id} className="bg-white p-4 rounded-ai-md mb-3">
+											<div className="d-flex flex-wrap justify-content-between">
+												<div className="fs-6 text-muted">Mechanic Name</div>
+												<div className="small fw-semibold">
+													{mechanic?.user?.firstName} {mechanic?.user?.lastName}
+												</div>
+											</div>
+
+											<AssignGretchen
+												mechanic={mechanic}
+												service={activeService}
+												date={date}
+												onMechanicAssigned={handleMechanicAssigned}
+											/>
 										</div>
-										<AssignGretchen mechanic={mechanic} service={activeService} date={date} onMechanicAssigned={handleMechanicAssigned} />
-									</div>
-								)) : (
+									))
+								) : (
 									<div className="bg-white p-4 rounded-ai-md mb-3">
 										<div className="d-flex flex-wrap justify-content-center">
 											<div className="fs-5 text-center">No Mechanics available on this day!</div>
-											<small className="fs-10 text-muted text-center">Select another day to get mechanics</small>
+											<small className="fs-10 text-muted text-center">
+												Select another day to get mechanics
+											</small>
 										</div>
 									</div>
 								)}
+
 							</div>
 						</Col>
 					</Row>

@@ -105,7 +105,7 @@ const WorkOrderStep1 = () => {
 
 	return (
 		<div className="min-screen-layout mt-3 py-4">
-			<Form className="bg-white p-4 rounded-ai-md shadow-sm" onSubmit={handleFormSubmit}>
+			<Form className="bg-white p-4 rounded-ai-md shadow-sm" onSubmit={(e) => handleFormSubmit(e)}>
 				<div className="fs-4 fw-semibold mb-3">Vehicle Details</div>
 				{error && <Alert variant="danger">{error}</Alert>}
 				<Row>
