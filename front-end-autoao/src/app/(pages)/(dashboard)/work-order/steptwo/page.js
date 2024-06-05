@@ -36,7 +36,7 @@ const WorkOrderStep2 = () => {
 		setJobs(values);
 	};
 
-	const handleJobSelection = (job, index, add) => {
+	const handleJobSelection = async (job, index, add) => {
 		if (add) {
 			const values = [...jobs];
 			values[index].jobId = job._id;
@@ -46,6 +46,8 @@ const WorkOrderStep2 = () => {
 			setJobs(values);
 			console.log('Selected job:', jobs)
 		} else {
+			console.log(job)
+			const response = await apiService.delete(`${constants.workOrder}/${workOrder._id}/job/${job}`)
 			const values = [...jobs];
 			values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
 			setJobs(values);
@@ -109,6 +111,7 @@ const WorkOrderStep2 = () => {
 				if (!job._id) {
 					response = await apiService.post(`${constants.workOrder}/${workOrder._id}/job`, data)
 				} else if (job?._id) {
+					console.log('PUT', data)
 					response = await apiService.put(`${constants.workOrder}/${workOrder._id}/job/${job._id}`, data)
 				}
 
@@ -166,7 +169,7 @@ const WorkOrderStep2 = () => {
 										onSearch={handleJobSearch}
 										ref={jobsRef}
 										onSelect={(selected) => handleJobSelection(selected[0], index, true)}
-										onRemove={() => handleJobSelection(null, index, false)}
+										onRemove={(removed) => handleJobSelection(job._id, index, false)}
 										selectedValues={job?.job ? [job?.job] : []}
 									/>
 								</Form.Group>
@@ -292,7 +295,7 @@ const WorkOrderStep2 = () => {
 					<i className="icon-plus fs-5 me-1"></i> Add new Job
 				</Button>
 				<div className="d-flex justify-content-between mt-3 gap-2">
-					<Button variant="outline-secondary fs-6" size="sm">
+					<Button variant="outline-secondary fs-6" size="sm" onClick={() => { router.push('/work-order') }}>
 						Cancel
 					</Button>
 					<div className="d-flex justify-content-between gap-2">

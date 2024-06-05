@@ -121,11 +121,11 @@ const WorkOrderStep3 = () => {
 						</Col>
 					</Row>
 					<div className="d-flex justify-content-between mt-3 gap-2">
-						<Button variant="outline-secondary fs-6" size="sm">
+						<Button variant="outline-secondary fs-6" size="sm" onClick={() => { router.push('/work-order') }}>
 							Cancel
 						</Button>
 						<div className="d-flex justify-content-between gap-2">
-							<Button variant="outline-primary fs-6" size="sm">
+							<Button variant="outline-primary fs-6" size="sm" onClick={() => setFormStage(parseInt(formStage) - 1)}>
 								Back
 							</Button>
 							<Button variant="primary fs-6" size="sm">
