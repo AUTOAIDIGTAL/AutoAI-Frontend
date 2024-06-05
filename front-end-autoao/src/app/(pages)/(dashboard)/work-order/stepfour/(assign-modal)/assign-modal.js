@@ -130,12 +130,13 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 							{mechanicJobs.map((_, index) => (
 
 								<Row key={index} className="border-bottom pb-2 mb-2">
-									<Col>
-										<div class="small text-dark col-8">Break Service</div>
+									{console.log(_.service)
+									}									<Col>
+										<div class="small text-dark col-8">{_.service.description}</div>
 									</Col>
 									<Col className="col-4">
 										<div class="small text-primary text-center px-4">
-											12:00AM - 01:00
+											{_.start.split(" ")[1]} - {_.end.split(" ")[1]}
 										</div>
 									</Col>
 								</Row>
