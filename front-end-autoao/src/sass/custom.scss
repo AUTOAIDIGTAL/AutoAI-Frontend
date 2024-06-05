@@ -126,3 +126,126 @@
   padding: 1rem;
   border-radius: 0.25rem;
 }
+
+.border-layout {
+  >div {
+    border-right: 1px solid var(--gray-300);
+
+    @media (max-width: 991px) {
+      border-top: 1px solid var(--gray-300);
+      border-right: 0;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+.auto-ai-calendar {
+  &.rmdp-wrapper {
+    background: var(--gray-100);
+    border-radius: 20px;
+    padding: 0 0 20px;
+
+    @media (max-width: 992px) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &.rmdp-shadow {
+    box-shadow: unset;
+    width: 100%;
+  }
+
+  .rmdp-calendar {
+    flex: 1;
+    padding: 0;
+  }
+
+  .rmdp-header {
+    margin: 0;
+    display: flex;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 10px 20px 15px;
+    gap: 15px;
+
+    .rmdp-arrow-container {
+      align-items: center;
+      height: 26px;
+      width: 26px;
+      border: 1px solid var(--gray-400);
+
+      &:hover {
+        background: var(--theme-primary-100);
+        border-color: var(--theme-primary-100);
+        color: var(--theme-white-default);
+      }
+
+      .rmdp-arrow {
+        margin-top: 0;
+        width: 5px;
+        height: 5px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .rmdp-day-picker {
+    >div {
+      flex: 1;
+    }
+  }
+
+  .rmdp-day,
+  .rmdp-week-day {
+    @media (min-width: 992px) {
+      height: 60px;
+      width: 80px;
+    }
+  }
+
+  .rmdp-day span {
+    border-radius: 3rem;
+  }
+
+  .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: #0075ff;
+    box-shadow: unset;
+  }
+}
+
+.auto-ai-navbar {
+  .navbar-expand {
+    padding: 0;
+
+    .navbar-nav {
+      gap: 10px;
+
+      .nav-link {
+        border: 0;
+        padding: 13px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        color: var(--gray-600);
+
+        @media (max-width: 992px) {
+          font-size: 12px;
+          padding: 8px 14px;
+        }
+
+        @media (max-width: 767px) {
+          font-size: 10px;
+        }
+
+        &:hover,
+        &.active {
+          background: var(--theme-primary-100);
+          color: var(--theme-white-default);
+        }
+      }
+    }
+  }
+}

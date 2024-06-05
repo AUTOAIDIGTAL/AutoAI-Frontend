@@ -11,18 +11,18 @@ const WorkOrderStep2 = () => {
 
 	const { setFormStage, workOrder, setWorkOrder, formStage } = useContext(WorkOrderContext);
 	const [jobOptions, setJobOptions] = useState([]);
-	const [jobs, setJobs] = useState([{ jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
+	const [jobs, setJobs] = useState([{ _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	const jobsRef = useRef(null);
 	const [selectedJob, setSelectedJob] = useState(null);
 
 	const handleAddJob = () => {
-		setJobs([...jobs, { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
+		setJobs([...jobs, { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	};
 
 	const handleRemoveJob = (index) => {
 		const values = [...jobs];
 		if (index == 0) {
-			values[index] = { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
+			values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
 			setJobs(values);
 		} else {
 			values.splice(index, 1);
@@ -47,7 +47,7 @@ const WorkOrderStep2 = () => {
 			console.log('Selected job:', jobs)
 		} else {
 			const values = [...jobs];
-			values[index] = { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
+			values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
 			setJobs(values);
 		}
 	}
@@ -90,7 +90,6 @@ const WorkOrderStep2 = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
 		jobs.map(async (job) => {
 			const data = {
 				service: {
@@ -102,14 +101,21 @@ const WorkOrderStep2 = () => {
 					priority: job.priority
 				},
 				parts: job.parts,
+				_id: job?._id
 			}
 
-			console.log('DATA', workOrder._id)
 			try {
-				const response = await apiService.post(`${constants.workOrder}/${workOrder._id}/job`, data)
-				console.log('WORK ORDER', response)
-				setWorkOrder(response)
-				setFormStage('3')
+				let response;
+				if (!job._id) {
+					response = await apiService.post(`${constants.workOrder}/${workOrder._id}/job`, data)
+				} else if (job?._id) {
+					response = await apiService.put(`${constants.workOrder}/${workOrder._id}/job/${job._id}`, data)
+				}
+
+				if (response) {
+					setWorkOrder(response)
+					setFormStage('3')
+				}
 			} catch (error) {
 				message.error(`Error creating job ${job.jobName}`)
 				console.log(error)
@@ -121,6 +127,7 @@ const WorkOrderStep2 = () => {
 		if (workOrder?.jobs?.length > 0) {
 			const data = workOrder?.jobs?.map((job) => {
 				return {
+					_id: job?._id || undefined,
 					jobId: job.service.id,
 					jobName: job.service.name,
 					jobCost: job.service.cost,
