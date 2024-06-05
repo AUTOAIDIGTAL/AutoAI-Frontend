@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { WorkOrderContext } from "../workOrderContext";
 import debounce from 'lodash.debounce';
 import { useRouter } from "next/navigation";
+import ClientModal from "../../client-management/create-modal/modal";
 
 const WorkOrderStep1 = () => {
 	const { setFormStage, setWorkOrder, workOrder } = useContext(WorkOrderContext);
@@ -142,7 +143,7 @@ const WorkOrderStep1 = () => {
 						</Form.Group>
 					</Col>
 				</Row>
-				<Button variant="soft-primary fs-6 d-inline-flex align-items-center" size="sm"><i className="icon-plus fs-5 me-1"></i> Add new vehicle</Button>
+				{/* <Button variant="soft-primary fs-6 d-inline-flex align-items-center" size="sm"><i className="icon-plus fs-5 me-1"></i> Add new vehicle</Button> */}
 				<hr className="my-4" />
 				<div className="fs-4 fw-semibold mb-3">Customer Details</div>
 				<Row>
@@ -182,7 +183,7 @@ const WorkOrderStep1 = () => {
 						</Form.Group>
 					</Col>
 				</Row>
-				<Button variant="soft-primary fs-6 d-inline-flex align-items-center" size="sm"><i className="icon-plus fs-5 me-1"></i> Add new customer</Button>
+				<ClientModal />
 				<div className="d-flex justify-content-between mt-3 gap-2">
 					<Button variant="outline-secondary fs-6" size="sm" onClick={() => { router.push('/work-order') }}>Cancel</Button>
 					<Button type="submit" variant="primary fs-6" size="sm" disabled={loading}>Next</Button>

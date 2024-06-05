@@ -9,8 +9,6 @@ const WorkOrderStep4 = ({ job }) => {
 	return (
 		<>
 			<div>
-				<div class="fs-5 fw-semibold mb-3 pt-4">Brake Change</div>
-
 				<Row className="border-layout pt-3">
 					<Col
 						xs={12}
