@@ -37,7 +37,7 @@ button:active .btn,
   &.btn-soft-primary {
     font-size: 12px;
     color: var(--theme-primary-100);
-    background: transparent;
+    background: var(--gray-200);
     border: 1px solid transparent;
     border-radius: 12px;
     &:hover,
@@ -59,6 +59,49 @@ button:active .btn,
     &:focus {
       color: var(--gray-100);
       background: var(--gray-600);
+      i {
+        color: var(--gray-100);
+      }
+    }
+  }
+
+
+  &.btn-board-select{
+    font-size: 14px;
+    color: var(--gray-900);
+    background: var(--gray-200);
+    border: 1px solid var(--theme-primary-0);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    i {
+      color: var(--theme-primary-90);
+    }
+    &:hover,
+    &:focus {
+      color: var(--gray-100);
+      background: var(--theme-primary-90);
+      i {
+        color: var(--gray-100);
+      }
+    }
+  }
+
+  &.btn-rounded-white {
+    font-size: 12px;
+    color: var(--gray-600);
+    background: #ffffff;
+    border: 1px solid var(--gray-300);
+    height: 43px;
+    width: 43px;
+    border-radius: 3rem !important;
+    box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.1),
+      0px 4px 20px -2px rgba(50, 50, 71, 0.08);
+      padding: 0;
+    &:hover,
+    &:focus {
+      background: var(--gray-100);
       i {
         color: var(--gray-100);
       }
@@ -92,7 +135,7 @@ button:active .btn,
     background-color: transparent;
     &:hover,
     &:focus {
-        background-color: var(--theme-danger-soft);
+      background-color: var(--theme-danger-soft);
     }
   }
   &.btn-outline-danger {

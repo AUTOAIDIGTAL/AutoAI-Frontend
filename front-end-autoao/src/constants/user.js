@@ -30,7 +30,7 @@ export const linksMap = {
 	"scheduledTasks": {
 		icon: "icon-list",
 		title: "Scheduled tasks",
-		link: "/dashboard"
+		link: "/scheduled-tasks"
 	},
 	"userRolesManagement": {
 		icon: "icon-users",
