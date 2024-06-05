@@ -7,6 +7,7 @@ import AssignGretchen from "../stepfour/(assign-modal)/assign-modal";
 import { WorkOrderContext } from "../workOrderContext";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
+import { useRouter } from "next/navigation";
 
 const WorkOrderStep3 = () => {
 	const { setFormStage, workOrder, setWorkOrder } = useContext(WorkOrderContext);
@@ -16,6 +17,7 @@ const WorkOrderStep3 = () => {
 	const [mechanics, setMechanics] = useState(null);
 	const [date, setDate] = useState(null);
 	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const router = useRouter()
 
 	useEffect(() => {
 		if (workOrder?.jobs) {

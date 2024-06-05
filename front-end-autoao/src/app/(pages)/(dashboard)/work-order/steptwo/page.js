@@ -6,6 +6,7 @@ import Multiselect from "multiselect-react-dropdown";
 import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 const WorkOrderStep2 = () => {
 
@@ -14,6 +15,7 @@ const WorkOrderStep2 = () => {
 	const [jobs, setJobs] = useState([{ _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	const jobsRef = useRef(null);
 	const [selectedJob, setSelectedJob] = useState(null);
+	const router = useRouter()
 
 	const handleAddJob = () => {
 		setJobs([...jobs, { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
