@@ -10,12 +10,13 @@ import { constants } from "../../garage-management/constant";
 import { useRouter } from "next/navigation";
 
 const WorkOrderStep3 = () => {
-	const { setFormStage, workOrder, setWorkOrder } = useContext(WorkOrderContext);
+	const { setFormStage, workOrder, setWorkOrder, formStage } = useContext(WorkOrderContext);
 	const [value, setValue] = useState(new Date());
 	const [services, setServices] = useState([]);
 	const [activeService, setActiveService] = useState(null);
 	const [mechanics, setMechanics] = useState(null);
 	const [date, setDate] = useState(null);
+	const [mechanicAssigned, setMechanicAssigned] = useState(false);
 	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const router = useRouter()
 
@@ -62,6 +63,15 @@ const WorkOrderStep3 = () => {
 	// 	return ser._id == activeService
 	// })
 
+	useEffect(() => {
+		const act = services.find((ser) => {
+			return ser._id == activeService
+		})
+		if (act?.mechanic !== undefined) {
+			console.log('mechanic', act?.mechanic)
+			setMechanicAssigned(act?.mechanic)
+		}
+	}, [activeService])
 
 	return (
 		<>
@@ -108,35 +118,42 @@ const WorkOrderStep3 = () => {
 						<Col md={4}>
 							<div className="bg-gray-100 p-4 rounded-ai-md mb-5">
 								<div className="fs-6 fw-semibold mb-3">Mechanics</div>
-								{mechanics?.length ? (
-									mechanics.map((mechanic) => (
-										<div key={mechanic?.id} className="bg-white p-4 rounded-ai-md mb-3">
-											<div className="d-flex flex-wrap justify-content-between">
-												<div className="fs-6 text-muted">Mechanic Name</div>
-												<div className="small fw-semibold">
-													{mechanic?.user?.firstName} {mechanic?.user?.lastName}
+								{
+									mechanics?.length ? (
+										mechanics.map((mechanic) => (
+											<div key={mechanic?.id} className="bg-white p-4 rounded-ai-md mb-3">
+												<div className="d-flex flex-wrap justify-content-between">
+													<div className="fs-6 text-muted">Mechanic Name</div>
+													<div className="small fw-semibold">
+														{mechanic?.user?.firstName} {mechanic?.user?.lastName}
+													</div>
 												</div>
+												{mechanicAssigned == mechanic?.user?._id
+													?
+													<div class="bg-success py-2 px-3 rounded-5 text-white fs-6 d-inline-block fw-semibold mt-3" style={{ cursor: 'not-allowed' }}>
+														Already Assigned
+													</div>
+													:
+													<AssignGretchen
+
+														mechanic={mechanic}
+														service={activeService}
+														date={date}
+														onMechanicAssigned={handleMechanicAssigned}
+													/>}
 											</div>
-
-											<AssignGretchen
-												mechanic={mechanic}
-												service={activeService}
-												date={date}
-												onMechanicAssigned={handleMechanicAssigned}
-											/>
+										))
+									) : (
+										<div className="bg-white p-4 rounded-ai-md mb-3">
+											<div className="d-flex flex-wrap justify-content-center">
+												<div className="fs-5 text-center">No Mechanics available on this day!</div>
+												<small className="fs-10 text-muted text-center">
+													Select another day to get mechanics
+												</small>
+											</div>
 										</div>
-									))
-								) : (
-									<div className="bg-white p-4 rounded-ai-md mb-3">
-										<div className="d-flex flex-wrap justify-content-center">
-											<div className="fs-5 text-center">No Mechanics available on this day!</div>
-											<small className="fs-10 text-muted text-center">
-												Select another day to get mechanics
-											</small>
-										</div>
-									</div>
-								)}
-
+									)
+								}
 							</div>
 						</Col>
 					</Row>
@@ -148,7 +165,7 @@ const WorkOrderStep3 = () => {
 							<Button variant="outline-primary fs-6" size="sm" onClick={() => setFormStage(parseInt(formStage) - 1)}>
 								Back
 							</Button>
-							<Button variant="primary fs-6" size="sm">
+							<Button variant="primary fs-6" size="sm" onClick={() => setFormStage('4')}>
 								Next
 							</Button>
 						</div>

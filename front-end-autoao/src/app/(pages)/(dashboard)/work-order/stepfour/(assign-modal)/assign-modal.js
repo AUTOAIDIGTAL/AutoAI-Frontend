@@ -66,7 +66,7 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 	}
 	return (
 		<>
-			<div class="bg-gray-100 py-2 px-3 rounded-5 text-primary fs-6 d-inline-block fw-semibold mt-3" onClick={handleShow}>
+			<div class="bg-gray-100 py-2 px-3 rounded-5 text-primary fs-6 d-inline-block fw-semibold mt-3" role='button' onClick={handleShow}>
 				Assign Mechanic
 			</div>
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>

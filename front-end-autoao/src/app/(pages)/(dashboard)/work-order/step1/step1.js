@@ -183,7 +183,7 @@ const WorkOrderStep1 = () => {
 						</Form.Group>
 					</Col>
 				</Row>
-				<ClientModal />
+				{/* <ClientModal /> */}
 				<div className="d-flex justify-content-between mt-3 gap-2">
 					<Button variant="outline-secondary fs-6" size="sm" onClick={() => { router.push('/work-order') }}>Cancel</Button>
 					<Button type="submit" variant="primary fs-6" size="sm" disabled={loading}>Next</Button>

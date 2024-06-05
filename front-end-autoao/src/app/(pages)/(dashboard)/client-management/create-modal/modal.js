@@ -85,7 +85,7 @@ const ClientModal = ({ handleRefetch }) => {
 				setEmail(null);
 				setVehicle(null);
 				setLocation({ street: "", city: "", country: "", postalCode: "" });
-				handleRefetch();
+				if (handleRefetch) handleRefetch();
 				setShow(false);
 				setVehicle([]);
 				message.success("New customer is added successfully!")
