@@ -66,8 +66,8 @@ const StepFour = () => {
 							</div>
 						</div>
 					</div>
-					{workOrder?.jobs?.map((job) => (
-						<WorkOrderCreation job={job} />
+					{workOrder?.jobs?.map((job, index) => (
+						<WorkOrderCreation job={job} key={index} />
 					))}
 					<hr />
 					<div className="d-flex justify-content-between mt-3">

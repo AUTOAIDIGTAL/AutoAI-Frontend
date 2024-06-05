@@ -1,7 +1,7 @@
 "use client";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Wizard from "../wizard/page";
-import { useContext, useEffect } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import WorkOrderStep1 from "../step1/step1";
 import WorkOrderStep2 from "../steptwo/page";
 import WorkOrderStep3 from "../stepthree/page";
@@ -53,9 +53,11 @@ const WorkOrderCreation = () => {
 };
 
 const WorkOrderCreationWithProvider = () => (
-	<WorkOrderProvider>
-		<WorkOrderCreation />
-	</WorkOrderProvider>
+	<Suspense>
+		<WorkOrderProvider>
+			<WorkOrderCreation />
+		</WorkOrderProvider>
+	</Suspense>
 );
 
 export default WorkOrderCreationWithProvider;
