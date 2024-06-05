@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
-import WorkOrderModal from "../(work-required-modal)/page";
-import DropdownWithForm from "../(work-filter-modal-form)/page";
+import WorkOrderModal from "../work-required-modal/page";
+import DropdownWithForm from "../work-filter-modal-form/page";
 
 const KanbanHead = () => {
 	return (
