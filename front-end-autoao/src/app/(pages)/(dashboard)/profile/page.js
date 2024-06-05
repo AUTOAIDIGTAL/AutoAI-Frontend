@@ -30,7 +30,7 @@ const Profile = () => {
 
 	console.log('CURRENT USER: ', currentUser)
 
-	const address = `${currentUser?.address?.city || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
+	const address = `${currentUser?.address?.street || 'Not Available'} ${currentUser?.address?.city || ''} ${currentUser?.address?.country || ''}`
 
 	return (
 		<>

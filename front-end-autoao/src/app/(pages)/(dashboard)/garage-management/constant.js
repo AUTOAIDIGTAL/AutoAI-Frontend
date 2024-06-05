@@ -8,6 +8,10 @@ export const constants = {
 	vehicle: '/vehicle',
 	searchVehicle: '/vehicle/search/filter',
 	searchCustomer: '/customer/search/filter',
+	searchJob: '/service_type/search/filter',
 	customer: '/customer',
-	mechanic: '/userprofile'
+	mechanic: '/userprofile',
+	workOrder: '/workorders',
+	mechanicByService: '/userprofile/search/service',
+	job: '/job',
 }
