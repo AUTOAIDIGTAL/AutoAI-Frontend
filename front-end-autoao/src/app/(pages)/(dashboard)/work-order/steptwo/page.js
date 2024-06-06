@@ -21,14 +21,20 @@ const WorkOrderStep2 = () => {
 		setJobs([...jobs, { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	};
 
-	const handleRemoveJob = (index) => {
+	const handleRemoveJob = async (index) => {
 		const values = [...jobs];
-		if (index == 0) {
-			values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
-			setJobs(values);
-		} else {
-			values.splice(index, 1);
-			setJobs(values);
+		let jobName = values[index].jobName;
+		const response = await apiService.delete(`${constants.workOrder}/${workOrder._id}/job/${values[index]._id}`)
+		if (response) {
+			message.success(`Job removed successfully ${jobName}`)
+			setWorkOrder(response)
+			if (index == 0) {
+				values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
+				setJobs(values);
+			} else {
+				values.splice(index, 1);
+				setJobs(values);
+			}
 		}
 	};
 

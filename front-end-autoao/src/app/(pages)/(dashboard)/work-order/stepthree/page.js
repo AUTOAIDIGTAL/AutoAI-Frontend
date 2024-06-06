@@ -16,14 +16,15 @@ const WorkOrderStep3 = () => {
 	const [activeService, setActiveService] = useState(null);
 	const [mechanics, setMechanics] = useState(null);
 	const [date, setDate] = useState(null);
-	const [mechanicAssigned, setMechanicAssigned] = useState(false);
+	const [mechanicAssigned, setMechanicAssigned] = useState(null);
 	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const router = useRouter();
 
 	useEffect(() => {
 		if (workOrder?.jobs) {
+			console.log(workOrder?.jobs)
 			setServices(workOrder.jobs.map((job) => {
-				return { ...job.service, mechanic: job.mechanic?._id, startDate: job.start }
+				return { ...job.service, mechanic: job.mechanic?._id || job.mechanic, startDate: job.start }
 			}));
 		}
 	}, [workOrder]);
@@ -63,13 +64,16 @@ const WorkOrderStep3 = () => {
 
 	useEffect(() => {
 		const act = services.find((ser) => ser.id === activeService);
+		console.log(act?.mechanic)
 		if (act?.mechanic !== undefined) {
-			console.log(act)
+			console.log(act?.mechanic)
 			setValue(new Date(act.startDate))
 			setMechanicAssigned(act?.mechanic);
 		} else {
 			setMechanicAssigned(false);
 		}
+
+		console.log(mechanicAssigned)
 	}, [activeService, services]);
 
 	return (
@@ -160,7 +164,8 @@ const WorkOrderStep3 = () => {
 							Cancel
 						</Button>
 						<div className="d-flex justify-content-between gap-2">
-							<Button variant="outline-primary fs-6" size="sm" onClick={() => setFormStage(parseInt(formStage) - 1)}>
+							<Button variant="outline-primary fs-6" size="sm" onClick={() => setFormStage('2')
+							}>
 								Back
 							</Button>
 							<Button variant="primary fs-6" size="sm" onClick={() => setFormStage('4')}>

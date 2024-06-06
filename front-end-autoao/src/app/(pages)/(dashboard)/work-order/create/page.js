@@ -54,9 +54,7 @@ const WorkOrderCreation = () => {
 
 const WorkOrderCreationWithProvider = () => (
 	<Suspense>
-		<div className="d-flex justify-content-between align-items-center">
-			<div className="fs-3 fw-medium">Work Order Details</div>
-		</div>
+
 		<WorkOrderProvider>
 
 			<WorkOrderCreation />
