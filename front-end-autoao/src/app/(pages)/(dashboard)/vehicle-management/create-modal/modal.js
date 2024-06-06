@@ -12,7 +12,7 @@ import ClientModal from "../../client-management/create-modal/modal";
 import { message } from "antd";
 import { Cormorant } from "next/font/google";
 
-const VehicleModal = ({ onVehicleAdded }) => {
+const VehicleModal = ({ onVehicleAdded, component }) => {
 	const pathName = usePathname();
 	const [show, setShow] = useState(false);
 	const [vinNumber, setVinNumber] = useState(null);
@@ -82,7 +82,7 @@ const VehicleModal = ({ onVehicleAdded }) => {
 
 		if (response) {
 			// response', response);
-			onVehicleAdded(response);
+			if (onVehicleAdded) onVehicleAdded(response);
 			setShow(false);
 			setVinNumber(null);
 			setRegNumber(null);
@@ -99,9 +99,14 @@ const VehicleModal = ({ onVehicleAdded }) => {
 
 	return (
 		<>
-			{pathName == '/vehicle-management' ? <Button variant="primary fw-medium" onClick={handleShow}>
-				Add New Vehicle
-			</Button> : ''} {// <Link href='#' className="btn btn-link p-0 mb-3 d-inline-block" onClick={handleShow}>Add new vehicle</Link>
+			{
+
+				<div onClick={handleShow}>
+					{pathName == '/vehicle-management' ?
+						<Button variant="primary fw-medium" >
+							Add New Vehicle
+						</Button> : component ? component : ''}
+				</div>
 			}
 
 

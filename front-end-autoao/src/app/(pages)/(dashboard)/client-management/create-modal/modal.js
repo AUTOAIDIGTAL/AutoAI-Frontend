@@ -227,7 +227,8 @@ const ClientModal = ({ handleRefetch }) => {
 								</Form.Group>
 							</Col>
 						</Row>
-						{/* <Link className="btn btn-link p-0 mb-3 d-inline-block" href="/vehicle-management">Add new vehicle</Link> */}
+						{/* */}
+						<VehicleModal component={<p className="btn btn-link p-0 mb-3 d-inline-block">Add new vehicle</p>} />
 						<div className="bg-gray-100 p-3 rounded-ai">
 							<h6 className="mb-3">Address</h6>
 							<Row>

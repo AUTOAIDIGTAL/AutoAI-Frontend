@@ -18,18 +18,20 @@ const WorkOrderStep3 = () => {
 	const [date, setDate] = useState(null);
 	const [mechanicAssigned, setMechanicAssigned] = useState(false);
 	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-	const router = useRouter()
+	const router = useRouter();
 
 	useEffect(() => {
 		if (workOrder?.jobs) {
 			setServices(workOrder.jobs.map((job) => {
-				return { ...job.service, mechanic: job.mechanic?._id }
+				return { ...job.service, mechanic: job.mechanic?._id, startDate: job.start }
 			}));
 		}
 	}, [workOrder]);
 
 	useEffect(() => {
-		setActiveService(services[0]?.id);
+		if (services.length > 0) {
+			setActiveService(services[0]?.id);
+		}
 	}, [services]);
 
 	useEffect(() => {
@@ -59,19 +61,16 @@ const WorkOrderStep3 = () => {
 		}
 	};
 
-	// if () services.find((ser) => {
-	// 	return ser._id == activeService
-	// })
-
 	useEffect(() => {
-		const act = services.find((ser) => {
-			return ser._id == activeService
-		})
+		const act = services.find((ser) => ser.id === activeService);
 		if (act?.mechanic !== undefined) {
-			console.log('mechanic', act?.mechanic)
-			setMechanicAssigned(act?.mechanic)
+			console.log(act)
+			setValue(new Date(act.startDate))
+			setMechanicAssigned(act?.mechanic);
+		} else {
+			setMechanicAssigned(false);
 		}
-	}, [activeService])
+	}, [activeService, services]);
 
 	return (
 		<>
@@ -130,12 +129,11 @@ const WorkOrderStep3 = () => {
 												</div>
 												{mechanicAssigned == mechanic?.user?._id
 													?
-													<div class="bg-success py-2 px-3 rounded-5 text-white fs-6 d-inline-block fw-semibold mt-3" style={{ cursor: 'not-allowed' }}>
+													<div className="bg-success py-2 px-3 rounded-5 text-white fs-6 d-inline-block fw-semibold mt-3" style={{ cursor: 'not-allowed' }}>
 														Already Assigned
 													</div>
 													:
 													<AssignGretchen
-
 														mechanic={mechanic}
 														service={activeService}
 														date={date}
