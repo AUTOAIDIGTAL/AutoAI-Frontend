@@ -108,6 +108,8 @@
    --input-default: 0 0 1px 0 rgba(50 50 71 / 0.2), 0 1px 2px 0 rgba(50 50 71 / 0.08);
    --input-success: 0 0 1px 0 #66cb9f, 0 1px 2px 0 #66cb9f;
    --table-border: inset 0 -1px 0 0 #edf2f7;
+
+   --form-rounded: 12px;
 }
 // body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
 //   font-family: var(--ai-body-font-family) !important;
@@ -160,4 +162,8 @@
 
 .text-muted{
   color: var(--ai-gray-600) !important;
+}
+
+.border-theme{
+  border-color: var(--gray-200) !important;
 }

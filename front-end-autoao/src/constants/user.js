@@ -2,7 +2,7 @@ export const rolesMap = {
 	"SUPER_ADMIN": ['manageAdmins', 'garage'],
 	"ADMIN": ['dashboard', 'scheduledTasks', 'userRolesManagement', 'clientManagement', 'vehicleManagement', 'mechanicsManagement', 'jobs', 'workOrder'],
 	"MANAGER": ['dashboard', 'scheduledTasks', 'userRolesManagement', 'clientManagement', 'vehicleManagement', 'mechanicsManagement', 'jobs', 'workOrder'],
-	"MECHANIC": ['workOrder',],
+	"MECHANIC": ['dashboard', 'workOrder',],
 	"CLIENT": ['dashboard'],
 };
 
@@ -29,8 +29,8 @@ export const linksMap = {
 	},
 	"scheduledTasks": {
 		icon: "icon-list",
-		title: "Scheduled tasks",
-		link: "/dashboard"
+		title: "Scheduled Tasks",
+		link: "/scheduled-tasks"
 	},
 	"userRolesManagement": {
 		icon: "icon-users",
@@ -39,17 +39,17 @@ export const linksMap = {
 	},
 	"clientManagement": {
 		icon: "icon-help",
-		title: "Client management",
+		title: "Client Management",
 		link: "/client-management"
 	},
 	"vehicleManagement": {
 		icon: "icon-car",
-		title: "Vehicle management",
+		title: "Vehicle Management",
 		link: "/vehicle-management"
 	},
 	"mechanicsManagement": {
 		icon: "icon-mechanic",
-		title: "Mechanics management",
+		title: "Mechanics Management",
 		link: "/mechanic-management"
 	},
 	"jobs": {

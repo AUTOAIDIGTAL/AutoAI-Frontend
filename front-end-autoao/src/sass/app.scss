@@ -13,6 +13,7 @@
 @import "./silckCustom.scss";
 @import "./popover.scss";
 @import "./wizardForm.scss";
+@import "./custom.scss";
 
 
 html,
@@ -138,8 +139,10 @@ hr {
 }
 
 .min-screen-layout {
-  flex: 1;
-  overflow: auto;
+  @media (min-width:1024px) {
+    flex: 1;
+    overflow: auto;
+  }
 }
 
 .divider-list {
@@ -159,6 +162,10 @@ hr {
     }
     &-auto {
       flex: 0 0 auto;
+    }
+    &-full-col{
+        max-width: 100%;
+        flex: 0 0 100%;
     }
   }
 

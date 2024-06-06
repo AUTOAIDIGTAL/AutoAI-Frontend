@@ -1,15 +1,27 @@
-.wizard-form{
-  .nav-link{
+.wizard-form {
+  @media (max-width: 992px) {
+    overflow: auto;
+  }
+  .nav-link {
     flex: 1;
     border-radius: 12px;
     border: 1px solid transparent;
     color: var(--gray-600);
     padding-top: 12px;
     padding-bottom: 12px;
-    &.active{
+    @media (max-width: 992px) {
+      padding: 8px;
+    }
+    p {
+      @media (max-width: 992px) {
+        font-size: 8px;
+      }
+    }
+    &.active {
+      background-color: var(--theme-primary-0);
       border-color: var(--theme-primary-100);
       color: var(--gray-900);
-      p{
+      p {
         font-weight: 600;
       }
     }

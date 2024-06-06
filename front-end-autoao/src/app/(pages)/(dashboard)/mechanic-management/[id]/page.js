@@ -1,7 +1,7 @@
 'use client'
 import MechanicInformationDetails from "@/components/UI/mechanic-information";
 import { apiService } from "@/services";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { constants } from "../../garage-management/constant";

@@ -1,0 +1,251 @@
+:root{
+  --bs-offcanvas-width: 750px;
+}
+
+.app-container {
+  padding: 20px;
+}
+
+.view-toggle {
+  margin-bottom: 20px;
+}
+
+.view-toggle button {
+  margin-right: 10px;
+}
+
+.add-task-form {
+  margin-bottom: 20px;
+}
+
+.add-task-form input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.add-task-form button {
+  padding: 10px;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.task-card {
+  box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.1), 0px 10px 16px rgba(20, 37, 63, 0.06);
+}
+
+.grid-view .task-card {
+  margin-bottom: 0;
+}
+
+.offcanvas, .offcanvas-lg, .offcanvas-md, .offcanvas-sm, .offcanvas-xl, .offcanvas-xxl {
+  --bs-offcanvas-width: 800px;
+  margin: 1rem;
+  border-radius: 30px;
+  padding: 1rem;
+}
+
+
+.kanban-box-container{
+  background: #F7FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.Kanban-Cards-Wrap{
+  background: #F7FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.kanban-container {
+  padding: 10px;
+}
+
+.kanban-board {
+  display: flex;
+  gap: 20px;
+  overflow: auto;
+  &.grid-view{
+    .kanban-box-container{
+      flex: 0 0 350px;
+      max-width: 350px;
+    }
+
+  }
+}
+
+.list-view {
+  flex-direction: column;
+}
+
+.list-view .kanban-column {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.kanban-card {
+  background-color: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.offcanvas-header .btn-close {
+  margin-left: 10px;
+}
+
+.kanban-board.grid-view .kanban-box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.kanban-board.list-view .kanban-box-container {
+  display: block;
+}
+
+.kanban-box-container {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.border-layout {
+  >div {
+    border-right: 1px solid var(--gray-300);
+
+    @media (max-width: 991px) {
+      border-top: 1px solid var(--gray-300);
+      border-right: 0;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}
+
+.auto-ai-calendar {
+  &.rmdp-wrapper {
+    background: var(--gray-100);
+    border-radius: 20px;
+    padding: 0 0 20px;
+
+    @media (max-width: 992px) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &.rmdp-shadow {
+    box-shadow: unset;
+    width: 100%;
+  }
+
+  .rmdp-calendar {
+    flex: 1;
+    padding: 0;
+  }
+
+  .rmdp-header {
+    margin: 0;
+    display: flex;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 10px 20px 15px;
+    gap: 15px;
+
+    .rmdp-arrow-container {
+      align-items: center;
+      height: 26px;
+      width: 26px;
+      border: 1px solid var(--gray-400);
+
+      &:hover {
+        background: var(--theme-primary-100);
+        border-color: var(--theme-primary-100);
+        color: var(--theme-white-default);
+      }
+
+      .rmdp-arrow {
+        margin-top: 0;
+        width: 5px;
+        height: 5px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .rmdp-day-picker {
+    >div {
+      flex: 1;
+    }
+  }
+
+  .rmdp-day,
+  .rmdp-week-day {
+    @media (min-width: 992px) {
+      height: 60px;
+      width: 80px;
+    }
+  }
+
+  .rmdp-day span {
+    border-radius: 3rem;
+  }
+
+  .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: #0075ff;
+    box-shadow: unset;
+  }
+}
+
+.auto-ai-navbar {
+  .navbar-expand {
+    padding: 0;
+
+    .navbar-nav {
+      gap: 10px;
+
+      .nav-link {
+        border: 0;
+        padding: 13px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        color: var(--gray-600);
+
+        @media (max-width: 992px) {
+          font-size: 12px;
+          padding: 8px 14px;
+        }
+
+        @media (max-width: 767px) {
+          font-size: 10px;
+        }
+
+        &:hover,
+        &.active {
+          background: var(--theme-primary-100);
+          color: var(--theme-white-default);
+        }
+      }
+    }
+  }
+}

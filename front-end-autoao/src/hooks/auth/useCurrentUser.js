@@ -41,6 +41,7 @@ export const useCurrentUser = () => {
 
 					Cookies.set("currentUser", JSON.stringify(newUser));
 
+					console.log(newUser)
 					setUser(newUser);
 				}
 			}
@@ -49,5 +50,14 @@ export const useCurrentUser = () => {
 		}
 	};
 
-	return { user, refetchUser };
+	const setCurrentUser = (user) => {
+		try {
+			let currentUserCookie = Cookies.get("currentUser");
+			Cookies.set("currentUser", JSON.stringify({ accessToken: JSON.parse(currentUserCookie).accessToken, ...user }));
+		} catch (error) {
+			console.error('Error setting user information:', error);
+		}
+	}
+
+	return { user, refetchUser, setCurrentUser };
 };
