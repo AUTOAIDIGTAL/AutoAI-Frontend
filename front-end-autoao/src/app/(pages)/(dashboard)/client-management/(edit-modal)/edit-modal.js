@@ -97,16 +97,16 @@ const EditModal = ({ customerId, handleRefetch }) => {
 			if (form.checkValidity()) {
 
 				console.log(customerData)
-				// const response = await apiService.put(
-				// 	`${constants.customer}/${customerId}`,
-				// 	customerData
-				// );
-				// if (response) {
-				// 	message.destroy()
-				// 	handleRefetch();
-				// 	setShow(false);
-				// 	message.success('Customer information is updated successfully!')
-				// }
+				const response = await apiService.put(
+					`${constants.customer}/${customerId}`,
+					customerData
+				);
+				if (response) {
+					message.destroy()
+					handleRefetch();
+					setShow(false);
+					message.success('Customer information is updated successfully!')
+				}
 			}
 		} catch (error) {
 			message.destroy()

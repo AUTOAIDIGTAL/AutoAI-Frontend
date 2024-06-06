@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
 
-	const { user: currentUser, refetchUser } = useCurrentUser();
+	const { user: currentUser, refetchUser, setCurrentUser } = useCurrentUser();
 	const { logout } = useLogout();
 	const router = useRouter();
 	const [showChangePassword, setShowChangePassword] = useState(false)
@@ -37,7 +37,7 @@ const Profile = () => {
 			{currentUser && <div className="ai-box min-screen-layout mt-3 p-4 d-flex flex-column">
 				<div className="d-flex justify-content-between align-items-center">
 					<div className="fs-3 fw-medium">Profile Information</div>
-					{!currentUser?.roles?.includes('SUPER_ADMIN') && <EditProfile currentUser={currentUser} refetchUser={refetchUser} />}
+					{!currentUser?.roles?.includes('SUPER_ADMIN') && <EditProfile currentUser={currentUser} refetchUser={refetchUser} setCurrentUser={setCurrentUser} />}
 				</div>
 				<div className="flex-1 my-4  overflow-auto">
 					<ListGroup variant="flush">
