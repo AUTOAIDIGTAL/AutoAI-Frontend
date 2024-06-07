@@ -6,27 +6,35 @@ import Multiselect from "multiselect-react-dropdown";
 import { constants } from "../../garage-management/constant";
 import { apiService } from "@/services";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 const WorkOrderStep2 = () => {
 
 	const { setFormStage, workOrder, setWorkOrder, formStage } = useContext(WorkOrderContext);
 	const [jobOptions, setJobOptions] = useState([]);
-	const [jobs, setJobs] = useState([{ jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
+	const [jobs, setJobs] = useState([{ _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	const jobsRef = useRef(null);
 	const [selectedJob, setSelectedJob] = useState(null);
+	const router = useRouter()
 
 	const handleAddJob = () => {
-		setJobs([...jobs, { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
+		setJobs([...jobs, { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] }]);
 	};
 
-	const handleRemoveJob = (index) => {
+	const handleRemoveJob = async (index) => {
 		const values = [...jobs];
-		if (index == 0) {
-			values[index] = { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
-			setJobs(values);
-		} else {
-			values.splice(index, 1);
-			setJobs(values);
+		let jobName = values[index].jobName;
+		const response = await apiService.delete(`${constants.workOrder}/${workOrder._id}/job/${values[index]._id}`)
+		if (response) {
+			message.success(`Job removed successfully ${jobName}`)
+			setWorkOrder(response)
+			if (index == 0) {
+				values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
+				setJobs(values);
+			} else {
+				values.splice(index, 1);
+				setJobs(values);
+			}
 		}
 	};
 
@@ -36,7 +44,7 @@ const WorkOrderStep2 = () => {
 		setJobs(values);
 	};
 
-	const handleJobSelection = (job, index, add) => {
+	const handleJobSelection = async (job, index, add) => {
 		if (add) {
 			const values = [...jobs];
 			values[index].jobId = job._id;
@@ -46,8 +54,10 @@ const WorkOrderStep2 = () => {
 			setJobs(values);
 			console.log('Selected job:', jobs)
 		} else {
+			console.log(job)
+			const response = await apiService.delete(`${constants.workOrder}/${workOrder._id}/job/${job}`)
 			const values = [...jobs];
-			values[index] = { jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
+			values[index] = { _id: '', jobId: '', jobName: '', jobCost: '', time: '', priority: '', comments: '', parts: [{ name: '', cost: '', comments: '' }] };
 			setJobs(values);
 		}
 	}
@@ -90,7 +100,6 @@ const WorkOrderStep2 = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
 		jobs.map(async (job) => {
 			const data = {
 				service: {
@@ -101,15 +110,23 @@ const WorkOrderStep2 = () => {
 					comments: job.comments,
 					priority: job.priority
 				},
-				parts: job.parts,
+				parts: job.parts.filter((part) => part.name),
+				_id: job?._id
 			}
 
-			console.log('DATA', workOrder._id)
 			try {
-				const response = await apiService.post(`${constants.workOrder}/${workOrder._id}/job`, data)
-				console.log('WORK ORDER', response)
-				setWorkOrder(response)
-				setFormStage('3')
+				let response;
+				if (!job._id) {
+					response = await apiService.post(`${constants.workOrder}/${workOrder._id}/job`, data)
+				} else if (job?._id) {
+					console.log('PUT', data)
+					response = await apiService.put(`${constants.workOrder}/${workOrder._id}/job/${job._id}`, data)
+				}
+
+				if (response) {
+					setWorkOrder(response)
+					setFormStage('3')
+				}
 			} catch (error) {
 				message.error(`Error creating job ${job.jobName}`)
 				console.log(error)
@@ -121,6 +138,7 @@ const WorkOrderStep2 = () => {
 		if (workOrder?.jobs?.length > 0) {
 			const data = workOrder?.jobs?.map((job) => {
 				return {
+					_id: job?._id || undefined,
 					jobId: job.service.id,
 					jobName: job.service.name,
 					jobCost: job.service.cost,
@@ -159,7 +177,7 @@ const WorkOrderStep2 = () => {
 										onSearch={handleJobSearch}
 										ref={jobsRef}
 										onSelect={(selected) => handleJobSelection(selected[0], index, true)}
-										onRemove={() => handleJobSelection(null, index, false)}
+										onRemove={(removed) => handleJobSelection(job._id, index, false)}
 										selectedValues={job?.job ? [job?.job] : []}
 									/>
 								</Form.Group>
@@ -219,9 +237,9 @@ const WorkOrderStep2 = () => {
 									/>
 								</Form.Group>
 							</Col>
-							<Form.Group className="m-3 text-muted ms-0" controlId={`partsRequired-${index}`}>
+							{/* <Form.Group className="m-3 text-muted ms-0" controlId={`partsRequired-${index}`}>
 								<Form.Check type="checkbox" label="Parts required" />
-							</Form.Group>
+							</Form.Group> */}
 
 							{job.parts.map((part, partIndex) => (
 								<div key={partIndex} className="d-flex">
@@ -262,12 +280,9 @@ const WorkOrderStep2 = () => {
 										</Form.Group>
 									</Col>
 									<Col lg={"auto"} className="d-flex justify-content-end m-auto p-2">
-										<Button
-											variant="danger rounded-pill d-flex"
-											onClick={() => handleRemovePart(index, partIndex)}
-										>
-											<i className="icon-minus fs-4"></i>
-										</Button>
+										<div className="my-auto py-2 px-3 text-white bg-danger rounded-circle" onClick={() => handleRemovePart(index, partIndex)}>
+											-
+										</div>
 									</Col>
 								</div>
 							))}
@@ -285,7 +300,7 @@ const WorkOrderStep2 = () => {
 					<i className="icon-plus fs-5 me-1"></i> Add new Job
 				</Button>
 				<div className="d-flex justify-content-between mt-3 gap-2">
-					<Button variant="outline-secondary fs-6" size="sm">
+					<Button variant="outline-secondary fs-6" size="sm" onClick={() => { router.push('/work-order') }}>
 						Cancel
 					</Button>
 					<div className="d-flex justify-content-between gap-2">

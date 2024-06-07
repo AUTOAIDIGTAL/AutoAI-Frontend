@@ -1,51 +1,64 @@
 "use client";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Wizard from "../wizard/page";
-import WorkOrderCreation from "./work-order-creation/page";
-import { useContext } from "react";
-import { WorkOrderContext } from "../workOrderContext";
+import WorkOrderCreation from "../stepfour/work-order-creation/page";
+import { useContext, useEffect, useState } from "react";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { message } from "antd";
 
-const StepFour = () => {
+const WorkOrderDetailScreen = () => {
 
-	const { workOrder, setFormStage, formStage } = useContext(WorkOrderContext);
 	const router = useRouter()
-	const confirmOrder = async () => {
-		message.open({
-			type: 'loading',
-			content: 'Logging in...',
-			duration: 0,
-		});
+	const params = useParams();
+	const [workOrder, setWorkOrder] = useState(null);
 
-		try {
-			if (workOrder._id) {
-				const response = await apiService.put(`${constants.workOrder}/${workOrder._id}`, { status: "TODO" })
+	console.log('PARAMS', params.id)
 
-				if (response) {
-					message.destroy();
-					router.push('/work-order')
-					message.success('Work order created successfully.', 2.5);
+	useEffect(() => {
+		const getWorkOrder = async () => {
+			try {
+				if (params.id) {
+					const response = await apiService.get(`${constants.workOrder}/${params.id}`)
+					setWorkOrder(response)
 				}
-			} else {
-				message.destroy()
-				message.warning('No Work order found.')
+			} catch (error) {
+				console.log('ERROR', error)
+			}
+		}
+		getWorkOrder()
+	}, [])
 
+	const deleteWorkOrder = async () => {
+		try {
+			message.open({
+				type: 'loading',
+				content: 'Deleting Work order...',
+				duration: 0,
+			});
+
+			const response = await apiService.delete(`${constants.workOrder}/${orderDetails._id}`);
+			if (response) {
+				message.destroy();
+				handleRefetch()
+				message.success("Work order deleted successfully");
+				router.push('/work-order')
 			}
 		} catch (error) {
-			message.destroy()
-			message.error(`Work order creation failed: ${error.message}`, 2.5)
-
-			console.log(error)
+			message.destroy();
+			console.log(error);
+			message.error("Failed to delete work order");
 		}
 	}
 
+	const handleEdit = async () => {
+		router.push(`/work-order/create?workOrderId=${workOrder._id}`)
+	}
 	return (
 		<>
 			<div className="min-screen-layout mt-3 py-4">
-				<div className="bg-white p-4 rounded-ai-md shadow-sm">
+				{workOrder && <div className="bg-white p-4 rounded-ai-md shadow-sm">
 					<div class="fs-4 fw-semibold mb-3">Review Work Order Details</div>
 					<div className="bg-gray-100 p-3 rounded-ai-md">
 						<div className="divider-list-wrap flex-wrap border-0">
@@ -69,26 +82,17 @@ const StepFour = () => {
 					{workOrder?.jobs?.map((job, index) => (
 						<WorkOrderCreation job={job} key={index} />
 					))}
-					<hr />
 					<div className="d-flex justify-content-between mt-3">
-						<Button variant="danger-link fs-6" size="sm" onClick={() => { router.push('/work-order') }}>
-							Cancel
-						</Button>
+						<Button variant="danger-link fs-6" size="sm" onClick={deleteWorkOrder}>Delete</Button>
 						<div className="d-flex gap-2">
-							<Button variant="outline-primary fs-6" size="sm" onClick={() => {
-								setFormStage('3')
-							}}>
-								Back
-							</Button>
-							<Button variant="primary fs-6" size="sm" onClick={confirmOrder}>
-								Confirm Order
-							</Button>
+							<Button variant="outline-secondary fs-6" size="sm" onClick={handleEdit} >Edit Details</Button>
 						</div>
 					</div>
 				</div>
+				}
 			</div>
 		</>
 	);
 };
 
-export default StepFour;
+export default WorkOrderDetailScreen;

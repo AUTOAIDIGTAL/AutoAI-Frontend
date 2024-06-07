@@ -9,7 +9,7 @@ import { constants } from "../../garage-management/constant";
 import { message } from "antd";
 import { useRouter } from "next/navigation";
 
-const EditProfile = ({ currentUser, refetchUser }) => {
+const EditProfile = ({ currentUser, refetchUser, setCurrentUser }) => {
 	const [show, setShow] = useState(false);
 	const [firstName, setFirstName] = useState(currentUser?.firstName || "");
 	const [phoneNumber, setPhoneNumber] = useState(currentUser?.phoneNumber || "");
@@ -42,10 +42,11 @@ const EditProfile = ({ currentUser, refetchUser }) => {
 			// Refresh user information in the client if update is successful
 			if (response) {
 				message.destroy();
-				refetchUser(currentUser?._id);
+				// refetchUser(currentUser?._id);
+				setCurrentUser(response)
 				handleClose();
-				location.reload();
 				message.success('Profile information updated successfully!', 2.5);
+				location.reload();
 			}
 		}
 		catch (error) {

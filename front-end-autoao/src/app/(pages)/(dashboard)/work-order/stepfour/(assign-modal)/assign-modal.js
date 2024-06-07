@@ -31,13 +31,11 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 			let newDate = new Date(date)
 			newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 			const response = await apiService.get(`${constants.job}/user/${mechanic.user._id}/?specifiedDate=${newDate}`) // ${constants.mechanicByService}/${service}/?day=${date}
-			console.log(response)
 			setMechanicJobs(response)
 		}
 		getMechanicSchedule()
 	}, [date, mechanic, service])
 
-	console.log(mechanic)
 
 	const handleSubmission = async (e) => {
 		e.preventDefault();
@@ -45,6 +43,7 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 			let [startHours, startMinutes] = jobStart.split(":").map(Number);
 			let [endHours, endMinutes] = jobEnd.split(":").map(Number);
 
+			console.log({ startHours, startMinutes, endHours, endMinutes });
 			let startTime = new Date(date);
 			startTime.setHours(startHours);
 			startTime.setMinutes(startMinutes);
@@ -67,7 +66,7 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 	}
 	return (
 		<>
-			<div class="bg-gray-100 py-2 px-3 rounded-5 text-primary fs-6 d-inline-block fw-semibold mt-3" onClick={handleShow}>
+			<div class="bg-gray-100 py-2 px-3 rounded-5 text-primary fs-6 d-inline-block fw-semibold mt-3" role='button' onClick={handleShow}>
 				Assign Mechanic
 			</div>
 			<Modal size="md" show={show} onHide={handleClose} centered scrollable>
@@ -128,14 +127,13 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 								</Col>
 							</Row>
 							{mechanicJobs.map((_, index) => (
-
 								<Row key={index} className="border-bottom pb-2 mb-2">
 									<Col>
-										<div class="small text-dark col-8">Break Service</div>
+										<div class="small text-dark col-8">{_.service.description}</div>
 									</Col>
 									<Col className="col-4">
-										<div class="small text-primary text-center px-4">
-											12:00AM - 01:00
+										<div class="small text-primary text-center px-1">
+											{new Date(_.start).toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })} - {new Date(_.end).toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })}
 										</div>
 									</Col>
 								</Row>

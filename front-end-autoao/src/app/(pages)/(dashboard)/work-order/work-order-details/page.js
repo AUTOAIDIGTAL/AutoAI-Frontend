@@ -113,7 +113,7 @@ const WorkOrderDetails = ({ orderDetails, handleRefetch }) => {
 				<Button variant="danger-link fs-6" size="sm" onClick={deleteWorkOrder}>Delete</Button>
 				<div className="d-flex gap-2">
 					<Button variant="outline-secondary fs-6" size="sm" onClick={handleEdit} >Edit Details</Button>
-					<Button variant="soft-primary fs-6" size="sm">View Details</Button>
+					<Button variant="soft-primary fs-6" size="sm" onClick={() => { router.push(`work-order/${orderDetails._id}`) }}>View Details</Button>
 				</div>
 			</div>
 		</div>
