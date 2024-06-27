@@ -2,7 +2,7 @@
 import MechanicsJobsCompleted from "@/components/UI/cards/mechanics-jobs-completed/page";
 import OngoingTasks from "@/components/UI/cards/ongoing-tasks/page";
 import GlobalTable from "@/components/UI/table/GlobalTable";
-import FilterModalForm from "./(filter-modal-form)/page";
+import FilterModalForm from "./(filter-modal-form)/modal";
 import { Col, Container, Row } from "react-bootstrap";
 import JobsStatus from "@/components/UI/cards/jobs-status/page";
 

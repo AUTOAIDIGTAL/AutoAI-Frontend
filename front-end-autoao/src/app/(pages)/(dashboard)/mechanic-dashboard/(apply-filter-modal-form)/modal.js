@@ -18,18 +18,18 @@ const ApplyFilterModalForm = () => {
 		maxWidth: '450px',
 		minWidth: '450px',
 		position: 'relative', // Added to support the .btn-close positioning
-	  };
-	  
-	  const btnCloseStyle = {
+	};
+
+	const btnCloseStyle = {
 		position: 'absolute', // Added to support the positioning
 		top: '15px',
 		right: '15px',
-	  };
-	  
+	};
+
 
 	return (
 		<div className="dropdown-container position-relative d-inline-block">
-			<button className="btn btn-rounded-white" onClick={toggleDropdown}>
+			{/* <button className="btn btn-rounded-white" onClick={toggleDropdown}>
 				<svg
 					width={16}
 					height={16}
@@ -79,7 +79,7 @@ const ApplyFilterModalForm = () => {
 						Filter Jobs
 					</Button>
 				</div>
-			)}
+			)} */}
 		</div>
 	);
 };
