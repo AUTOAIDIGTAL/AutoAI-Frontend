@@ -18,9 +18,9 @@ export const KanbanCard = ({ handleShow, workOrder }) => {
 					<div className="fs-6 text-muted">{workOrder?.customer?.name}</div>
 				</div>
 				<div className="d-flex justify-content-between align-items-center border-bottom lh-1 pb-2">
-					<MultipleAvatars />
+					<MultipleAvatars mechanics={workOrder?.mechanics} />
 					<div className="fs-6 border py-1 px-2 rounded-2 bg-soft-danger-secondary d-inline-flex">
-						09:00 PM l 24-12-2024
+						{new Date(workOrder.createdAt).toLocaleTimeString()} - {new Date(workOrder.createdAt).toLocaleDateString()}
 					</div>
 				</div>
 				<div className="d-flex justify-content-between align-items-center border-bottom lh-1 pb-2">
