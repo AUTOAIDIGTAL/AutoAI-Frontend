@@ -5,7 +5,7 @@ const AvatarTitle = ({ user }) => {
 		<div className="d-flex align-items-center">
 			<div className="avatar-wrapper m-0 d-flex align-items-center gap-2">
 				<img src={'https://randomuser.me/api/portraits/men/1.jpg'} className="avatar rounded-circle" />
-				<div className='fs-6 text-dark'>{user.firstName} {user.lastName}</div>
+				<div className='fs-6 text-dark'>{user?.firstName || 'Username'} {user?.lastName}</div>
 			</div>
 		</div>
 	);
