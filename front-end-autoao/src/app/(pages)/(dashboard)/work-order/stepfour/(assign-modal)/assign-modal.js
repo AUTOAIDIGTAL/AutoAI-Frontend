@@ -16,14 +16,21 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 	const [mechanicJobs, setMechanicJobs] = useState([]);
 	const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
 	useEffect(() => {
-		const matchingJob = workOrder.jobs.find(job => job.service.id === service);
-		setServiceDetails({ ...matchingJob.service, jobId: matchingJob._id });
-
+		const getJob = async () => {
+			if (workOrder) {
+				const matchingJob = workOrder.jobs.find(job => job.service.id === service);
+				setServiceDetails({ ...matchingJob.service, jobId: matchingJob._id });
+			} else if (service) {
+				const response = await apiService.get(`${constants.job}/${service}`)
+				console.log('SERVICE', response.workorderId)
+				setServiceDetails({ ...response.service, jobId: response._id, workOrderId: response.workorderId });
+			}
+		}
+		getJob()
 	}, [service, workOrder])
 
 	useEffect(() => {
@@ -52,12 +59,12 @@ function AssignGretchen({ mechanic, service, date, onMechanicAssigned }) {
 			endTime.setHours(endHours);
 			endTime.setMinutes(endMinutes);
 
-			console.log({ start: startTime, end: endTime, mechanic: mechanic._id });
-
-			const response = await apiService.put(`${constants.workOrder}/${workOrder._id}/job/${serviceDetails.jobId}`, { start: startTime, end: endTime, mechanic: mechanic?.user?._id });
+			console.log({ start: startTime, end: endTime, mechanic: mechanic._id, id: serviceDetails.workOrderId });
+			// workOrder ?  : 
+			const response = await apiService.put(`${constants.workOrder}/${workOrder ? workOrder._id : serviceDetails.workOrderId}/job/${serviceDetails.jobId}`, { start: startTime, end: endTime, mechanic: mechanic?.user?._id });
 
 			if (response) {
-				setWorkOrder(response)
+				if (workOrder) setWorkOrder(response)
 				onMechanicAssigned()
 			}
 		} catch (error) {
