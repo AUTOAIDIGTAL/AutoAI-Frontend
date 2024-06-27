@@ -2,8 +2,11 @@
 import React from "react";
 import WorkOrderModal from "../work-required-modal/page";
 import DropdownWithForm from "../work-filter-modal-form/page";
+import { Button } from "react-bootstrap";
+import { useRouter } from "next/navigation";
 
 const KanbanHead = () => {
+	const router = useRouter();
 	return (
 		<div>
 			<div className="d-flex justify-content-between align-items-center">
@@ -12,10 +15,13 @@ const KanbanHead = () => {
 				</div>
 				<div className="d-flex align-items-center gap-3">
 					<DropdownWithForm />
-					<WorkOrderModal />
+					{/* <WorkOrderModal /> */}
+
+					<Button variant="primary ms-auto me-0" onClick={() => router.push('/work-order/create')}  >
+						Add New Work Order
+					</Button>
 				</div>
 			</div>
-			<div className="flex-1 pt-3">{/* <PaginationUi /> */}</div>
 		</div>
 	);
 };
