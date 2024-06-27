@@ -40,7 +40,12 @@ const Login = () => {
 				message.error('Login failed due to invalid garage ID or permissions.', 2.5);
 			} else {
 				message.destroy();
-				router.push("/profile");
+				if (user?.data?.roles?.includes("ADMIN" || "MANAGER"
+				)) {
+					router.push("/admin-dashboard");
+				} else if (user?.data?.roles?.includes("MECHANIC")) {
+					router.push("/mechanic-dashboard");
+				}
 				message.success('Login successful!', 2.5);
 			}
 		} catch (error) {

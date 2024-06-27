@@ -20,7 +20,11 @@ export function middleware(request) {
 	}
 
 	if (currentUser && authRoutes.includes(request.nextUrl.pathname) && !currentUser?.roles?.includes("SUPER_ADMIN")) {
-		return NextResponse.redirect(new URL("/profile", request.url));
+		if (currentUser?.roles?.includes("MANAGER")) {
+			return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+		} else if (currentUser?.roles?.includes("MECHANIC")) {
+			return NextResponse.redirect(new URL("/mechanic-dashboard", request.url));
+		}
 	}
 
 	if (
@@ -28,7 +32,7 @@ export function middleware(request) {
 		&&
 		!currentUser?.roles.includes("SUPER_ADMIN")
 	) {
-		const response = NextResponse.redirect(new URL("/profile", request.url));
+		const response = NextResponse.redirect(new URL("/admin-dashboard", request.url));
 		return response;
 	}
 
