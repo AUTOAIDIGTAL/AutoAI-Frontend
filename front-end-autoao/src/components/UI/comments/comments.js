@@ -10,7 +10,7 @@ const Comments = ({ job, refetchJob }) => {
 			{job?.userComments?.map((comment, index) => (
 				< div className="bg-white p-3 rounded-ai-md mb-3" key={index} >
 					<div className='d-flex justify-content-md-between'>
-						<AvatarTitle />
+						<AvatarTitle user={comment.user} />
 						<div className="d-flex justify-content-between align-items-center gap-3">
 							<div className="fs-6 text-dark">Date & Time</div>
 							<div className="fs-6 text-dark fw-semibold">{new Date(comment.createdDate).toLocaleDateString()} - {new Date(comment.createdDate).toLocaleTimeString()}</div>
