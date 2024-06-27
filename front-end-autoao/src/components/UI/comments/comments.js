@@ -7,8 +7,8 @@ const Comments = ({ job, refetchJob }) => {
 	console.log('JOB HERE', job)
 	return (
 		<>
-			{job?.userComments?.map((comment) => (
-				< div className="bg-white p-3 rounded-ai-md mb-3" >
+			{job?.userComments?.map((comment, index) => (
+				< div className="bg-white p-3 rounded-ai-md mb-3" key={index} >
 					<div className='d-flex justify-content-md-between'>
 						<AvatarTitle />
 						<div className="d-flex justify-content-between align-items-center gap-3">

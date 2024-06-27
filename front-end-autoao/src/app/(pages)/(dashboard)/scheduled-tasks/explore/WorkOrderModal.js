@@ -106,7 +106,7 @@ export const WorkOrderModal = ({ show, handleClose, workOrderId }) => {
 							<div className="fs-5 fw-semibold mb-4">Parts Required</div>
 							<div className="divider-list mb-3">
 								{job?.parts.map((part, index) => (
-									<div className="divider-list-wrap">
+									<div className="divider-list-wrap" key={index}>
 										<div className="divider-list-wrap-flex">
 											<div className="d-flex justify-content-between align-items-center">
 												<div className="fs-6 text-dark">Part Name</div>

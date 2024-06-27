@@ -149,8 +149,8 @@ const WorkRequiredModal = ({ workOrderId }) => {
 									<Form.Label>Priority</Form.Label>
 									<div className="bg-gray-100 gap-3 px-4 rounded-4 d-flex justify-content-between align-items-center text-muted" style={{ height: "45px" }}>
 										{
-											["HIGH", "MEDIUM", "LOW"].map((p) => (
-												<Form.Group className="m-0" controlId="priorityHigh">
+											["HIGH", "MEDIUM", "LOW"].map((p, index) => (
+												<Form.Group className="m-0" controlId="priorityHigh" key={index}>
 													<Form.Check type="checkbox" checked={p === priority} name={`${p}`} label={`${p}`} onChange={handlePriorityChange} />
 												</Form.Group>
 											))
