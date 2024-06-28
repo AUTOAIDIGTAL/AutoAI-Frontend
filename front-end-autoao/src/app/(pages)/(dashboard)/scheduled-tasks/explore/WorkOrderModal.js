@@ -1,22 +1,22 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { Offcanvas } from "react-bootstrap";
+import { Button, Offcanvas } from "react-bootstrap";
 import WorkRequiredModal from "./work-required-modal/page";
 import Comments from "@/components/UI/comments/comments";
 import { apiService } from "@/services";
 import { constants } from "../../garage-management/constant";
+import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 export const WorkOrderModal = ({ show, handleClose, workOrderId }) => {
 
 	const [workOrder, setWorkOrder] = useState(null);
 	const [refetch, setRefetch] = useState(false);
-
+	const router = useRouter()
 	useEffect(() => {
-		console.log('WORK ORDER ID', workOrderId);
 		const workOrderDetails = async () => {
 			if (workOrderId) {
 				const response = await apiService.get(`${constants.workOrder}/${workOrderId}`)
-				console.log('WORK ORDER DETAILS', response);
 				setWorkOrder(response)
 			}
 		}
@@ -26,6 +26,25 @@ export const WorkOrderModal = ({ show, handleClose, workOrderId }) => {
 	const refetchJobs = () => {
 		setRefetch(!refetch)
 	}
+
+	const handleRemoveMechanic = async (jobId) => {
+		try {
+			message.loading('Removing Mechanic...', 0)
+			const response = await apiService.put(`${constants.workOrder}/${workOrderId}${constants.job}/${jobId}`, {
+				mechanic: null
+			})
+			if (response) {
+				message.destroy()
+				message.success('Mechanic Removed Successfully')
+				refetchJobs()
+			}
+		} catch (error) {
+			console.log(error)
+			message.destroy()
+			message.error('Failed to Remove Mechanic')
+		}
+	}
+
 	return (
 		<Offcanvas
 			show={show}
@@ -136,7 +155,15 @@ export const WorkOrderModal = ({ show, handleClose, workOrderId }) => {
 									<div className="d-flex justify-content-between align-items-center gap-3">
 										<div className="fs-6 text-dark">Assigned Mechanic</div>
 										<div className="fs-6 text-dark fw-semibold">
-											{job?.mechanic?.firstName} {job?.mechanic?.lastName}
+											{job?.mechanic?.firstName ? <Button className="border border-primary bg-transparent text-primary" onClick={() => handleRemoveMechanic(job._id)}>
+												- {job?.mechanic?.firstName} {job?.mechanic?.lastName}
+											</Button>
+												: <Button onClick={() => {
+													router.push(`/scheduled-tasks/${job?._id}/${job?.service?.id}`)
+												}}>
+													+ Assign Mechanic
+												</Button>
+											}
 										</div>
 										<div className="fs-6 text-dark">Status</div>
 										<div className="fs-6 border py-1 px-2 rounded-2 bg-soft-danger-secondary d-inline-flex">
